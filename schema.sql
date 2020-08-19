@@ -27,6 +27,9 @@ CREATE TABLE Search (
 CREATE TABLE Item (
    id INTEGER NOT NULL,
    name VARCHAR(300) NOT NULL,
+   image_url VARCHAR(200),
+   purchase_url VARCHAR(200),
+   price FLOAT,
    SearchId INTEGER,
    PRIMARY KEY (id)
 }

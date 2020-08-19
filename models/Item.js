@@ -4,6 +4,15 @@ module.exports = function(sequelize, DataTypes) {
     name: {
       type: DataTypes.STRING,
       allowNull: false,      
+    },
+    image_url: {
+      type: DataTypes.STRING
+    },
+    purchase_url: {
+      type: DataTypes.STRING
+    },
+    price: {
+      type: DataTypes.FLOAT
     }
  
   });
