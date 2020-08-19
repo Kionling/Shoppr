@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const db = require("./models");
 const routes = require("./routes");
+const { Sequelize } = require('sequelize');
+
+
 const PORT = process.env.PORT || 3001;
 
 // Define middleware here
@@ -13,11 +16,14 @@ if (process.env.NODE_ENV === "production") {
   // Add routes, both API and view
   app.use(routes);
 
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
+
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+});
 
 
 app.listen(PORT, () => {
   console.log(`Running at localhost:${PORT}`);
 });
+
+
