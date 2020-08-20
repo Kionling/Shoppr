@@ -5,6 +5,8 @@ import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Search from "./pages/Search/Search";
 import Result from "./pages/Result/Result";
+import Signup from "./pages/Signup/Signup";
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -19,6 +21,7 @@ function App() {
             <Route exact path="/about" component={About} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/result" component={Result} />
+            <Route exact path="/signup" component={Signup} />
             {/* <Route component={NoMatch} /> */}
           </Switch>
       </div>

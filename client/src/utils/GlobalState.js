@@ -5,33 +5,33 @@ import {
     ADD_FRIEND,
     REMOVE_FRIEND,
     ADD_SEARCH_DETAIL,
-    GET_PREVIOIUS_SEARCHES,
+    GET_PREVIOUS_SEARCHES,
     REMOVE_PREVIOUS_SEARCH,
     LOADING
 } from "./actions";
-import { FLOAT, INTEGER } from "sequelize";
+// import { FLOAT, INTEGER } from "sequelize";
 
 const ShopprContext = createContext(
 {
-    User: {
-        id: "",
-        name: "",
-        email: ""
-    },
-    Friends:[""],  // array of friend (User) ids
+    // User: {
+    //     id: "",
+    //     name: "",
+    //     email: ""
+    // },
+    // Friends:[""],  // array of friend (User) ids
 
-    PreviousSearches: [{}],
+    // PreviousSearches: [{}],
 
-    CurrentSearch: {
-        image_url: "",
-        image_blob: "",
-        items: [{
-            name: "",
-            image_url:"",
-            purchase_url:"",
-            price: ""
-        }],
-    },
+    // CurrentSearch: {
+    //     image_url: "",
+    //     image_blob: "",
+    //     items: [{
+    //         name: "",
+    //         image_url:"",
+    //         purchase_url:"",
+    //         price: ""
+    //     }]
+    // }
 }
 
 );
@@ -51,19 +51,19 @@ const reducer = (state, action) => {
       loading: false
     };
   case ADD_FRIEND:
-      let newFriends =[ ...state.Friends, 
+      let largerFriends =[ ...state.Friends, 
         action.newFriend];
       return {
           ...state, 
-          Friends: newFriends,
+          Friends: largerFriends,
         loading:false
       }
   case REMOVE_FRIEND:
-    let newFriends = state.Friends.filter( friend => friend != action.friendID ) 
+    let lessFriends = state.Friends.filter( friend => friend != action.friendID ) 
 
     return {
         ...state, 
-        Friends: newFriends,
+        Friends: lessFriends,
         loading:false}
   case ADD_SEARCH_DETAIL:
       return {...state, CurrentSearch: action.newSearch, loading:false}
