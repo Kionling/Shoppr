@@ -9,7 +9,10 @@ function Home(){
         <div>
             <h1>I am in Home Component</h1>
             <Link to="/signup">
-            <button class="largeButton">Sign Up</button>
+            <button className="largeButton">Create an Account</button>
+            </Link>
+            <Link to="/login">
+            <button className="largeButton">Log In</button>
             </Link>
         </div>
     );

@@ -4,9 +4,6 @@ import { useShopprContext } from "../../utils/GlobalState";
 
 import API from '../../utils/API';
 
-import {
-    CREATE_USER,
-} from "../../utils/actions"
 
 
 function Signup(){
@@ -37,10 +34,7 @@ function Signup(){
             API.createNewUser( User )
             .then( ( newUser )=>{
                 console.log("Entered a new user (", newUser, ") into the database!");
-                    dispatch({
-                        type: CREATE_USER,
-                        User: newUser.data
-                    });
+            
 
                 // Clear out the form fields -- not sure if we really need to do this
                 userNameRef.current.value = "";

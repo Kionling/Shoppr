@@ -1,11 +1,17 @@
 const router = require("express").Router();
 const shopprController = require("../../controllers/controller");
+const passport = require("passport");
+
+router.route("/login", passport.authenticate("local"))
+.post(shopprController.login);
+
 
 
 router.route("/signup")
 
     .get(shopprController.getHello)
     .post(shopprController.create);
+
 
 // router.route("/login")
 //     .get(shopprController.findUser);
