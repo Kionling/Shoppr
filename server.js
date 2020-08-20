@@ -1,6 +1,5 @@
 const express = require("express");
-const clientSideRoutes = require("./routes/client-side-routes");
-const apiRoutes = require("./routes/api-routes");
+const routes = require("./routes");
 
 // For saving session data as cookies
 var session = require("express-session");
@@ -18,6 +17,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
 // We need to use sessions to keep track of our user's login status
 app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
 
@@ -28,8 +28,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Here are our Routes
-app.use(clientSideRoutes);
-app.use(apiRoutes);
+app.use(routes);
+
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync({ force: true }).then(() => {
