@@ -1,5 +1,5 @@
 import React, { useRef }  from 'react';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useShopprContext } from "../../utils/GlobalState";
 
 import API from '../../utils/API';
@@ -10,6 +10,8 @@ import {
 
 
 function Signup(){
+    let history = useHistory();
+
     const [state, dispatch] = useShopprContext();
 
     const userNameRef = useRef();
@@ -44,6 +46,10 @@ function Signup(){
                 userNameRef.current.value = "";
                 emailRef.current.value = "";
                 passwordRef.current.value = "";
+
+                // redirect the user to the login page
+                history.push("/login");
+
                 }
             )
             .catch( (err)=>{ console.log(err) });

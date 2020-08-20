@@ -14,13 +14,12 @@ module.exports = {
                   password: req.body.password,
                 })
                   .then(function (newUser) {
-                    console.log("In the then method of the controller create: " + 
-                    JSON.stringify(newUser));
+                    console.log("In the then method of the controller create: ",newUser);
 
-                    res.redirect(307, "/login");
+                   // res.redirect("/login");
                     // Why does this redirect not work??
+                     res.json(newUser);
 
-                    
                   })
                   .catch(function (err) {
                     res.status(401).json(err);
