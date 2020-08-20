@@ -31,10 +31,10 @@ function Signup(){
                 password: passwordRef.current.value.trim()
             };
 
-            console.log("User : " + User);
+            console.log("User : ", User);
             API.createNewUser( User )
             .then( ( newUser )=>{
-                console.log("Entered a new user ("+ newUser.data.username+") into the database!");
+                console.log("Entered a new user (", newUser, ") into the database!");
                     dispatch({
                         type: CREATE_USER,
                         User: newUser.data

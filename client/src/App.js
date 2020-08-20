@@ -7,6 +7,8 @@ import About from "./pages/About/About";
 import Search from "./pages/Search/Search";
 import Result from "./pages/Result/Result";
 import Signup from "./pages/Signup/Signup";
+import Login from "./pages/Login/Login";
+import NoMatch from "./pages/NoMatch";
 
 
 import logo from './logo.svg';
@@ -25,7 +27,8 @@ function App() {
             <Route exact path="/search" component={Search} />
             <Route exact path="/result" component={Result} />
             <Route exact path="/signup" component={Signup} />
-            {/* <Route component={NoMatch} /> */}
+            <Route exact path="/login" component={Login} />
+            <Route component={NoMatch} />
           </Switch>
           </ShopprProvider>
       </div>

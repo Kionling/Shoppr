@@ -22,10 +22,10 @@ fs
   .forEach(function(file) {
     
     // THIS IS THE OLD WAY OF IMPORTING INTO SEQUELIZE
-    // var model = sequelize["import"](path.join(__dirname, file));
+   var model = sequelize["import"](path.join(__dirname, file));
 
     // THIS IS THE NEW WAY
-    var model = require(path.join(__dirname, file));
+   // var model = require(path.join(__dirname, file));
 
     db[model.name] = model;
   });

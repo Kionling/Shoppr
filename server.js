@@ -23,17 +23,18 @@ app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true 
 
 // Configure Passport-- for authentication (only required on certain components)
 // Initializing our passport middlewear
-app.use(passport.initialize());
-// using passport to create a session
-app.use(passport.session());
+// app.use(passport.initialize());
+// // using passport to create a session
+// app.use(passport.session());
 
-// Here are our Routes
-app.use(routes);
-
-
+// Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+
+// Here are our Routes
+app.use(routes);
 
 
 // Syncing our database and logging a message to the user upon success
