@@ -16,3 +16,4 @@ export const REMOVE_PREVIOUS_SEARCH = "REMOVE_PREVIOUS_SEARCH";
 
 
 export const LOADING = "LOADING";
+

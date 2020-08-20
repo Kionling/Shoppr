@@ -1,7 +1,9 @@
 import React, { useRef }  from 'react';
 import { Link } from "react-router-dom";
+import { useShopprContext } from "../../utils/GlobalState";
+
 import API from '../../utils/API';
-import { useShopprContext } from "../../utils/GlobalState"
+
 import {
     CREATE_USER,
 } from "../../utils/actions"
@@ -9,16 +11,17 @@ import {
 
 function Signup(){
     const [state, dispatch] = useShopprContext();
-    
+
     const userNameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
 
-    console.log("OUR SHOPPR CONTEXT: " +  JSON.stringify( useShopprContext() ) );
+ //   console.log("OUR SHOPPR CONTEXT: " +  JSON.stringify( useShopprContext() ) );
 
     function handleSubmitForm(e) {
         e.preventDefault();
         e.stopPropagation();
+        console.log("In Handle form submit");
 
         // Only process the form data if there are actual values in there
         if (userNameRef.value && emailRef.value && passwordRef.value) {
@@ -27,13 +30,15 @@ function Signup(){
                 email: emailRef.value.trim(),
                 password: passwordRef.value.trim()
             };
+
+            console.log("User : " + User);
             API.createNewUser( User )
             .then( ( newUser )=>{
                 console.log("Entered a new user ("+ newUser.data.username+") into the database!");
-                    // dispatch({
-                    //     type: CREATE_USER,
-                    //     User: newUser.data
-                    // });
+                    dispatch({
+                        type: CREATE_USER,
+                        User: newUser.data
+                    });
 
                 // Clear out the form fields -- not sure if we really need to do this
                 userNameRef.current.value = "";
