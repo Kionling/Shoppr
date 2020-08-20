@@ -1,13 +1,22 @@
 const path = require("path");
 const router = require("express").Router();
-//const apiRoutes = require("./api");
+const apiRoutes = require("./api");
+const passport = require("passport");
+const axios = require("axios");
 
-// API Routes
-//router.use("/api", apiRoutes);
+// API Routes for data pertaining to our DB
+router.use("/api", apiRoutes);
 
-// If no API routes are hit, send the React app
-router.use(function(req, res) {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
+console.log("In the routes / index file");
 
-module.exports = router;
+ 
+
+
+
+  // Client Side Routes all go to our React APP
+  router.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  });
+
+
+  module.exports = router;
