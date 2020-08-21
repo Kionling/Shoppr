@@ -1,18 +1,28 @@
 import React, {useRef} from 'react';
 import { Link } from "react-router-dom";
 import './Home.css';
+import Search from "../../components/Search/Search";
 import API from '../../utils/API';
 
 function Home(){
-    const uploadImage = useRef();
+
     function handleFormSubmit(event){
         event.preventDefault();
         event.stopPropagation();
         //console.log(uploadImage.current.value);
-        console.log(event.target.files[0],event.target);
-        API.extract(event.target.files[0]).then((res)=>{
-            console.log("here is the image uploaded res",res);
-        })
+      
+
+     //   let file = uploadImage.current.value;
+      //  console.log(file);
+
+      //  API.extract(file).then.
+
+        // API.extract(event.target.files[0]).then((res)=>{
+        //     console.log("here is the image uploaded res",res);
+        // })
+      //   API.extract(file).then((res)=>{
+      //     console.log("here is the image uploaded res",res);
+      // })
     }
 
     return (
@@ -25,14 +35,16 @@ function Home(){
             <button className="largeButton">Log In</button>
             </Link>
             
-            {/* Test Image recognisition */}
-            <form
+            <Search/>
+  
+            {/* <form
             className="mt-4"
             method="POST"
             encType="multipart/form-data"
+            onSubmit={ handleFormSubmit }
            
           >
-               {/* action="/api/extract" onSubmit={handleFormSubmit} */}
+         
             <div className="form-group">
               <input
                 type="file"
@@ -40,11 +52,12 @@ function Home(){
                 id="input-files"
                 className="form-control-file border"
                 ref={uploadImage}
-                onChange={handleFormSubmit}
-              />
-            </div>
-            {/* <button type="submit" className="btn btn-primary">Submit</button> */}
-          </form>
+      
+              /> */}
+
+       
+           
+      
             
         </div>
     );

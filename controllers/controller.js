@@ -4,6 +4,48 @@ const fs = require("fs");
 
 console.log("DB:", Object.keys(db));
 
+
+async function extractObjectFromImageURL( url ) {
+  // [START vision_localize_objects_gcs]
+  // Imports the Google Cloud client libraries
+
+  // Creates a client
+  const client = new vision.ImageAnnotatorClient();
+
+  /**
+   * TODO(developer): Uncomment the following line before running the sample.
+   */
+  // const gcsUri = `https://cloud.google.com/vision/docs/images/bicycle_example.png`;
+   let gcsUri = url;
+
+  const [result] = await client.objectLocalization(gcsUri);
+
+  client.objectLocalization(gcsUri).then(  (result) => {
+
+    const objects = result.localizedObjectAnnotations;
+
+    console.log("In the extractObjectsfromUrl: ", objects);
+  
+    objects.forEach(object => {
+      console.log(`Name: ${object.name}`);
+      console.log(`Confidence: ${object.score}`);
+      const veritices = object.boundingPoly.normalizedVertices;
+      veritices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
+    });
+    // [END vision_localize_objects_gcs]
+  
+    const objectNames = objects.map( object =>  object.name );
+    return objectNames;
+
+  }
+
+  ).catch(err => console.log(err))
+
+
+}
+
+
+
 // Defining methods for the booksController
 module.exports = {
 
@@ -50,42 +92,58 @@ module.exports = {
     // db.User.findOne({ email: req.body.email })
   },
 
-  extractObjectFromImage: async (req, res) => {
-    try {
-      //console.log(Object.keys(req));
-      console.log(req.file);
-  
-      if (req.file == undefined) {
-      //if (req.file == undefined) {
-        return res.send(`You must select a file.`);
-      }
+   extractFromUrl: function(req,res) {
+     console.log("In the Extract from Url in the controller: ", req.body);
 
-      //test
-      fs.writeFileSync(
-        "../"+__dirname + "/Assets/" + "abc",
-              req.body
-            );
-  
-    //   Image.create({
-    //     type: req.file.mimetype,
-    //     name: req.file.originalname,
-    //     data: fs.readFileSync(
-    //       __basedir + "/resources/static/assets/uploads/" + req.file.filename
-    //     ),
-    //   }).then((image) => {
-    //     fs.writeFileSync(
-    //       __basedir + "/resources/static/assets/tmp/" + image.name,
-    //       image.data
-    //     );
-  
-    //     return res.send(`File has been uploaded.`);
-    //   });
-    } catch (error) {
-      console.log(error);
-      return res.send(`Error when trying upload images: ${error}`);
-    }
+     let objectsFromGoogle = extractObjectFromImageURL(req.body);
 
-  }
+    // Send the req.body (which is a url ) to the Google API
+    // and in the .then statement, we'll send status code 200
+    // and send the url back to the client side, along with the results object
+
+
+
+
+
+   }
+
+  // extractObjectFromImage: async (req, res) => {
+  //   try {
+  //     console.log("In the Extract Object From Image method of the Controller.");
+  //     console.log(Object.keys(req));
+  //     console.log(req.body);
+  
+  //     if (req.file == undefined) {
+  //     //if (req.file == undefined) {
+  //       return res.send(`You must select a file.`);
+  //     }
+
+  //     //test
+  //     fs.writeFileSync(
+  //       "../"+__dirname + "/Assets/" + "abc",
+  //             req.body
+  //           );
+  
+  //   //   Image.create({
+  //   //     type: req.file.mimetype,
+  //   //     name: req.file.originalname,
+  //   //     data: fs.readFileSync(
+  //   //       __basedir + "/resources/static/assets/uploads/" + req.file.filename
+  //   //     ),
+  //   //   }).then((image) => {
+  //   //     fs.writeFileSync(
+  //   //       __basedir + "/resources/static/assets/tmp/" + image.name,
+  //   //       image.data
+  //   //     );
+  
+  //   //     return res.send(`File has been uploaded.`);
+  //   //   });
+  //   } catch (error) {
+  //     console.log(error);
+  //     return res.send(`Error when trying upload images: ${error}`);
+  //   }
+
+  // }
   //   findAll: function(req, res) {
   //     db.Book
   //       .find(req.query)

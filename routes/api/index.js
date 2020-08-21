@@ -15,8 +15,11 @@ router.route("/signup")
     .get(shopprController.getHello)
     .post(shopprController.create);
 
-router.route("/extract",upload.single("file"))
-    .post(shopprController.extractObjectFromImage)
+    router.route("/extractUrl") 
+    .post(shopprController.extractFromUrl);
+
+// router.route("/extract",upload.single("file"))
+//     .post(shopprController.extractObjectFromImage)
 //router.post("/upload", upload.single("file"), uploadController.uploadFiles);
 // router.route("/login")
 //     .get(shopprController.findUser);

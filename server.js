@@ -3,6 +3,8 @@ const routes = require("./routes");
 // for integrating app with google AI Vision localized Object
 const vision = require('@google-cloud/vision');
 const fs = require('fs');
+const bodyParser = require('body-parser')
+
 global.__basedir = __dirname;
 
 // For saving session data as cookies
@@ -16,10 +18,23 @@ const PORT = process.env.PORT || 3001;
 
 // This is our Express App creation
 const app = express();
+app.use(bodyParser({limit: '50mb'}));
+
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({
+//   json: {limit: '50mb', extended: true},
+//   urlencoded: {limit: '50mb', extended: true}
+// }));
+
 app.use(express.json());
+
+
+// bodyParser = {
+//   json: {limit: '50mb', extended: true},
+//   urlencoded: {limit: '50mb', extended: true}
+// };
 
 
 // We need to use sessions to keep track of our user's login status
@@ -58,28 +73,7 @@ async function extractObjectFromImageBlob() {
   });
 }
 
-async function extractObjectFromImageURL() {
-  // [START vision_localize_objects_gcs]
-  // Imports the Google Cloud client libraries
 
-  // Creates a client
-  const client = new vision.ImageAnnotatorClient();
-
-  /**
-   * TODO(developer): Uncomment the following line before running the sample.
-   */
-   const gcsUri = `https://cloud.google.com/vision/docs/images/bicycle_example.png`;
-
-  const [result] = await client.objectLocalization(gcsUri);
-  const objects = result.localizedObjectAnnotations;
-  objects.forEach(object => {
-    console.log(`Name: ${object.name}`);
-    console.log(`Confidence: ${object.score}`);
-    const veritices = object.boundingPoly.normalizedVertices;
-    veritices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
-  });
-  // [END vision_localize_objects_gcs]
-}
 
 // For test
 //extractObjectFromImageURL();

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "natural-pipe-281620",
+  "private_key_id": "c2c47896300aa9e5c89ded70ca21df0f614b7484",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDD5EzgkOomSmtF\njxsDQ7fGuuNpi+I0GRKSPdTM5N+BuLn4wW6d248FZ031ClqcyM9DGmXaoqC/Wcfe\nq5CJ8sJu02VNK3HSbBarkOL9iE+1SpPMt3IC+YGNJ98guFIo2aOIHBEGEr73IwwD\ns0Q23em5pTG9nXdUma4NL0wtsHCBTyGjj1Qsqzclz0Or39yTkJLktnOv09sod3vx\nwB8d+NoBcAMOIIN509fNbgbwjLHMZezvuyVf2NAFR1Sh1k/PJFZBiZvtz1hHeFfX\nlk5Kuh2j5TPPz0Mp1J0U1qGHdZeG7ajnQIgAuPU1Whx4HvQkv8W1t9S0BUbLWuiJ\nVnG9oJ7JAgMBAAECggEABo2uNrsSYkqOESsq866ByO+6qO7JmAWYtfTEmEA17ACS\nlCxgd35/Z+ZfWMnKY0FikbOh4bEcIJqv0Za6xKqu74c59d10tt3v2jiEJ4g2ZnHC\nxRAEC+5t85t4Xv9bnEs/qc+KkEHzSpBNGBiYuR8ucQwCQH4ynk1v4bgJ2+NxuBmv\nHDK2h4OLdXyRTqrmBcwuNZ11G6aFyi0gA4ObyLXNEvb4eyTSu4DZ84SlspABot7e\nPqLcS+t96/DugeD5sjFPmaHdIWYH9u2EK/Gwizfx2CUtKrmp/PVMwbwWrbQPk3+5\nBmHKq/NyPwb1GM5TeUZ8Vf742A+E/nxWcAcXEgucQQKBgQDstX3r90B6vw5zXbpb\n8cKR5ODAzuRfZnD3jTmqAmhgzX5AXVfbnr4jibe2caWNO/0iqeRgzAv2A++pZkD+\nnVYesYTxKMs2IGZeT2hhNrVKiZUH9qfjQlGY5/LafNi5Ktdg9qs3tzM8NdNefjvI\nytubaInVPLtAie2O1tgen1UisQKBgQDT2ztMRrBjMRkcDl7eXmjUPr/0fHJhWLdj\nkP9FX5Fux7N5d7XQKKnDZn7ixgubjwH3zzJgEjgskEagsB0LPBRqPmfxNGNPZw7P\ngJsodlViAjMPqWsDWz9T62eNnnanpl72XpgcEP705mYXvDAVJ5JcVgSCAHETKDnt\nAgFC7lfTmQKBgGE7C8Zpgarp392zmmE6JVoYUdnhIh2tzqlg8VbMNmPNBRcbQION\n6TxfzX67n+0rvwcGEjFQn3kmlMNYpUnxBvcEpD8LKq3JEUOcCpwkBMPhT749qyjG\njQ3p+O+WaM9msaG6sQnpzrnkwjYGVDheW2aywis9Dw2rmlEaHxw1BpuBAoGAMQxv\ntSAklEJ4wsMc+bS35nPEs1DglmMYykd2olQW8qPvjG7HvDK94wxm0g/x/gjk9r+U\ntSNiuAaLI4bCoqg9Pb/HBtQPLgH5LtdilMKY0AEcW0LpELTee4pjxijq5bOiBr4t\nz0msDX0OI+6g3zTzMMeFcaeyhjHo/1NYgWt3D/kCgYEAo+iUKSwep0FOB1IDKGeP\nVYaSCDyLe6oqzF+/UFWcuxT0AfAZX6EiSzVGhVJtE3KiEdxnUlCDeUMZBoLPXvFO\nLNmZFZi43f9nN1vO8MZeMZXsnKuy+Izmt0GGKupGmu354ldrD9pWFP3aNpzwQkIl\n11yV2s/v4jsy/nPODUAaSi0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "shambhawi@natural-pipe-281620.iam.gserviceaccount.com",
+  "client_id": "101855148263051500980",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/shambhawi%40natural-pipe-281620.iam.gserviceaccount.com"
+}

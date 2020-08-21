@@ -10,5 +10,8 @@ export default {
     },
     extract: function(image){
         return axios.post("/api/extract",image);
+    },
+    extractUrl: function(imageUrl) {
+        return axios.post("/api/extractUrl", imageUrl);
     }
 };

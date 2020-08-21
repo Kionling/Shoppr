@@ -1,6 +1,8 @@
 const multer = require("multer");
 
 const imageFilter = (req, file, cb) => {
+  console.log("In the Multer Image Filter.");
+
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
   } else {
@@ -9,6 +11,7 @@ const imageFilter = (req, file, cb) => {
 };
 
 var storage = multer.diskStorage({
+  
   destination: (req, file, cb) => {
     cb(null, __dirname + "/Assets/");
   },
