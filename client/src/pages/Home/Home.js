@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+import './Home.css';
 
 
 const Styles= {
@@ -9,12 +11,18 @@ const Styles= {
 
 
 function Home(){
+
+
     return (
-        <div className="container center">
-            <div className="row" id="banner">
-                <img src={"https://i.pinimg.com/originals/15/06/13/150613c984bc132b04b7b723119ba63d.gif" }/>
-            </div>
-        </div> 
+        <div>
+            <h1>I am in Home Component</h1>
+            <Link to="/signup">
+            <button className="largeButton">Create an Account</button>
+            </Link>
+            <Link to="/login">
+            <button className="largeButton">Log In</button>
+            </Link>
+        </div>
     );
 }
 
