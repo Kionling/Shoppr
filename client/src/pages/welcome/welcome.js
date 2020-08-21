@@ -1,8 +1,9 @@
-import React from "./node_modules/react";
+import React from "react";
 import ShopprLogo from "./images/logoshort.png";
-import WelcomeStyles from "./welcome.css";
-import Video from "./Images/skies-ani.gif"
-import {Link} from "react-router-dom"
+import WelcomeStyles from "./styles.css";
+import Video from "./images/skies-ani.gif"
+import { useHistory} from "react-router-dom"
+
 const Styles = {
   row: {
       margin: 0
@@ -27,7 +28,15 @@ const Styles = {
   }
 }
 function Welcome() {
+    let history = useHistory();
+
+    function handleOnClick() {
+      history.push("/login")
+      console.log("Working")
+    }
+
   return (
+      
     <div>
       <div className="row">
         <nav className="z-depth-1">
@@ -122,11 +131,11 @@ function Welcome() {
         </div>
       </div>
       <div className="container center">
-      <Link to="/login">
-        <button className="btn">
+      
+        <button onClick={() => handleOnClick()} className="btn">
           Get Started
         </button>
-      </Link>
+    
       </div>
       <footer class="page-footer">
           <div class="container">
