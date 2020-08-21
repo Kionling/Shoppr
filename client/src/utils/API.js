@@ -12,6 +12,6 @@ export default {
         return axios.post("/api/extract",image);
     },
     extractUrl: function(imageUrl) {
-        return axios.post("/api/extractUrl", imageUrl);
+        return axios.post("/api/extractUrl", {imageUrl:imageUrl});
     }
 };

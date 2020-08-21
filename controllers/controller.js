@@ -1,50 +1,36 @@
 const db = require("../models");
 const passport = require("passport");
 const fs = require("fs");
+const vision = require('@google-cloud/vision');
+const { json } = require("sequelize");
 
-console.log("DB:", Object.keys(db));
-
-
-async function extractObjectFromImageURL( url ) {
+async function extractObjectFromImageURL(url) {
   // [START vision_localize_objects_gcs]
   // Imports the Google Cloud client libraries
-
+  console.log(">>> I am here inside extractObjectFromImageURL ", url.imageUrl);
   // Creates a client
   const client = new vision.ImageAnnotatorClient();
 
   /**
    * TODO(developer): Uncomment the following line before running the sample.
    */
-  // const gcsUri = `https://cloud.google.com/vision/docs/images/bicycle_example.png`;
-   let gcsUri = url;
+   //const gcsUri = `https://cloud.google.com/vision/docs/images/bicycle_example.png`;
+
+   const gcsUri = url.imageUrl;
 
   const [result] = await client.objectLocalization(gcsUri);
-
-  client.objectLocalization(gcsUri).then(  (result) => {
-
-    const objects = result.localizedObjectAnnotations;
-
-    console.log("In the extractObjectsfromUrl: ", objects);
-  
-    objects.forEach(object => {
-      console.log(`Name: ${object.name}`);
-      console.log(`Confidence: ${object.score}`);
-      const veritices = object.boundingPoly.normalizedVertices;
-      veritices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
-    });
-    // [END vision_localize_objects_gcs]
-  
-    const objectNames = objects.map( object =>  object.name );
-    return objectNames;
-
-  }
-
-  ).catch(err => console.log(err))
-
-
+  console.log(result,result.localizedObjectAnnotations);
+  const objects = result.localizedObjectAnnotations;
+  objects.forEach(object => {
+    console.log(`Name: ${object.name}`);
+    console.log(`Confidence: ${object.score}`);
+    const veritices = object.boundingPoly.normalizedVertices;
+    veritices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
+  });
+  // [END vision_localize_objects_gcs]
+  const objectNames = objects.map( object =>  object.name );    
+  return objectNames;
 }
-
-
 
 // Defining methods for the booksController
 module.exports = {
@@ -95,7 +81,19 @@ module.exports = {
    extractFromUrl: function(req,res) {
      console.log("In the Extract from Url in the controller: ", req.body);
 
-     let objectsFromGoogle = extractObjectFromImageURL(req.body);
+     let objectsFromGoogle = extractObjectFromImageURL(req.body)
+     .then((gvResponse)=>{
+       console.log(gvResponse);
+       let responseObj = {
+         imageUrl:req.body.imageUrl,
+         extracted: gvResponse
+       }
+       res.json(responseObj);
+     })
+     .catch(err => {
+       console.log(err);
+       res.status(404).json({err:"Image not found!"});
+     });
 
     // Send the req.body (which is a url ) to the Google API
     // and in the .then statement, we'll send status code 200

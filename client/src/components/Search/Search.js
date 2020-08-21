@@ -8,10 +8,9 @@ function Search(){
     const imageUrl = useRef();
 
     function handleFormSubmit(){
-
+        console.log("Image url passed: ",imageUrl.current.value);
         API.extractUrl(imageUrl.current.value).then((res)=>{
-            //     console.log("here is the image uploaded res",res);
-            
+            console.log("here is the image uploaded res",res);
         })
     }
 
