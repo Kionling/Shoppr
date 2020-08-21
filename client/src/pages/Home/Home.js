@@ -4,6 +4,14 @@ import './Home.css';
 import Search from "../../components/Search/Search";
 import API from '../../utils/API';
 
+
+const Styles= {
+    banner: {
+        
+    }
+}
+
+
 function Home(){
 
     function handleFormSubmit(event){
