@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const shopprController = require("../../controllers/controller");
 const passport = require("passport");
+const upload = require("../../config/upload");
+// var multer  = require('multer')
+// var upload = multer({ dest: 'uploads/' })
 
 router.route("/login", passport.authenticate("local"))
 .post(shopprController.login);
@@ -12,7 +15,9 @@ router.route("/signup")
     .get(shopprController.getHello)
     .post(shopprController.create);
 
-
+router.route("/extract",upload.single("file"))
+    .post(shopprController.extractObjectFromImage)
+//router.post("/upload", upload.single("file"), uploadController.uploadFiles);
 // router.route("/login")
 //     .get(shopprController.findUser);
 
