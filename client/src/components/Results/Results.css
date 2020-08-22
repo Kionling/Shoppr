@@ -1,0 +1,6 @@
+.resultsList {
+    border:2px solid blue;
+    border-radius:8px;
+    display:inline-block;
+    width:300px;
+}

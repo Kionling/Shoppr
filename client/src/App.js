@@ -10,7 +10,7 @@ import Result from "./pages/Result/Result";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import NoMatch from "./pages/NoMatch";
-
+import Friends from "./pages/Friends/Friends";
 
 import logo from './logo.svg';
 import './App.css';
@@ -27,6 +27,7 @@ function App() {
             <Route exact path="/home" component={Home} />
             <Route exact path="/about" component={About} />
             <Route exact path="/search" component={Search} />
+            <Route exact path="/friends" component={Friends} />
             <Route exact path="/result" component={Result} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />

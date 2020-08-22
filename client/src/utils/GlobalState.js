@@ -1,5 +1,7 @@
 import React, { createContext, useReducer, useContext } from "react";
 import {
+    LOGIN_USER,
+    LOGOUT, 
     CREATE_USER,
     GET_USER,
     ADD_FRIEND,
@@ -13,25 +15,25 @@ import {
 
 const ShopprContext = createContext(
 {
-    // User: {
-    //     id: "",
-    //     name: "",
-    //     email: ""
-    // },
-    // Friends:[""],  // array of friend (User) ids
+    User: {
+        id: "",
+        name: "",
+        email: ""
+    },
+    Friends:[""],  // array of friend (User) ids
 
-    // PreviousSearches: [{}],
+    PreviousSearches: [{}],
 
-    // CurrentSearch: {
-    //     image_url: "",
-    //     image_blob: "",
-    //     items: [{
-    //         name: "",
-    //         image_url:"",
-    //         purchase_url:"",
-    //         price: ""
-    //     }]
-    // }
+    CurrentSearch: {
+        image_url: "",
+        image_blob: "",
+        items: [{
+            name: "",
+            image_url:"",
+            purchase_url:"",
+            price: ""
+        }]
+    }
 }
 
 );
@@ -39,6 +41,14 @@ const { Provider } = ShopprContext;
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case LOGIN_USER:
+      
+      console.log("Setting the new state to include this new user:", action.user);
+      return { ...state, User: action.user, loading:false};
+  case LOGOUT:
+    console.log("In the logout method of the dispatcher.");
+    return {...state, User: null };
+
   case CREATE_USER:
     return {
       ...state,

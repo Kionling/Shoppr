@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import './Home.css';
 import Search from "../../components/Search/Search";
 import API from '../../utils/API';
+import { useShopprContext } from "../../utils/GlobalState";
+import { LOGOUT } from "../../utils/actions";
+import { useHistory } from "react-router-dom";
 
 
 const Styles= {
@@ -14,6 +17,23 @@ const Styles= {
 
 function Home(){
 
+  const [state, dispatch] = useShopprContext();
+
+  const history = useHistory();
+
+    function logout() {
+      API.logout().then( response => {
+        if (response.status=== 200 && response.data==="Logged out")
+        {
+          console.log("Calling the dispatcher");
+          dispatch( { type: LOGOUT });
+
+          window.location.reload(true);
+         // history.push("/");
+        }
+        console.log(response);
+      });
+    }
     function handleFormSubmit(event){
         event.preventDefault();
         event.stopPropagation();
@@ -35,13 +55,29 @@ function Home(){
 
     return (
         <div>
+ {state.User ? <div>You are logged in as: {state.User.email}<br />
+   <button onClick={logout}>Log Out</button>
+</div> : <div>You are not logged in.</div> }
+
             <h1>I am in Home Component</h1>
-            <Link to="/signup">
+            <Link to="/friends">
+            <button className="largeButton">Connect with Friends</button>
+            </Link>
+<hr></hr>
+
+
+             {/* If the state.user object exists, then the user has
+             already logged in, so we don't need to show the login
+             and create account buttons -- otherwise, show the Login and Create account Buttons. */}
+
+            {!state.User ?
+            <div><Link to="/signup">
             <button className="largeButton">Create an Account</button>
             </Link>
             <Link to="/login">
             <button className="largeButton">Log In</button>
-            </Link>
+            </Link></div> : <p></p>}
+      
             
             <Search/>
   

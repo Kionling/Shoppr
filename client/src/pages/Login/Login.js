@@ -5,7 +5,7 @@ import { useShopprContext } from "../../utils/GlobalState";
 import API from '../../utils/API';
 
 import {
-    CREATE_USER,
+    LOGIN_USER,
 } from "../../utils/actions"
 
 
@@ -37,10 +37,11 @@ function Login(){
             API.login( User )
             .then( ( newUser )=>{
 
-                console.log("Entered a new user (", newUser, ") into the database!");
+                console.log("Login credentials matched.");
+                console.log("Logged In a new user (", newUser, ") into the application!");
                 dispatch({
-                    type: CREATE_USER,
-                    User: newUser.data
+                    type: LOGIN_USER,
+                    user: newUser.data
                 });
 
                 // Clear out the form fields -- not sure if we really need to do this
@@ -79,9 +80,9 @@ function Login(){
                     <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span className="sr-only">Error:</span> <span className="msg"></span>
                 </div>
-                <button type="submit" className="btn btn-default">Sign Up</button>
+                <button type="submit" className="btn btn-default">Log In</button>
             </form><br></br>
-            <p>Or log in <Link to="/login">here</Link></p>
+            <p>Or Create an account here <Link to="/signup">here</Link></p>
             </div>
         </div>
     </div>

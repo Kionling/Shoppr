@@ -61,22 +61,22 @@ module.exports = {
     res.end("Got to the GetHello route.");
   },
 
-  login: function (req, res) {
+  // login: function (req, res) {
 
-    console.log("In the controller, login route: ", req.body);
+  //   console.log("In the controller, login route: ", req.body);
 
-    // passport.authenticate("local"), function (req, res) {
-    //     console.log("After the passport authentication: ", req.body);
-    //     res.json(req);
-    // };
+  //   passport.authenticate("local"), function (req, res) {
+  //       console.log("After the passport authentication: ", req.body);
+  //       res.json(req);
+  //   };
 
     // router.post("/login", passport.authenticate("local"), function(req, res) {
     //     res.json(req.user);
     //   });
 
-    res.json(req.user);
+    // res.json(req.user);
     // db.User.findOne({ email: req.body.email })
-  },
+ // },
 
    extractFromUrl: async function(req,res) {
      console.log("Extract from Url in the controller: ", req.body);
