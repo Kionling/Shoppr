@@ -7,7 +7,8 @@ function Search(){
 
     const imageUrl = useRef();
 
-    function handleFormSubmit(){
+    function handleFormSubmit(event){
+        event.preventDefault();
         console.log("Image url passed: ",imageUrl.current.value);
         API.extractUrl(imageUrl.current.value).then((res)=>{
             console.log("here is the image uploaded res",res);

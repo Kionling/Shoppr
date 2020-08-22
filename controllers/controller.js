@@ -7,7 +7,7 @@ const { json } = require("sequelize");
 async function extractObjectFromImageURL(url) {
   // [START vision_localize_objects_gcs]
   // Imports the Google Cloud client libraries
-  console.log(">>> I am here inside extractObjectFromImageURL ", url.imageUrl);
+  // console.log(">>> I am here inside extractObjectFromImageURL ", url.imageUrl);
   // Creates a client
   const client = new vision.ImageAnnotatorClient();
 
@@ -79,7 +79,7 @@ module.exports = {
   },
 
    extractFromUrl: async function(req,res) {
-     console.log("In the Extract from Url in the controller: ", req.body);
+     console.log("Extract from Url in the controller: ", req.body);
     extractObjectFromImageURL(req.body)
      .then((gvResponse)=>{
        console.log(">>>>>>>Here inside then promise resolve",gvResponse);
@@ -87,7 +87,7 @@ module.exports = {
          imageUrl:req.body.imageUrl,
          extracted: gvResponse
        }
-       res.json();
+       res.json(responseObj);
        //res.json({data:"Hit it."});
      })
      .catch(err => {
