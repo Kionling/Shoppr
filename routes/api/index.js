@@ -5,10 +5,24 @@ const upload = require("../../config/upload");
 // var multer  = require('multer')
 // var upload = multer({ dest: 'uploads/' })
 
-router.route("/login", passport.authenticate("local"))
-.post(shopprController.login);
+
+router.post("/login", passport.authenticate("local"), function(req, res) {
+
+  console.log("Request body: ", req.body);
+  console.log("Response in the server api login path: ",Object.keys(req));
+  console.log("request user: ", req.user);
+
+  console.log("In the api route - login info back from passport: ", req.user.dataValues);
+  res.json(req.user);
+
+});
 
 
+router.get("/logout", function(req, res) {
+  console.log("LOGGING OUT...");
+  req.logout();
+  res.end("Logged out");
+});
 
 router.route("/signup")
 
