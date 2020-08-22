@@ -78,22 +78,24 @@ module.exports = {
     // db.User.findOne({ email: req.body.email })
   },
 
-   extractFromUrl: function(req,res) {
+   extractFromUrl: async function(req,res) {
      console.log("In the Extract from Url in the controller: ", req.body);
-
-     let objectsFromGoogle = extractObjectFromImageURL(req.body)
+    extractObjectFromImageURL(req.body)
      .then((gvResponse)=>{
-       console.log(gvResponse);
+       console.log(">>>>>>>Here inside then promise resolve",gvResponse);
        let responseObj = {
          imageUrl:req.body.imageUrl,
          extracted: gvResponse
        }
-       res.json(responseObj);
+       res.json();
+       //res.json({data:"Hit it."});
      })
      .catch(err => {
        console.log(err);
        res.status(404).json({err:"Image not found!"});
      });
+
+    //res.json({data:"Hit it."});
 
     // Send the req.body (which is a url ) to the Google API
     // and in the .then statement, we'll send status code 200

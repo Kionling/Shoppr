@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3001;
 
 // This is our Express App creation
 const app = express();
-app.use(bodyParser({limit: '50mb'}));
+//app.use(bodyParser({limit: '50mb'}));
 
 
 // Define middleware here
@@ -79,7 +79,7 @@ async function extractObjectFromImageBlob() {
 //extractObjectFromImageURL();
 
 // Syncing our database and logging a message to the user upon success
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({}).then(() => {
   console.log("Drop and re-sync db.");
 });
 
