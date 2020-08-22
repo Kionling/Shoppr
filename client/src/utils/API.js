@@ -7,5 +7,11 @@ export default {
     },
     login: function(User) {
         return axios.post("/api/login/", User )
+    },
+    extract: function(image){
+        return axios.post("/api/extract",image);
+    },
+    extractUrl: function(imageUrl) {
+        return axios.post("/api/extractUrl", {imageUrl:imageUrl});
     }
 };
