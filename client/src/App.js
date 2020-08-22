@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ShopprProvider } from "./utils/GlobalState";
 import Nav from "./components/Nav/Nav";
 import Home from "./pages/Home/Home";
+import Welcome from "./pages/welcome/welcome"
 import About from "./pages/About/About";
 import Search from "./pages/Search/Search";
 import Result from "./pages/Result/Result";
@@ -22,6 +23,7 @@ function App() {
           <Nav />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/welcome" component={Welcome} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/about" component={About} />
             <Route exact path="/search" component={Search} />
