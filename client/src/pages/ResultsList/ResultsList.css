@@ -1,0 +1,25 @@
+.productCard {
+    background-color:white;
+    box-sizing: border-box;
+    padding:20px;
+    box-shadow:0 0 20px gray;
+    width:300px;
+    border-radius:12px;
+    display:inline-block;
+    vertical-align: top;
+}
+
+.productTitle {
+    font-weight:bold;
+    font-size:1.2em;
+    color:black;
+}
+
+.resultsList {
+    display:inline-block;
+    border:4px solid gray;
+    box-sizing: border-box;
+    width:75%;
+    float:right;
+}
+
