@@ -6,11 +6,12 @@ import Home from "./pages/Home/Home";
 import Welcome from "./pages/welcome/welcome"
 import About from "./pages/About/About";
 import Search from "./pages/Search/Search";
-import Result from "./pages/Result/Result";
+import Result from "./pages/Result/Result"
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import NoMatch from "./pages/NoMatch";
 import Friends from "./pages/Friends/Friends";
+import ResultsList from "./components/ResultsList/ResultsList";
 
 import logo from './logo.svg';
 import './App.css';
@@ -31,6 +32,7 @@ function App() {
             <Route exact path="/result" component={Result} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
+            {/* <Route exact path="/resultslist" component={ResultsList} /> */}
             <Route component={NoMatch} />
           </Switch>
           </ShopprProvider>

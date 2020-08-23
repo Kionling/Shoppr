@@ -8,6 +8,7 @@ export function MapContainer(props) {
     let [stores, setStores] = useState([]);
 
     useEffect(() => {
+        console.log('props passed from result pages: ',props.itemToSearch);
         getLocation();
         if (props.itemToSearch) {
             API.searchStore(latitude, longitude, props.itemToSearch)
@@ -56,6 +57,7 @@ export function MapContainer(props) {
         position: 'relative',
         width: '100%',
         height: '100%'
+        //height: '300px'
     }
     return (
         <div style={style}>
@@ -114,6 +116,5 @@ export function MapContainer(props) {
 }
 
 export default GoogleApiWrapper({
-    
-    // apiKey: `${process.env.GOOGLE_MAP_API_KEY}`
+    apiKey: `${process.env.GOOGLE_MAP_API_KEY}`
 })(MapContainer)
