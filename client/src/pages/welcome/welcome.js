@@ -1,44 +1,42 @@
 import React from "react";
-import ShopprLogo from "./images/logoshort.png";
-import WelcomeStyles from "./styles.css";
-import Video from "./images/skies-ani.gif"
-import { useHistory} from "react-router-dom"
+import ShopprLogo from "../Images/logoshort.png";
+import WelcomeStyles from "../Styles/welcome.css";
+import Video from "../Images/skies-ani.gif";
+import { useHistory } from "react-router-dom";
 
 const Styles = {
   row: {
-      margin: 0
+    margin: 0,
   },
   mainDiv: {
-      height: "700px",
-      backgroundImage: `url(${Video})`,
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-
+    height: "700px",
+    backgroundImage: `url(${Video})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
   image: {
-      width: "90%"
+    width: "90%",
   },
   link: {
-      fontWeight: 900,
-      marginBottom: "10px"
+    fontWeight: 900,
+    marginBottom: "10px",
   },
   logo: {
-    width: "20%"
-  }
-}
+    width: "20%",
+  },
+};
 function Welcome() {
-    let history = useHistory();
+  let history = useHistory();
 
-    function handleOnClick() {
-      history.push("/login")
-      console.log("Working")
-    }
+  function handleOnClick() {
+    history.push("/login");
+    console.log("Working");
+  }
 
   return (
-      
     <div>
-      <div className="row">
+      {/* <div className="" style={Styles.row}>
         <nav className="z-depth-1">
           <div className="nav-wrapper white">
             <img className="logo left" src={ShopprLogo} alt="Shoppr logo" />
@@ -62,22 +60,34 @@ function Welcome() {
             </ul>
           </div>
         </nav>
-      </div>
+      </div> */}
       <div class="row center" style={Styles.row}>
-    <div
-      style={Styles.mainDiv}
-      class="col l12 #000000 black">
-        <h1 id="Welcome">Welcome to </h1>
-      <a href="https://hikr-journal.herokuapp.com/"><img src={ShopprLogo} style={Styles.logo}
-          alt="HIKR project logo"/></a>
+        <div style={Styles.mainDiv} class="col s12 l12 #000000 black">
+          <h1 id="Welcome">Welcome to </h1>
+          <a href="">
+            <img src={ShopprLogo} style={Styles.logo} alt="Shoppr logo" />
+          </a>
+        </div>
+      </div>
+
       
-    </div>
-  </div>
-      
-      <br></br>
+      <div className="container">
+        <h1 id="What">What is shoppr?</h1>
+        <div className="row">
+          <div className="col l12">
+            <p>
+              Shoppr is a shopping application that allows our users search for
+              items based of images users upload. By signing up or signing in,
+              users will be able to utilize the full extent of Shoppr's
+              functionality. Shoppr uses Google's vision API to allow the
+              ability to search for products through images.
+            </p>
+          </div>
+        </div>
+      </div>
       <div>
         <div className="row container" id="rowSecond">
-          <div className="col s4">
+          <div className="col s12 l4">
             <p id="my-title">Why choose Shoppr?</p>
             <p id="my-description">
               Contrary to popular belief, Lorem Ipsum is not simply random text.
@@ -94,7 +104,7 @@ function Welcome() {
               ipsum dolor sit amet..", comes from a line in section 1.10.32.
             </p>
           </div>
-          <div className="col s4">
+          <div className="col s12 l4">
             <p id="my-title">Upload an image</p>
             <p id="my-description">
               Contrary to popular belief, Lorem Ipsum is not simply random text.
@@ -111,7 +121,7 @@ function Welcome() {
               ipsum dolor sit amet..", comes from a line in section 1.10.32.
             </p>
           </div>
-          <div className="col s4">
+          <div className="col s12 l4">
             <p id="my-title">Search by image</p>
             <p id="my-description">
               Contrary to popular belief, Lorem Ipsum is not simply random text.
@@ -131,37 +141,59 @@ function Welcome() {
         </div>
       </div>
       <div className="container center">
-      
-        <button onClick={() => handleOnClick()} className="btn">
+        <h3 id="What">Join Shoppr!</h3>
+        <button
+          onClick={() => handleOnClick()}
+          id="getStarted"
+          className="btn #00b0ff light-blue accent-3"
+        >
           Get Started
         </button>
-    
       </div>
-      <footer class="page-footer">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Footer Content</h5>
-                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-              </div>
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
-                <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                </ul>
-              </div>
+      <footer class="page-footer #37474f blue-grey darken-3">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Shoppr</h5>
+              <p class="grey-text text-lighten-4">
+                The latest shopping search engine.
+              </p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+              <h5 class="white-text">The Team</h5>
+              <ul>
+                <li>
+                  <a
+                    class="grey-text text-lighten-3"
+                    href="https://github.com/shambhawi13"
+                  >
+                    Shambhawi
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="grey-text text-lighten-3"
+                    href="https://github.com/b0rgbart3"
+                  >
+                    Bart
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="grey-text text-lighten-3"
+                    href="https://github.com/Kionling"
+                  >
+                    Daniel
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2014 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
-          </div>
-        </footer>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">© 2020 Shoppr</div>
+        </div>
+      </footer>
     </div>
   );
 }
