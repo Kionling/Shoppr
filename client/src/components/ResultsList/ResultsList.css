@@ -16,10 +16,7 @@
 }
 
 .resultsList {
-    display:inline-block;
     border:4px solid gray;
     box-sizing: border-box;
-    width:75%;
-    float:right;
 }
 

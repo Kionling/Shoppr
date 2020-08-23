@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config();
 const routes = require("./routes");
 // for integrating app with google AI Vision localized Object
 const vision = require('@google-cloud/vision');

@@ -5,7 +5,7 @@ function rainforestSearch( term ) {
 
 // set up the request parameters
 let params = {
-  api_key: "8AEA97E594DD4BCBBD393DB606E24152",
+  api_key: process.env.RAINFOREST_API_KEY,
   type: "search",
   amazon_domain: "amazon.com",
   search_term: term,
