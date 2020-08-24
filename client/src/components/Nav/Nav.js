@@ -69,6 +69,11 @@ function Nav() {
           </Link>
           x
           <ul id="nav-mobile" className="right">
+          <li>
+          <Link to="/friends">
+            <button className="btn">Connect with Friends</button>
+            </Link>
+          </li>
             <li>
               <Link to="/search" className="black-text">
                 Search
