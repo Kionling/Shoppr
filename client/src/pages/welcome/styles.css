@@ -70,3 +70,16 @@ display: inline-block;
     color: white;
     margin-top: 10%;
 }
+
+.btn {
+    border-radius: 30px;
+}
+
+#getStarted {
+    margin-top: 20px ;
+    margin-bottom: 20px;
+}
+
+#What {
+    font-weight: 900;
+}
