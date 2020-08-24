@@ -120,11 +120,7 @@ const reducer = (state, action) => {
 const ShopprProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer,
      {
-      User: {
-        id: "",
-        name: "",
-        email: ""
-    },
+      User: null,
     Friends:[""],  // array of friend (User) ids
 
     PreviousSearches: [{}],

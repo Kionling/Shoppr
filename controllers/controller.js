@@ -55,6 +55,21 @@ module.exports = {
         res.status(401).json(err);
       });
   },
+  
+  findFriend: function (req,res) {
+    console.log("In the controller - finding Friend: ", req.body);
+    db.User.FindOne({
+      email: req.body,
+    })
+      .then(function (foundUser) {
+        console.log("In the then method of the findFriend method in the controller: ", foundUser);
+        res.json(foundUser);
+
+      })
+      .catch(function (err) {
+        res.status(401).json(err);
+      });
+  },
 
   getHello: function (req, res) {
     console.log("In the GetHello Route of the controller");

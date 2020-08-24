@@ -32,6 +32,9 @@ router.route("/signup")
     router.route("/extractUrl") 
     .post(shopprController.extractFromUrl);
 
+    router.route("/api/searchforfriend")
+    .post(shopprController.findFriend);
+
 // router.route("/extract",upload.single("file"))
 //     .post(shopprController.extractObjectFromImage)
 //router.post("/upload", upload.single("file"), uploadController.uploadFiles);
