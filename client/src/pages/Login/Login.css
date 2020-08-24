@@ -1,0 +1,16 @@
+.btn {
+    border-radius: 30px;
+}
+
+#login{
+    font-weight: 900;
+
+}
+
+
+#banner{
+    background-image: url(../Login/images/loginBanner.png);
+    background-position: center;
+    background-size: cover;
+    height: 610px;
+}

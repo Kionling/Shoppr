@@ -1,7 +1,7 @@
 import React from "react";
-import ShopprLogo from "../Images/logoshort.png";
-import WelcomeStyles from "../Styles/welcome.css";
-import Video from "../Images/skies-ani.gif";
+import ShopprLogo from "../welcome/images/logoshort.png";
+import WelcomeStyles from "../welcome/styles.css";
+import Video from "../welcome/images/skies-ani.gif";
 import { useHistory } from "react-router-dom";
 
 const Styles = {
@@ -71,7 +71,7 @@ function Welcome() {
       </div>
 
       
-      <div className="container">
+      <div className="container center">
         <h1 id="What">What is shoppr?</h1>
         <div className="row">
           <div className="col l12">
