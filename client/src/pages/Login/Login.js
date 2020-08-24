@@ -3,8 +3,12 @@ import { Link, useHistory } from "react-router-dom";
 import { useShopprContext } from "../../utils/GlobalState";
 import Styles from "../Login/Login.css";
 import API from "../../utils/API";
-import Banner from "../Login/images/loginBanner.png"
+import Banner from "../Login/images/loginBanner.png";
 import { LOGIN_USER } from "../../utils/actions";
+import Danny from "../Login/images/Danny.jpg";
+import Bart from "../Login/images/bart.png";
+import Shambhawi from "../Login/images/shambhawi.jpg";
+import ShopprLogo from "../Login/images/logoshort.png";
 
 function Login() {
   let history = useHistory();
@@ -119,8 +123,37 @@ function Login() {
           </div>
         </div>
       </div>
-      <div id="banner" className="" >
+      <div id="banner" className="center">
+        <img id="logoBan" src={ShopprLogo} />
                 
+        <div className="container center valign-wrapper">
+          <div className="row">
+            <div className="col s12 l12">
+              <img className="circle" id="bart" src={Bart} alt="Bart" />
+              <h5 className="white-text">Bart Dority</h5>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col s12 l12">
+              <img
+                className="circle"
+                id="Shambhawi"
+                src={Shambhawi}
+                alt="Shambhawi"
+              />
+              <h5 className="white-text">Shambhawi Kumari</h5>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col s12 l12 ">
+              <img className="circle" id="Danny" src={Danny} alt="Daniel" />
+              <h5 className="white-text">Daniel Jauregui</h5>
+            </div>
+          </div>
+        </div>
+        <div>
+            <h1 id="thankYou">The Shoppr team thanks you!</h1>
+        </div>
       </div>
       <footer class="page-footer #37474f blue-grey darken-3">
         <div class="container">
@@ -166,7 +199,6 @@ function Login() {
           <div class="container">© 2020 Shoppr</div>
         </div>
       </footer>
-      
     </div>
   );
 }
