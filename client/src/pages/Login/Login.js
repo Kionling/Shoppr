@@ -45,16 +45,26 @@ function Login() {
           );
           dispatch({
             type: LOGIN_USER,
-            user: newUser.data,
+            user: newUser.data
           });
 
+          // Save the User Info in Local Storage
+
+          let storedUser = { 
+            id: newUser.data.id,
+            name: newUser.data.name,
+            email: newUser.data.email,
+            avatar: newUser.data.avatar
+          }
+          localStorage.setItem( "loggedInUser",  JSON.stringify( storedUser ) );
           // Clear out the form fields -- not sure if we really need to do this
 
           emailRef.current.value = "";
           passwordRef.current.value = "";
 
           // redirect the user to the welcome page
-          history.push("/home");
+
+          history.push(state.currentPath);
         })
         .catch((err) => {
           console.log(err);
