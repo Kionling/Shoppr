@@ -3,7 +3,7 @@ import MapContainer from '../../components/MapContainer/MapContainer';
 import VisionItems from '../../components/VisionItems/VisionItems';
 import ResultsList from '../../components/ResultsList/ResultsList';
 import { useShopprContext } from '../../utils/GlobalState';
-import { SET_STORE_PREF } from '../../utils/actions';
+import { SET_STORE_PREF, SET_CURRENT_PATH } from '../../utils/actions';
 
 
 function Result() {
@@ -12,6 +12,7 @@ function Result() {
 
     useEffect(() => {
         dispatch({ type: SET_STORE_PREF, isOnline: true })
+        dispatch({ type: SET_CURRENT_PATH, currentPath: "/welcome"})
     }, [])
 
     return (

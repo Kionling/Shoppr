@@ -11,7 +11,8 @@ import {
     REMOVE_PREVIOUS_SEARCH,
     LOADING,
     SET_STORE_PREF,
-    SET_SEARCH_ITEM
+    SET_SEARCH_ITEM,
+    SET_CURRENT_PATH,
 } from "./actions";
 // import { FLOAT, INTEGER } from "sequelize";
 
@@ -20,7 +21,8 @@ const ShopprContext = createContext(
     User: {
         id: "",
         name: "",
-        email: ""
+        email: "",
+        avatar: ""
     },
     Friends:[""],  // array of friend (User) ids
 
@@ -37,7 +39,8 @@ const ShopprContext = createContext(
         }]
     },
     isOnline: true,
-    current_search_item : 0
+    current_search_item : 0,
+    currentPath: "/"
 }
 
 );
@@ -111,6 +114,10 @@ const reducer = (state, action) => {
     return {
       ...state, current_search_item: action.current_search_item
     }
+  case SET_CURRENT_PATH:
+    return {
+      ...state, currentPath: action.currentPath
+    }
 
   default:
     return state;
@@ -136,7 +143,8 @@ const ShopprProvider = ({ value = [], ...props }) => {
         }]
     },
     isOnline: true,
-    current_search_item : 0
+    current_search_item : 0,
+    currentPath: "/"
      });
 
   return <Provider value={[state, dispatch]} {...props} />;

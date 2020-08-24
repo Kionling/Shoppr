@@ -1,8 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ShopprLogo from "../welcome/images/logoshort.png";
 import WelcomeStyles from "../welcome/styles.css";
 import Video from "../welcome/images/skies-ani.gif";
 import { useHistory } from "react-router-dom";
+import { useShopprContext } from "../../utils/GlobalState";
+import { SET_CURRENT_PATH } from "../../utils/actions";
+
+
 
 const Styles = {
   row: {
@@ -28,9 +32,17 @@ const Styles = {
 };
 function Welcome() {
   let history = useHistory();
+  const [state,dispatch] = useShopprContext();
+
+
+  useEffect( ()=> {
+    dispatch({type: SET_CURRENT_PATH, currentPath: "/welcome"})
+  }, []
+  )
+
 
   function handleOnClick() {
-    history.push("/login");
+    history.push("/search");
     console.log("Working");
   }
 
