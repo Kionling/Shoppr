@@ -27,7 +27,7 @@ export default {
         return axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lattitude},${longitude}&${radius}&${type}&${keyword}&${apiKey}`);
     },
     searchForFriend: function(searchTerm) {
-
-        return axios.post("/api/searchforfriend", searchTerm);
+        console.log("About to post using axios to search for a friend, searchTerm: ", searchTerm);
+        return axios.post("/api/searchforfriend", {searchTerm: searchTerm});
     }
 };

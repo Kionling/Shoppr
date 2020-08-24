@@ -80,8 +80,8 @@ async function extractObjectFromImageBlob() {
 //extractObjectFromImageURL();
 
 // Syncing our database and logging a message to the user upon success
-db.sequelize.sync({}).then(() => {
-  console.log("Drop and re-sync db.");
+db.sequelize.sync({ logging: false}).then(() => {
+ console.log("Sequelize Database Logging has been turned off.");
 });
 
 // Start our Node APP 
