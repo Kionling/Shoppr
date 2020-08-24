@@ -2,7 +2,8 @@ const db = require("../models");
 const passport = require("passport");
 const fs = require("fs");
 const vision = require('@google-cloud/vision');
-const { json } = require("sequelize");
+var Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 async function extractObjectFromImageURL(url) {
   // [START vision_localize_objects_gcs]
@@ -39,8 +40,8 @@ module.exports = {
     console.log("In side the controller create: ", req.body);
     // res.end("In the create route in the controller.");
     db.User.create({
-      email: req.body.email,
-      username: req.body.email,
+      email: req.body.email.toLowerCase(),
+      username: req.body.email.toLowerCase(),
       password: req.body.password,
     })
       .then(function (newUser) {
@@ -57,9 +58,16 @@ module.exports = {
   },
   
   findFriend: function (req,res) {
-    console.log("In the controller - finding Friend: ", req.body);
-    db.User.FindOne({
-      email: req.body,
+    console.log("In the controller - finding Friend: ", req.body.searchTerm);
+    db.User.findAll({
+     
+      where: {
+
+        email: {
+          [Op.like]: "%"+req.body.searchTerm.toLowerCase()+"%"
+        }
+
+      }
     })
       .then(function (foundUser) {
         console.log("In the then method of the findFriend method in the controller: ", foundUser);

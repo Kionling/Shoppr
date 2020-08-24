@@ -13,7 +13,7 @@
         for (var i =0; i < numberOfFakeAccounts; i++) {
 
             let UserObject = {
-                email: faker.internet.email(),
+                email: faker.internet.email().toLowerCase(),
                 username: faker.name.findName(),
                 password: faker.internet.password(),
                 avatar: faker.image.avatar()
@@ -30,7 +30,7 @@
         UserObjects.forEach( user => {
 
             db.User.create({
-                email: user.email,
+                email: user.email.toLowerCase(),
                 username: user.username,
                 password: user.password,
                 avatar: user.avatar,
