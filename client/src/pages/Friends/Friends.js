@@ -33,7 +33,12 @@ function Friends() {
     return <Redirect to="/" />;
   }
 
-  //   const [friendsState, friendsDispatch] = { FriendsProvider, useFriendsContext };
+  function addFriend(index) {
+    API.addFriend({User: state.User, Friend: friendAccounts[index] })
+    .then((results) => {
+        console.log("Added friend: ", results);
+    }).catch((err) => console.log(err));
+  }
 
   function searchForFriend(e) {
     e.preventDefault();
@@ -69,9 +74,9 @@ function Friends() {
       <div>
         <h1>Your Friends on Shoppr</h1>
         <div>
-          {friendAccounts.map((friend) => {
+          {friendAccounts.map((friend, index) => {
             return (
-              <div className="friendCard">
+              <div className="friendCard" onClick={()=>addFriend(index)} key={index}>
               <img src={ friend.avatar ? friend.avatar : user_avatar } className="avatar"/>
                 <h1>{friend.username}</h1>
                 <p>{friend.email}</p>

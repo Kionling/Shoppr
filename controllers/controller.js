@@ -79,6 +79,16 @@ module.exports = {
       });
   },
 
+  addFriend: function(req,res) {
+    console.log("In the controller, about to add a friend: ", req.body);
+
+    db.Friend_Connection.create({
+      user_id: req.body.User,
+      friend_id: req.body.Friend
+    }
+    )
+  },
+
   getHello: function (req, res) {
     console.log("In the GetHello Route of the controller");
     res.end("Got to the GetHello route.");

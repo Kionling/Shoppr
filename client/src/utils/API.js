@@ -29,5 +29,10 @@ export default {
     searchForFriend: function(searchTerm) {
         console.log("About to post using axios to search for a friend, searchTerm: ", searchTerm);
         return axios.post("/api/searchforfriend", {searchTerm: searchTerm});
+    },
+    addFriend: function( {User, Friend}) {
+        let connection = {User:User.id, Friend: Friend.id}
+        console.log("Sending a post request to add a friend: ", connection);
+        return axios.post("/api/addfriend", connection);
     }
 };
