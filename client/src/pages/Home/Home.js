@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import { Link } from "react-router-dom";
 import './Home.css';
-import Search from "../../components/Search/Search";
+import Search from "../../components/SearchContainer/SearchContainer";
 import API from '../../utils/API';
 import { useShopprContext } from "../../utils/GlobalState";
 import { LOGOUT } from "../../utils/actions";

@@ -1,12 +1,14 @@
 const axios = require('axios');
 
+function rainforestSearch( term ) {
+
 
 // set up the request parameters
 let params = {
-  api_key: "8AEA97E594DD4BCBBD393DB606E24152",
+  api_key: process.env.RAINFOREST_API_KEY,
   type: "search",
   amazon_domain: "amazon.com",
-  search_term: "table",
+  search_term: term,
   sort_by: "price_high_to_low"
 }
 
@@ -26,4 +28,6 @@ axios.get('https://api.rainforestapi.com/request', { params })
     console.log(error);
   })
 
+}
 
+export default rainforestSearch;

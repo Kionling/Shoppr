@@ -8,11 +8,11 @@ const upload = require("../../config/upload");
 
 router.post("/login", passport.authenticate("local"), function(req, res) {
 
-  console.log("Request body: ", req.body);
-  console.log("Response in the server api login path: ",Object.keys(req));
-  console.log("request user: ", req.user);
+ // console.log("Request body: ", req.body);
+ // console.log("Response in the server api login path: ",Object.keys(req));
+ // console.log("request user: ", req.user);
 
-  console.log("In the api route - login info back from passport: ", req.user.dataValues);
+ // console.log("In the api route - login info back from passport: ", req.user.dataValues);
   res.json(req.user);
 
 });
@@ -29,8 +29,12 @@ router.route("/signup")
     .get(shopprController.getHello)
     .post(shopprController.create);
 
-    router.route("/extractUrl") 
+router.route("/extractUrl") 
     .post(shopprController.extractFromUrl);
+
+router.route("/searchforfriend")
+    .post(shopprController.findFriend);
+
 
 // router.route("/extract",upload.single("file"))
 //     .post(shopprController.extractObjectFromImage)

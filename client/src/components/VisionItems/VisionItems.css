@@ -1,10 +1,7 @@
 
 .visionItems {
-    display:inline-block;
-    float:left;
     vertical-align: top;
     box-sizing: border-box;
-    width:25%;
     border:3px solid blue;
 
 }

@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config();
 const routes = require("./routes");
 // for integrating app with google AI Vision localized Object
 const vision = require('@google-cloud/vision');
@@ -80,8 +81,8 @@ async function extractObjectFromImageBlob() {
 //extractObjectFromImageURL();
 
 // Syncing our database and logging a message to the user upon success
-db.sequelize.sync({}).then(() => {
-  console.log("Drop and re-sync db.");
+db.sequelize.sync({ logging: false}).then(() => {
+ console.log("Sequelize Database Logging has been turned off.");
 });
 
 // Start our Node APP 

@@ -9,7 +9,10 @@ import {
     ADD_SEARCH_DETAIL,
     GET_PREVIOUS_SEARCHES,
     REMOVE_PREVIOUS_SEARCH,
-    LOADING
+    LOADING,
+    SET_STORE_PREF,
+    SET_SEARCH_ITEM,
+    SET_CURRENT_PATH,
 } from "./actions";
 // import { FLOAT, INTEGER } from "sequelize";
 
@@ -18,7 +21,8 @@ const ShopprContext = createContext(
     User: {
         id: "",
         name: "",
-        email: ""
+        email: "",
+        avatar: ""
     },
     Friends:[""],  // array of friend (User) ids
 
@@ -33,7 +37,10 @@ const ShopprContext = createContext(
             purchase_url:"",
             price: ""
         }]
-    }
+    },
+    isOnline: true,
+    current_search_item : 0,
+    currentPath: "/"
 }
 
 );
@@ -97,13 +104,48 @@ const reducer = (state, action) => {
       loading: true
     };
 
+  case SET_STORE_PREF:
+    return {
+      ...state,
+      isOnline : action.isOnline
+    }
+
+  case SET_SEARCH_ITEM:
+    return {
+      ...state, current_search_item: action.current_search_item
+    }
+  case SET_CURRENT_PATH:
+    return {
+      ...state, currentPath: action.currentPath
+    }
+
   default:
     return state;
   }
 };
 
 const ShopprProvider = ({ value = [], ...props }) => {
-  const [state, dispatch] = useReducer(reducer, {});
+  const [state, dispatch] = useReducer(reducer,
+     {
+      User: null,
+    Friends:[""],  // array of friend (User) ids
+
+    PreviousSearches: [{}],
+
+    CurrentSearch: {
+        image_url: "",
+        image_blob: "",
+        items: [{
+            name: "",
+            image_url:"",
+            purchase_url:"",
+            price: ""
+        }]
+    },
+    isOnline: true,
+    current_search_item : 0,
+    currentPath: "/"
+     });
 
   return <Provider value={[state, dispatch]} {...props} />;
 };

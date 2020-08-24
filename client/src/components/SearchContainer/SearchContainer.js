@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import API from '../../utils/API';
  
 
-function Search(){
+function SearchContainer(){
 
     const imageUrl = useRef();
 
@@ -27,6 +27,6 @@ function Search(){
     )
 }
 
-export default Search;
+export default SearchContainer;
 
 
