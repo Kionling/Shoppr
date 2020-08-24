@@ -2,12 +2,12 @@
 DROP DATABASE IF EXISTS SHOPPR;
 CREATE DATABASE SHOPPR;
 -- survey_instances has one record to one participant, many questions, one chosen answer per question
-CREATE TABLE User (
-    id INTEGER NOT NULL,
+CREATE TABLE Users (
+    id INTEGER NOT NULL AUTO_INCREMENT,
     username VARCHAR(100) NOT NULL,
-    /* Autoincrement in Sequelize ? */
     email VARCHAR(100) NOT NULL,
-    password VARCHAR(40) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    avatar VARCHAR(100),
     PRIMARY KEY (id)
 ) -- participants has one record to one survey instance
 

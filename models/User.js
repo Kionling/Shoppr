@@ -25,6 +25,10 @@ module.exports = function(sequelize, DataTypes) {
         validate: {
           len: [8, 35]
         }
+      },
+      avatar: {
+        type: DataTypes.STRING,
+        allowNull: true
       }
     });
 
