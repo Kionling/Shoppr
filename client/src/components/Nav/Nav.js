@@ -7,6 +7,9 @@ import API from "../../utils/API";
 import { LOGOUT, LOGIN_USER } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
 import Style from "../Nav/nav.css";
+import M from "materialize-css";
+
+// import Animate from "../Nav/animate";
 
 const Styles = {
   row: {
@@ -39,14 +42,20 @@ function Nav() {
 
     console.log("Logged in user: ", loggedInUser);
     if (loggedInUser) {
-      dispatch( { type: LOGIN_USER, user: loggedInUser })
+      dispatch({ type: LOGIN_USER, user: loggedInUser });
 
-      API.getFriends().then((friends) => {
-        dispatch( { type: LOGIN_USER, friends: friends })
-        }).catch(err => console.log(err))
+      API.getFriends()
+        .then((friends) => {
+          dispatch({ type: LOGIN_USER, friends: friends });
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
 
-    }}, []
-  )
+  useEffect(() => {
+    console.log("component did mount");
+    M.AutoInit();
+  }, []);
 
   function logout() {
     API.logout().then((response) => {
@@ -72,11 +81,13 @@ function Nav() {
           </Link>
 
           <ul id="nav-mobile" className="right">
-          <li>
-          <Link to="/friends">
-            <button className="btn  #00b0ff light-blue accent-3">Connect with Friends</button>
-            </Link>
-          </li>
+            <li>
+              <Link to="/friends">
+                <button className="btn  #00b0ff light-blue accent-3">
+                  Connect with Friends
+                </button>
+              </Link>
+            </li>
             <li>
               <Link to="/search" className="black-text">
                 Search
@@ -101,7 +112,7 @@ function Nav() {
                     }
                     className=" circle "
                   />
-
+                  
                   <button
                     onClick={logout}
                     className="btn #00b0ff light-blue accent-3 "
@@ -123,6 +134,12 @@ function Nav() {
           </ul>
         </div>
       </nav>
+      <div class="dropdown">
+  <span>Mouse over me</span>
+  <div class="dropdown-content">
+  <p>Hello World!</p>
+  </div>
+</div>
     </div>
   );
 }

@@ -15,7 +15,7 @@ function Search(){
   
     return (
         <div>
-            <h1>I am in Search Component</h1>
+            
             <SearchContainer/>
             <footer class="page-footer #37474f blue-grey darken-3">
         <div class="container">

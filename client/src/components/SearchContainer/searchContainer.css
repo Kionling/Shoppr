@@ -1,0 +1,15 @@
+.description {
+    font-weight: 900;
+}
+#period {
+    animation: color-change 1s infinite;
+
+}
+
+@keyframes color-change {
+    0% { color: #4285F4; }
+    25% { color:#DB4437; }
+    50% { color: #F4B400; }
+    75% { color: #0F9D58; }
+    100% { color: #4285F4; }
+  }
