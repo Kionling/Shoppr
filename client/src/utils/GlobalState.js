@@ -4,7 +4,8 @@ import {
     LOGOUT, 
     CREATE_USER,
     GET_USER,
-    ADD_FRIEND,
+    SET_FRIENDS,  // when we first load the friends from the db
+    ADD_FRIEND,   
     REMOVE_FRIEND,
     ADD_SEARCH_DETAIL,
     GET_PREVIOUS_SEARCHES,
@@ -24,19 +25,15 @@ const ShopprContext = createContext(
         email: "",
         avatar: ""
     },
-    Friends:[""],  // array of friend (User) ids
+    Friends:[],  // array of friend (User) ids
 
     PreviousSearches: [{}],
 
     CurrentSearch: {
         image_url: "",
         image_blob: "",
-        items: [{
-            name: "",
-            image_url:"",
-            purchase_url:"",
-            price: ""
-        }]
+        items: [
+      ]
     },
     isOnline: true,
     current_search_item : 0,
@@ -82,6 +79,8 @@ const reducer = (state, action) => {
         ...state, 
         Friends: lessFriends,
         loading:false}
+  case SET_FRIENDS:
+    return {...state, Friends: action.friends}
   case ADD_SEARCH_DETAIL:
       return {...state, CurrentSearch: action.newSearch, loading:false}
   
@@ -128,19 +127,16 @@ const ShopprProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer,
      {
       User: null,
-    Friends:[""],  // array of friend (User) ids
+    Friends:[],  // array of friend (User) ids
 
     PreviousSearches: [{}],
 
     CurrentSearch: {
         image_url: "",
         image_blob: "",
-        items: [{
-            name: "",
-            image_url:"",
-            purchase_url:"",
-            price: ""
-        }]
+        items: [
+
+      ]
     },
     isOnline: true,
     current_search_item : 0,

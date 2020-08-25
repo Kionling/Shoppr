@@ -19,10 +19,10 @@ function Result() {
         <div>
             <h1>I am in Result Component</h1>
             
-            <div class="row">
-                <div class="col s4"><VisionItems></VisionItems></div>
-                <div class="col s8">
-                    {state.isOnline ? <ResultsList></ResultsList> : <MapContainer itemToSearch={state.CurrentSearch.items[state.current_search_item].name} ></MapContainer>}
+            <div className="row">
+                <div className="col s4"><VisionItems></VisionItems></div>
+                <div className="col s8">
+                    {state.isOnline ? <ResultsList></ResultsList> : <MapContainer itemToSearch={state.CurrentSearch.items[state.current_search_item]} ></MapContainer>}
                 </div>
             </div>
         </div>

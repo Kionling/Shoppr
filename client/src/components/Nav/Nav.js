@@ -39,9 +39,14 @@ function Nav() {
 
     console.log("Logged in user: ", loggedInUser);
     if (loggedInUser) {
-      dispatch({ type: LOGIN_USER, user: loggedInUser });
-    }
-  }, []);
+      dispatch( { type: LOGIN_USER, user: loggedInUser })
+
+      API.getFriends().then((friends) => {
+        dispatch( { type: LOGIN_USER, friends: friends })
+        }).catch(err => console.log(err))
+
+    }}, []
+  )
 
   function logout() {
     API.logout().then((response) => {
@@ -67,6 +72,11 @@ function Nav() {
           </Link>
 
           <ul id="nav-mobile" className="right">
+          <li>
+          <Link to="/friends">
+            <button className="btn">Connect with Friends</button>
+            </Link>
+          </li>
             <li>
               <Link to="/search" className="black-text">
                 Search

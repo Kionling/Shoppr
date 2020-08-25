@@ -79,6 +79,26 @@ module.exports = {
       });
   },
 
+  addFriend: function(req,res) {
+    console.log("In the controller, about to add a friend: ", req.body);
+
+    db.Friend_Connection.create({
+      user_id: req.body.User,
+      friend_id: req.body.Friend
+    }
+    )
+  },
+
+  getFriends: function(req,res) {
+    if (req.body && req.body.User) {
+    db.Friend_Connection.findAll({
+      user_id: req.body.User
+    }).then(response=>res.json(response)).catch(err =>console.log(err))
+  } else {
+    res.end();
+  }
+  },
+
   getHello: function (req, res) {
     console.log("In the GetHello Route of the controller");
     res.end("Got to the GetHello route.");
@@ -107,8 +127,8 @@ module.exports = {
      .then((gvResponse)=>{
        console.log(">>>>>>>Here inside then promise resolve",gvResponse);
        let responseObj = {
-         imageUrl:req.body.imageUrl,
-         extracted: gvResponse
+        image_url:req.body.imageUrl,
+        items: gvResponse
        }
        res.json(responseObj);
        //res.json({data:"Hit it."});

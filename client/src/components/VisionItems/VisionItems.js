@@ -8,7 +8,7 @@ function VisionItems() {
     const [state, dispatch] = useShopprContext();
     let visionItems = [];
 
-    if (state.CurrentSearch && state.CurrentSearch.items && state.CurrentSearch.items[0].name != '') {
+    if (state.CurrentSearch && state.CurrentSearch.items && state.CurrentSearch.items.length > 0) {
         visionItems = state.CurrentSearch.items;
     } else {
         visionItems = null;
@@ -31,7 +31,7 @@ function VisionItems() {
             {visionItems ? state.CurrentSearch.items.map((item,index) => {
                 return (
                     <div>
-                        <button className="itemButton" data-id={index} onClick={()=>handleOnClick(index)}> {item.name}</button>
+                        <button className="itemButton" data-id={index} onClick={()=>handleOnClick(index)}> {item}</button>
 
                     </div>
                 )
@@ -40,11 +40,11 @@ function VisionItems() {
             <div>
                 <br></br>
                 <form>
-                <div class="switch">
+                <div className="switch">
                     <label>
                         In-Store purchase 
                         <input type="checkbox" checked={state.isOnline} onChange={handleToogleStorePref}/>
-                        <span class="lever"></span>
+                        <span className="lever"></span>
                         Online purchase
                         </label>
                 </div>
