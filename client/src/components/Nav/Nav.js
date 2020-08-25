@@ -40,9 +40,12 @@ function Nav() {
     console.log("Logged in user: ", loggedInUser);
     if (loggedInUser) {
       dispatch( { type: LOGIN_USER, user: loggedInUser })
-    }
 
-  }, []
+      API.getFriends().then((friends) => {
+        dispatch( { type: LOGIN_USER, friends: friends })
+        }).catch(err => console.log(err))
+
+    }}, []
   )
 
   function logout() {

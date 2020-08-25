@@ -89,6 +89,16 @@ module.exports = {
     )
   },
 
+  getFriends: function(req,res) {
+    if (req.body && req.body.User) {
+    db.Friend_Connection.findAll({
+      user_id: req.body.User
+    }).then(response=>res.json(response)).catch(err =>console.log(err))
+  } else {
+    res.end();
+  }
+  },
+
   getHello: function (req, res) {
     console.log("In the GetHello Route of the controller");
     res.end("Got to the GetHello route.");

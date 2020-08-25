@@ -5,6 +5,7 @@ import { useShopprContext } from "../../utils/GlobalState";
 import "./Friends.css";
 import { SET_CURRENT_PATH } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
+import CurrentFriends from "../../components/CurrentFriends/CurrentFriends";
 
 function Friends() {
   // let friendAccounts = [];
@@ -13,6 +14,7 @@ function Friends() {
   const [state, dispatch] = useShopprContext();
   const [friendAccounts, setfriendAccounts] = useState([]);
 
+  
   useEffect(() => {
     console.log("Friend accounts:", friendAccounts);
     //  dispatch({type: SET_CURRENT_PATH, currentPath: "/friends"})
@@ -55,7 +57,8 @@ function Friends() {
       })
       .catch((err) => console.log(err));
   }
-  return (
+  return (<div>
+  <CurrentFriends />
     <div className="friendsConnect">
       <h1>Connect with Friends:</h1>
 
@@ -85,6 +88,7 @@ function Friends() {
           })}
         </div>
       </div>
+    </div>
     </div>
   );
 }

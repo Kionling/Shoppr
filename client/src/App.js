@@ -14,7 +14,6 @@ import Friends from "./pages/Friends/Friends";
 import ResultsList from "./components/ResultsList/ResultsList";
 import Test from "./pages/Test/test";
 
-
 import logo from './logo.svg';
 import './App.css';
 

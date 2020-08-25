@@ -34,7 +34,8 @@ router.route("/searchforfriend")
 router.route("/addfriend")
     .post(shopprController.addFriend);
 
-
+router.route("/getfriends")
+    .post(shopprController.getFriends);
 
 
 module.exports = router;
