@@ -3,7 +3,7 @@ import API from "../../utils/API";
 import { Redirect } from "react-router-dom";
 import { useShopprContext } from "../../utils/GlobalState";
 import "./Friends.css";
-import { SET_CURRENT_PATH, ADD_FRIEND } from "../../utils/actions";
+import { SET_CURRENT_PATH, ADD_FRIEND ,SET_FRIENDS} from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
 import CurrentFriends from "../../components/CurrentFriends/CurrentFriends";
 
@@ -23,6 +23,12 @@ function Friends() {
 
   useEffect(() => {
     dispatch({ type: SET_CURRENT_PATH, currentPath: "/friends" });
+    if(state.User && state.User.id){
+      API.getFriends(state.User.id).then((friends) => {
+        console.log("Got friends back from the API:", friends.data);
+       dispatch({type:SET_FRIENDS, friends:friends.data})
+      })
+    }
   }, []);
 
 
@@ -36,11 +42,12 @@ function Friends() {
   }
 
   function addFriend(index) {
+    console.log( "values passed to addFriend API from UI: ",state.User,friendAccounts[index] )
     API.addFriend({User: state.User, Friend: friendAccounts[index] })
     .then((results) => {
         console.log("Added friend: ", results);
 
-        dispatch({type:ADD_FRIEND, friend: friendAccounts[index]});
+        dispatch({type:ADD_FRIEND, newFriend: friendAccounts[index]});
     }).catch((err) => console.log(err));
   }
 

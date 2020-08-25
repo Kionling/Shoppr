@@ -14,11 +14,11 @@ module.exports = function(sequelize, DataTypes) {
 
     Friend_Connection.associate = function(models) {
 
-      // Friend_Connection.belongsTo(models.User, { as: 'User', onDelete: 'CASCADE' });
-      Friend_Connection.belongsTo(models.User, {  onDelete: 'CASCADE' });
+      Friend_Connection.belongsTo(models.User, { as: 'User', onDelete: 'CASCADE' });
+      // Friend_Connection.belongsTo(models.User, {  onDelete: 'CASCADE' });
 
-      // Friend_Connection.belongsTo(models.User, { as: 'Friends', onDelete: 'CASCADE' });
-      Friend_Connection.belongsTo(models.User, { onDelete: 'CASCADE' });
+      Friend_Connection.belongsTo(models.User, { as: 'Friend', onDelete: 'CASCADE' });
+      // Friend_Connection.belongsTo(models.User, { onDelete: 'CASCADE' });
       
     };
 
