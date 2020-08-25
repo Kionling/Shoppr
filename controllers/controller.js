@@ -108,6 +108,21 @@ module.exports = {
   }
   },
 
+  getFriendsSearches: function(req, res) {
+    let friendsSearches = [];
+
+    let User = req.body.user;
+    let Item = req.body.item;
+
+    // based on the user and the item, first get a list of their friends,
+    // and then search through their friends searches to look for matching items
+
+    //  This code is not yet written.
+
+    
+    res.json(friendsSearches);
+  },
+
   getHello: function (req, res) {
     console.log("In the GetHello Route of the controller");
     res.end("Got to the GetHello route.");
