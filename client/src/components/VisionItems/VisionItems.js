@@ -40,11 +40,11 @@ function VisionItems() {
             <div>
                 <br></br>
                 <form>
-                <div class="switch">
+                <div className="switch">
                     <label>
                         In-Store purchase 
                         <input type="checkbox" checked={state.isOnline} onChange={handleToogleStorePref}/>
-                        <span class="lever"></span>
+                        <span className="lever"></span>
                         Online purchase
                         </label>
                 </div>

@@ -12,6 +12,7 @@ import Login from "./pages/Login/Login";
 import NoMatch from "./pages/NoMatch";
 import Friends from "./pages/Friends/Friends";
 import ResultsList from "./components/ResultsList/ResultsList";
+import Test from "./pages/Test/test";
 
 import logo from './logo.svg';
 import './App.css';
@@ -32,6 +33,7 @@ function App() {
             <Route exact path="/result" component={Result} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/test" component={Test} />
             {/* <Route exact path="/resultslist" component={ResultsList} /> */}
             <Route component={NoMatch} />
           </Switch>
