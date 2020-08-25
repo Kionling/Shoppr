@@ -65,7 +65,7 @@ function Nav() {
           <Link to="/">
             <img className="logo left" src={ShopprLogo} alt="Shoppr logo" />
           </Link>
-          
+
           <ul id="nav-mobile" className="right">
             <li>
               <Link to="/search" className="black-text">
@@ -82,7 +82,6 @@ function Nav() {
             <li>
               {state.User ? (
                 <div className="black-text " id="userInfo">
-                  
                   <img
                     id="avatar"
                     src={
@@ -92,9 +91,11 @@ function Nav() {
                     }
                     className=" circle "
                   />
-                 
 
-                  <button onClick={logout} className="btn #00b0ff light-blue accent-3 ">
+                  <button
+                    onClick={logout}
+                    className="btn #00b0ff light-blue accent-3 "
+                  >
                     Log Out
                   </button>
                 </div>
@@ -102,7 +103,9 @@ function Nav() {
                 <div className="black-text right">
                   {" "}
                   <Link to="/login">
-                    <button className="btn #00b0ff light-blue accent-3">Log In</button>
+                    <button className="btn #00b0ff light-blue accent-3">
+                      Log In
+                    </button>
                   </Link>
                 </div>
               )}
