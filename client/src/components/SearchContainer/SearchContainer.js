@@ -1,10 +1,12 @@
 import React, {useRef} from 'react';
 import { Link } from "react-router-dom";
 import API from '../../utils/API';
+import { ADD_SEARCH_DETAIL } from '../../utils/actions';
+import { useShopprContext } from '../../utils/GlobalState';
  
 
 function SearchContainer(){
-
+    const [state,dispatch] = useShopprContext();
     const imageUrl = useRef();
 
     function handleFormSubmit(event){
@@ -12,6 +14,7 @@ function SearchContainer(){
         console.log("Image url passed: ",imageUrl.current.value);
         API.extractUrl(imageUrl.current.value).then((res)=>{
             console.log("here is the image uploaded res",res);
+            dispatch({type:ADD_SEARCH_DETAIL, newSearch: res.data});
         })
     }
 

@@ -127,8 +127,8 @@ module.exports = {
      .then((gvResponse)=>{
        console.log(">>>>>>>Here inside then promise resolve",gvResponse);
        let responseObj = {
-         imageUrl:req.body.imageUrl,
-         extracted: gvResponse
+        image_url:req.body.imageUrl,
+        items: gvResponse
        }
        res.json(responseObj);
        //res.json({data:"Hit it."});

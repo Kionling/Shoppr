@@ -32,12 +32,8 @@ const ShopprContext = createContext(
     CurrentSearch: {
         image_url: "",
         image_blob: "",
-        items: [{
-            name: "",
-            image_url:"",
-            purchase_url:"",
-            price: ""
-        }]
+        items: [
+      ]
     },
     isOnline: true,
     current_search_item : 0,
@@ -138,12 +134,9 @@ const ShopprProvider = ({ value = [], ...props }) => {
     CurrentSearch: {
         image_url: "",
         image_blob: "",
-        items: [{
-            name: "",
-            image_url:"",
-            purchase_url:"",
-            price: ""
-        }]
+        items: [
+
+      ]
     },
     isOnline: true,
     current_search_item : 0,
