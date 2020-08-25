@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Video from "../../pages/welcome/images/skies-ani.gif";
 import ShopprLogo from "../../pages/welcome/images/logoshort.png";
@@ -34,28 +34,24 @@ function Nav() {
   const [state, dispatch] = useShopprContext();
   const [localLoggedInUser, setLocalLoggedInUser] = useState();
 
-  useEffect( ()=> {
+  useEffect(() => {}, [localLoggedInUser]);
 
-  },[ localLoggedInUser] )
+  useEffect(() => {
+    let loggedInUser = JSON.parse(
+      localStorage.getItem("loggedInUser"));
 
-  useEffect( ()=> {
-    
-    let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser") );
-
-    console.log("Logged in user: ", loggedInUser);
     if (loggedInUser) {
-      dispatch( { type: LOGIN_USER, user: loggedInUser })
+      dispatch({ type: LOGIN_USER, user: loggedInUser });
 
       setLocalLoggedInUser(loggedInUser);
 
-      API.getFriends(loggedInUser.id).then((friends) => {
-        console.log("In Nav, back from the API, friends: ",friends);
-        dispatch( { type: SET_FRIENDS, friends: friends.data })
-    
-        }).catch(err => console.log(err))
-
-    }}, [ ]
-  )
+      API.getFriends(loggedInUser.id)
+        .then((friends) => {
+          dispatch({ type: SET_FRIENDS, friends: friends.data });
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
 
   function logout() {
     API.logout().then((response) => {
@@ -81,11 +77,11 @@ function Nav() {
           </Link>
           x
           <ul id="nav-mobile" className="right">
-          <li>
-          <Link to="/friends">
-            <button className="btn">Connect with Friends</button>
-            </Link>
-          </li>
+            <li>
+              <Link to="/friends">
+                <button className="btn">Connect with Friends</button>
+              </Link>
+            </li>
             <li>
               <Link to="/search" className="black-text">
                 Search

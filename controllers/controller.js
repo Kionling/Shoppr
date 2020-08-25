@@ -92,10 +92,6 @@ module.exports = {
   getFriends: function(req,res) {
     if (req.params && req.params.id) {
 
-     // Post.find({ where: { ...}, include: [User]})
-
-     //db.User.findAll({where: { }})
-
       db.Friend_Connection.findAll({ 
         where: { user_id: req.params.id }, 
         include: [ db.User ]})
@@ -105,10 +101,6 @@ module.exports = {
         res.json(response);
       }).catch(err =>console.log(err))
 
-
-    // db.Friend_Connection.findAll({s
-    //   user_id: req.body.User
-    // }).then(response=>res.json(response)).catch(err =>console.log(err))
   } 
   
   else {
@@ -148,7 +140,6 @@ module.exports = {
         items: gvResponse
        }
        res.json(responseObj);
-       //res.json({data:"Hit it."});
      })
      .catch(err => {
        console.log(err);
