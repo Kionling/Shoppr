@@ -1,9 +1,12 @@
 import React from 'react';
+import Dropdown from 'react-dropdown';
+
 
 function About(){
+    
     return (
         <div>
-            <h1>I am in About Component</h1>
+            
         </div>
     );
 }

@@ -6,6 +6,11 @@ import { useShopprContext } from "../../utils/GlobalState";
 import API from "../../utils/API";
 import { LOGOUT, LOGIN_USER, SET_FRIENDS } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
+import Style from "../Nav/nav.css";
+import M from "materialize-css";
+import Dropdown from 'react-dropdown';
+
+// import Animate from "../Nav/animate";
 
 const Styles = {
   row: {
@@ -29,6 +34,8 @@ const Styles = {
     width: "20%",
   },
 };
+
+
 
 function Nav() {
   const [state, dispatch] = useShopprContext();
@@ -67,6 +74,9 @@ function Nav() {
       console.log(response);
     });
   }
+  const options = [
+    `<h1>Yes</h1>`  , 'two', 'three'
+  ];
 
   return (
     <div className="" style={Styles.row}>
@@ -75,11 +85,14 @@ function Nav() {
           <Link to="/">
             <img className="logo left" src={ShopprLogo} alt="Shoppr logo" />
           </Link>
-          x
-          <ul id="nav-mobile" className="right">
+     
+
+          <ul id="nav-mobile" className="right right hide-on-med-and-down">
             <li>
               <Link to="/friends">
-                <button className="btn">Connect with Friends</button>
+                <button className="btn  #00b0ff light-blue accent-3">
+                  Connect with Friends
+                </button>
               </Link>
             </li>
             <li>
@@ -96,25 +109,32 @@ function Nav() {
 
             <li>
               {state.User ? (
-                <div className="black-text">
+                <div className="black-text " id="userInfo">
                   <img
+                    id="avatar"
                     src={
                       state.User.avatar && state.User.avatar !== ""
                         ? state.User.avatar
                         : user_avatar
                     }
-                    className="avatar circle responsive-img"
+                    className=" circle "
                   />
-
-                  <button onClick={logout} className="btn">
+                  
+                  <Dropdown options={options} className="btn"/>
+                  <button
+                    onClick={logout}
+                    className="btn #00b0ff light-blue accent-3 "
+                  >
                     Log Out
                   </button>
                 </div>
               ) : (
-                <div className="black-text">
+                <div className="black-text right">
                   {" "}
                   <Link to="/login">
-                    <button className="btn">Log In</button>
+                    <button className="btn #00b0ff light-blue accent-3">
+                      Log In
+                    </button>
                   </Link>
                 </div>
               )}

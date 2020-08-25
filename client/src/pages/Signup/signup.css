@@ -1,3 +1,11 @@
 #signup {
     font-weight: 900;
 }
+
+
+#signupbanner {
+    background-image: url(../Signup/images/digital.jpg);
+    background-size: cover;
+    background-position: center;
+   height: 690px;
+}
