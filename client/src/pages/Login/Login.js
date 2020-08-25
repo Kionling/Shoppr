@@ -4,7 +4,7 @@ import { useShopprContext } from "../../utils/GlobalState";
 import Styles from "../Login/Login.css";
 import API from "../../utils/API";
 import Banner from "../Login/images/loginBanner.png";
-import { LOGIN_USER } from "../../utils/actions";
+import { LOGIN_USER, SET_FRIENDS } from "../../utils/actions";
 import Danny from "../Login/images/Danny.jpg";
 import Bart from "../Login/images/bart.png";
 import Shambhawi from "../Login/images/shambhawi.jpg";
@@ -48,6 +48,7 @@ function Login() {
             user: newUser.data
           });
 
+             
           // Save the User Info in Local Storage
 
           let storedUser = { 
@@ -57,8 +58,21 @@ function Login() {
             avatar: newUser.data.avatar
           }
           localStorage.setItem( "loggedInUser",  JSON.stringify( storedUser ) );
-          // Clear out the form fields -- not sure if we really need to do this
+       
+          // Get the Friends
 
+          console.log("Current State User: ", state.User);
+            
+          if (newUser.data  && newUser.data.id) {
+              console.log("About to get Friends list.");
+     
+           API.getFriends(newUser.data.id).then((friends) => {
+               console.log("Got friends back from the API:", friends.data);
+              dispatch({type:SET_FRIENDS, friends:friends.data})
+          })
+          }
+
+   // Clear out the form fields -- not sure if we really need to do this
           emailRef.current.value = "";
           passwordRef.current.value = "";
 

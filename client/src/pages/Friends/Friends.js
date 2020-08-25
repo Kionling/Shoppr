@@ -3,7 +3,7 @@ import API from "../../utils/API";
 import { Redirect } from "react-router-dom";
 import { useShopprContext } from "../../utils/GlobalState";
 import "./Friends.css";
-import { SET_CURRENT_PATH } from "../../utils/actions";
+import { SET_CURRENT_PATH, ADD_FRIEND } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
 import CurrentFriends from "../../components/CurrentFriends/CurrentFriends";
 
@@ -19,7 +19,7 @@ function Friends() {
     console.log("Friend accounts:", friendAccounts);
     //  dispatch({type: SET_CURRENT_PATH, currentPath: "/friends"})
 
-  }, [friendAccounts ] );
+  }, [ friendAccounts ] );
 
   useEffect(() => {
     dispatch({ type: SET_CURRENT_PATH, currentPath: "/friends" });
@@ -39,6 +39,8 @@ function Friends() {
     API.addFriend({User: state.User, Friend: friendAccounts[index] })
     .then((results) => {
         console.log("Added friend: ", results);
+
+        dispatch({type:ADD_FRIEND, friend: friendAccounts[index]});
     }).catch((err) => console.log(err));
   }
 

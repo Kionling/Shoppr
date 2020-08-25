@@ -90,11 +90,28 @@ module.exports = {
   },
 
   getFriends: function(req,res) {
-    if (req.body && req.body.User) {
-    db.Friend_Connection.findAll({
-      user_id: req.body.User
-    }).then(response=>res.json(response)).catch(err =>console.log(err))
-  } else {
+    if (req.params && req.params.id) {
+
+     // Post.find({ where: { ...}, include: [User]})
+
+     //db.User.findAll({where: { }})
+
+      db.Friend_Connection.findAll({ 
+        where: { user_id: req.params.id }, 
+        include: [ db.User ]})
+
+      .then(response=>{
+        console.log("In Controller, getting friends:", response);
+        res.json(response);
+      }).catch(err =>console.log(err))
+
+
+    // db.Friend_Connection.findAll({s
+    //   user_id: req.body.User
+    // }).then(response=>res.json(response)).catch(err =>console.log(err))
+  } 
+  
+  else {
     res.end();
   }
   },

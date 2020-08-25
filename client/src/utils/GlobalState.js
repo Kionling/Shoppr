@@ -124,6 +124,7 @@ const reducer = (state, action) => {
 };
 
 const ShopprProvider = ({ value = [], ...props }) => {
+  
   const [state, dispatch] = useReducer(reducer,
      {
       User: null,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ShopprProvider } from "./utils/GlobalState";
 import Nav from "./components/Nav/Nav";
@@ -18,6 +18,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
   return (
     <Router>
       <div>

@@ -1,10 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import Video from "../../pages/welcome/images/skies-ani.gif";
 import ShopprLogo from "../../pages/welcome/images/logoshort.png";
 import { useShopprContext } from "../../utils/GlobalState";
 import API from "../../utils/API";
-import { LOGOUT, LOGIN_USER } from "../../utils/actions";
+import { LOGOUT, LOGIN_USER, SET_FRIENDS } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
 
 const Styles = {
@@ -32,6 +32,11 @@ const Styles = {
 
 function Nav() {
   const [state, dispatch] = useShopprContext();
+  const [localLoggedInUser, setLocalLoggedInUser] = useState();
+
+  useEffect( ()=> {
+
+  },[ localLoggedInUser] )
 
   useEffect( ()=> {
     
@@ -41,11 +46,15 @@ function Nav() {
     if (loggedInUser) {
       dispatch( { type: LOGIN_USER, user: loggedInUser })
 
-      API.getFriends().then((friends) => {
-        dispatch( { type: LOGIN_USER, friends: friends })
+      setLocalLoggedInUser(loggedInUser);
+
+      API.getFriends(loggedInUser.id).then((friends) => {
+        console.log("In Nav, back from the API, friends: ",friends);
+        dispatch( { type: SET_FRIENDS, friends: friends.data })
+    
         }).catch(err => console.log(err))
 
-    }}, []
+    }}, [ ]
   )
 
   function logout() {
