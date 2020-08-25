@@ -74,7 +74,7 @@ function Nav() {
           <ul id="nav-mobile" className="right">
           <li>
           <Link to="/friends">
-            <button className="btn">Connect with Friends</button>
+            <button className="btn  #00b0ff light-blue accent-3">Connect with Friends</button>
             </Link>
           </li>
             <li>
