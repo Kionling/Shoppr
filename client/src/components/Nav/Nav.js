@@ -8,6 +8,7 @@ import { LOGOUT, LOGIN_USER } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
 import Style from "../Nav/nav.css";
 import M from "materialize-css";
+import Dropdown from 'react-dropdown';
 
 // import Animate from "../Nav/animate";
 
@@ -34,6 +35,8 @@ const Styles = {
   },
 };
 
+
+
 function Nav() {
   const [state, dispatch] = useShopprContext();
 
@@ -52,11 +55,6 @@ function Nav() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("component did mount");
-    M.AutoInit();
-  }, []);
-
   function logout() {
     API.logout().then((response) => {
       if (response.status === 200 && response.data === "Logged out") {
@@ -71,6 +69,9 @@ function Nav() {
       console.log(response);
     });
   }
+  const options = [
+    `<h1>Yes</h1>`  , 'two', 'three'
+  ];
 
   return (
     <div className="" style={Styles.row}>
@@ -79,8 +80,9 @@ function Nav() {
           <Link to="/">
             <img className="logo left" src={ShopprLogo} alt="Shoppr logo" />
           </Link>
+     
 
-          <ul id="nav-mobile" className="right">
+          <ul id="nav-mobile" className="right right hide-on-med-and-down">
             <li>
               <Link to="/friends">
                 <button className="btn  #00b0ff light-blue accent-3">
@@ -113,6 +115,7 @@ function Nav() {
                     className=" circle "
                   />
                   
+                  <Dropdown options={options} className="btn"/>
                   <button
                     onClick={logout}
                     className="btn #00b0ff light-blue accent-3 "
@@ -134,12 +137,6 @@ function Nav() {
           </ul>
         </div>
       </nav>
-      <div class="dropdown">
-  <span>Mouse over me</span>
-  <div class="dropdown-content">
-  <p>Hello World!</p>
-  </div>
-</div>
     </div>
   );
 }

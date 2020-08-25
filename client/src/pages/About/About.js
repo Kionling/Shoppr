@@ -1,9 +1,13 @@
 import React from 'react';
+import Dropdown from 'react-dropdown';
+
 
 function About(){
+    const options = [
+        'one', 'two', 'three'
+      ];
     return (
         <div>
-            <h1>I am in About Component</h1>
         </div>
     );
 }
