@@ -39,5 +39,8 @@ export default {
         let connection = {User:User.id, Friend: Friend.id}
         console.log("Sending a post request to add a friend: ", connection);
         return axios.post("/api/addfriend", connection);
+    },
+    getFriendsSearches: function( { User, Item }) {
+        return axios.post("/api/getfriendssearches", {user:User, item:Item});
     }
 };

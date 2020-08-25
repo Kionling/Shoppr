@@ -37,6 +37,9 @@ router.route("/addfriend")
 router.route("/getfriends/:id")
     .get(shopprController.getFriends);
 
+router.route("/getfriendssearches/")
+    .post(shopprController.getFriendsSearches);
+
 
 module.exports = router;
 

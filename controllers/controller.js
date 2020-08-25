@@ -137,15 +137,26 @@ module.exports = {
        
       }).catch(err =>console.log(err))
 
-
-    // db.Friend_Connection.findAll({s
-    //   user_id: req.body.User
-    // }).then(response=>res.json(response)).catch(err =>console.log(err))
   } 
   
   else {
     res.end();
   }
+  },
+
+  getFriendsSearches: function(req, res) {
+    let friendsSearches = [];
+
+    let User = req.body.user;
+    let Item = req.body.item;
+
+    // based on the user and the item, first get a list of their friends,
+    // and then search through their friends searches to look for matching items
+
+    //  This code is not yet written.
+
+    
+    res.json(friendsSearches);
   },
 
   getHello: function (req, res) {
@@ -180,7 +191,6 @@ module.exports = {
         items: gvResponse
        }
        res.json(responseObj);
-       //res.json({data:"Hit it."});
      })
      .catch(err => {
        console.log(err);
