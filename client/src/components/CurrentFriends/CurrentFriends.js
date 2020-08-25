@@ -8,22 +8,15 @@ function CurrentFriends(){
 
 const [state, dispatch] = useShopprContext();
 
-    useEffect(() => {
-     if (state.User && state.User.id) {
-         console.log("About to get Friends list.");
-
-      API.getFriends(state.User).then((friends) => {
-          console.log("Got friends back from the API:", friends);
-         dispatch({type:SET_FRIENDS, friends:friends})
-     })
-     }
-      }, [] );
+useEffect( ()=> {
+    console.log("In CurrentFriends, state.Friends:", state.Friends);
+});
 
     return(
         <div>
-          { (state.Friends && state.Friends.length > 0) ? state.Friends.map( friend => {
+          { (state.Friends && state.Friends.length > 0) ? state.Friends.map( (friend,index) => {
               return (
-                  <div>
+                  <div key={index}>
                    { friend.username }
                   </div>
               )

@@ -3,11 +3,10 @@ import Dropdown from 'react-dropdown';
 
 
 function About(){
-    const options = [
-        'one', 'two', 'three'
-      ];
+    
     return (
         <div>
+            
         </div>
     );
 }
