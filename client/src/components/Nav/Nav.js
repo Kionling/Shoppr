@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Video from "../../pages/welcome/images/skies-ani.gif";
 import ShopprLogo from "../../pages/welcome/images/logoshort.png";
@@ -6,6 +6,7 @@ import { useShopprContext } from "../../utils/GlobalState";
 import API from "../../utils/API";
 import { LOGOUT, LOGIN_USER } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
+import Style from "../Nav/nav.css";
 
 const Styles = {
   row: {
@@ -33,17 +34,14 @@ const Styles = {
 function Nav() {
   const [state, dispatch] = useShopprContext();
 
-  useEffect( ()=> {
-    
-    let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser") );
+  useEffect(() => {
+    let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
     console.log("Logged in user: ", loggedInUser);
     if (loggedInUser) {
-      dispatch( { type: LOGIN_USER, user: loggedInUser })
+      dispatch({ type: LOGIN_USER, user: loggedInUser });
     }
-
-  }, []
-  )
+  }, []);
 
   function logout() {
     API.logout().then((response) => {
@@ -67,7 +65,7 @@ function Nav() {
           <Link to="/">
             <img className="logo left" src={ShopprLogo} alt="Shoppr logo" />
           </Link>
-          x
+          
           <ul id="nav-mobile" className="right">
             <li>
               <Link to="/search" className="black-text">
@@ -83,25 +81,28 @@ function Nav() {
 
             <li>
               {state.User ? (
-                <div className="black-text">
+                <div className="black-text " id="userInfo">
+                  
                   <img
+                    id="avatar"
                     src={
                       state.User.avatar && state.User.avatar !== ""
                         ? state.User.avatar
                         : user_avatar
                     }
-                    className="avatar circle responsive-img"
+                    className=" circle "
                   />
+                 
 
-                  <button onClick={logout} className="btn">
+                  <button onClick={logout} className="btn #00b0ff light-blue accent-3 ">
                     Log Out
                   </button>
                 </div>
               ) : (
-                <div className="black-text">
+                <div className="black-text right">
                   {" "}
                   <Link to="/login">
-                    <button className="btn">Log In</button>
+                    <button className="btn #00b0ff light-blue accent-3">Log In</button>
                   </Link>
                 </div>
               )}
