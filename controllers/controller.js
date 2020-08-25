@@ -70,7 +70,7 @@ module.exports = {
       }
     })
       .then(function (foundUser) {
-        console.log("In the then method of the findFriend method in the controller: ", foundUser);
+        //console.log("In the then method of the findFriend method in the controller: ", foundUser);
         res.json(foundUser);
 
       })
@@ -83,20 +83,80 @@ module.exports = {
     console.log("In the controller, about to add a friend: ", req.body);
 
     db.Friend_Connection.create({
-      user_id: req.body.User,
-      friend_id: req.body.Friend
+      UserId: req.body.User,
+      FriendId: req.body.Friend
     }
-    )
+    ).then((response)=>{
+      res.json(response);
+    });
   },
 
   getFriends: function(req,res) {
-    if (req.body && req.body.User) {
-    db.Friend_Connection.findAll({
-      user_id: req.body.User
-    }).then(response=>res.json(response)).catch(err =>console.log(err))
-  } else {
+    console.log("Inside controller getFriends>>>>>",req.params.id);
+    if (req.params && req.params.id) {
+
+     // Post.find({ where: { ...}, include: [User]})
+
+     //db.User.findAll({where: { }})
+
+      // db.Friend_Connection.findAll({ 
+      //   // where: { user_id: req.params.id }, 
+      //   include: [{
+      //     model: db.User,
+      //     as: 'Friends'
+      //   }  ]})
+
+      db.Friend_Connection.findAll({
+        raw: true,
+        where : {UserId : req.params.id}
+      })
+
+      .then(response=>{
+        console.log("In Controller, getting friends:", response);
+        let friendListId = [];
+        for(let elem of response){
+          console.log(elem);
+          friendListId.push(elem.FriendId);
+        }
+        
+        //friendListId = new Set([...friendListId]);
+        console.log(friendListId);
+        db.User.findAll({
+          raw: true,
+          where:{
+            id: {
+              [Op.in] : friendListId
+            }
+          }
+        })
+        .then((friendResponse)=>{
+          console.log('Received response of friend detail from user table>>>>>>>>> ',friendResponse);
+          res.json(friendResponse);
+        })
+
+       
+      }).catch(err =>console.log(err))
+
+  } 
+  
+  else {
     res.end();
   }
+  },
+
+  getFriendsSearches: function(req, res) {
+    let friendsSearches = [];
+
+    let User = req.body.user;
+    let Item = req.body.item;
+
+    // based on the user and the item, first get a list of their friends,
+    // and then search through their friends searches to look for matching items
+
+    //  This code is not yet written.
+
+    
+    res.json(friendsSearches);
   },
 
   getHello: function (req, res) {
@@ -131,7 +191,6 @@ module.exports = {
         items: gvResponse
        }
        res.json(responseObj);
-       //res.json({data:"Hit it."});
      })
      .catch(err => {
        console.log(err);

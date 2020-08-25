@@ -1,10 +1,10 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Video from "../../pages/welcome/images/skies-ani.gif";
 import ShopprLogo from "../../pages/welcome/images/logoshort.png";
 import { useShopprContext } from "../../utils/GlobalState";
 import API from "../../utils/API";
-import { LOGOUT, LOGIN_USER } from "../../utils/actions";
+import { LOGOUT, LOGIN_USER, SET_FRIENDS } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
 
 const Styles = {
@@ -32,21 +32,26 @@ const Styles = {
 
 function Nav() {
   const [state, dispatch] = useShopprContext();
+  const [localLoggedInUser, setLocalLoggedInUser] = useState();
 
-  useEffect( ()=> {
-    
-    let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser") );
+  useEffect(() => {}, [localLoggedInUser]);
 
-    console.log("Logged in user: ", loggedInUser);
+  useEffect(() => {
+    let loggedInUser = JSON.parse(
+      localStorage.getItem("loggedInUser"));
+
     if (loggedInUser) {
-      dispatch( { type: LOGIN_USER, user: loggedInUser })
+      dispatch({ type: LOGIN_USER, user: loggedInUser });
 
-      API.getFriends().then((friends) => {
-        dispatch( { type: LOGIN_USER, friends: friends })
-        }).catch(err => console.log(err))
+      setLocalLoggedInUser(loggedInUser);
 
-    }}, []
-  )
+      API.getFriends(loggedInUser.id)
+        .then((friends) => {
+          dispatch({ type: SET_FRIENDS, friends: friends.data });
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
 
   function logout() {
     API.logout().then((response) => {
@@ -72,11 +77,11 @@ function Nav() {
           </Link>
           x
           <ul id="nav-mobile" className="right">
-          <li>
-          <Link to="/friends">
-            <button className="btn">Connect with Friends</button>
-            </Link>
-          </li>
+            <li>
+              <Link to="/friends">
+                <button className="btn">Connect with Friends</button>
+              </Link>
+            </li>
             <li>
               <Link to="/search" className="black-text">
                 Search

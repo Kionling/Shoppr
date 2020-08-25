@@ -67,6 +67,7 @@ const reducer = (state, action) => {
   case ADD_FRIEND:
       let largerFriends =[ ...state.Friends, 
         action.newFriend];
+        console.log('Inside global state add friend: ',largerFriends);
       return {
           ...state, 
           Friends: largerFriends,
@@ -124,6 +125,7 @@ const reducer = (state, action) => {
 };
 
 const ShopprProvider = ({ value = [], ...props }) => {
+  
   const [state, dispatch] = useReducer(reducer,
      {
       User: null,
