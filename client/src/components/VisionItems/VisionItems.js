@@ -35,23 +35,15 @@ function VisionItems() {
         dispatch({type:SET_STORE_PREF, isOnline:!state.isOnline})
     }
     function handleOnClick(searchIndex) {
-        if(searchIndex === "table"){
-            dispatch({type:SET_SEARCH_ITEM , current_search_item:0});
-        }
-        else if(searchIndex === "desk"){
-            dispatch({type:SET_SEARCH_ITEM , current_search_item:0});
-        }
-        else{
         dispatch({type:SET_SEARCH_ITEM , current_search_item:searchIndex});
-        }
     }
 
     return (
 
         <div className="visionItems">
             <h1>Vision Items:</h1>
-            <button onClick={() => handleOnClick("table")}>Table</button>
-            <button onClick={() => handleOnClick("desk")}>Desk</button>
+            {/* <button onClick={() => handleOnClick("table")}>Table</button>
+            <button onClick={() => handleOnClick("desk")}>Desk</button> */}
             {visionItems ? state.CurrentSearch.items.map((item,index) => {
                 return (
                     <div>

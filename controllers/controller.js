@@ -159,7 +159,7 @@ module.exports = {
     res.json(friendsSearches);
   },
 
-  saveSearch: function(req,res){
+  saveSearch: function (req, res) {
     // data like : {UserId:'',image_url:'',itemNames: []}
     db.Search.create({
       image_url: req.body.data.image_url,
@@ -167,60 +167,65 @@ module.exports = {
     })
       .then(function (newSearch) {
         // get searchId
-        let searchId = newSearch.get({plain:true}).id;
+        let searchId = newSearch.get({ plain: true }).id;
         let bulkCreateArr = [];
-        for(let i=0; i<req.body.data.itemNames.length;i++){
+        for (let i = 0; i < req.body.data.itemNames.length; i++) {
           let itemObj = {
             SearchId: searchId,
             name: req.body.data.itemNames[i]
           }
           bulkCreateArr.push(itemObj)
         }
-        db.Item.bulkCreate(bulkCreateArr,{
-          returning:true
+        db.Item.bulkCreate(bulkCreateArr, {
+          returning: true
         })
-        .then(function(afterSave){
-          res.json(afterSave);
-        })
-        .catch(err =>{
-          res.status(404).json({err:err});
-        })
+          .then(function (afterSave) {
+            res.json(afterSave);
+          })
+          .catch(err => {
+            res.status(404).json({ err: err });
+          })
       })
 
   },
 
-  getSearchHistory: function(req , res){
+  getSearchHistory: function (req, res) {
     let userId = req.params.userId;
     db.Search.findAll({
       raw: true,
       where: {
         UserId: userId
       }
-    }).then((searchRes)=>{
-      let responseJSON = []
-      //image_url,items
-      for(let i of searchRes){
-        let searchObj = {
-          image_url: '',
-          items: []
-        };
-        searchObj.image_url = i.image_url;
-        db.Item.findAll({
-          raw:true,
-          where : {
-            SearchId:i.id
+    }).then((searchRes) => {
+      let responseJSON = [];
+      let searchIdArr = searchRes.map((search) => search.id);
+      db.Item.findAll({
+        raw: true,
+        where: {
+          SearchId: {
+            [Op.in]: searchIdArr
           }
-        }).then((itemRes)=>{
-          let itemNames = itemRes.map(item=>item.name)
-          searchObj.items = itemNames;
+        }
+      }).then((itemRes) => {
+        
+        for (let i of searchRes) {
+          let searchObj = {
+            image_url: '',
+            items: []
+          };
+          searchObj.image_url = i.image_url;
+          let filterItems = itemRes.filter((item)=>{
+            return item.SearchId === i.id;
+          });
+          searchObj.items = filterItems.map(item => item.name)
           responseJSON.push(searchObj);
-          console.log("Final response Object to be sent to client: ",itemRes,responseJSON);
-         //to be fixed
-         //res.json(responseJSON);
-        })
-      }
-      
-    }).catch(err =>{
+        }
+        console.log("response after getting all search data", responseJSON);
+        res.json(responseJSON);
+
+      }).catch(err => res.status(404).json({ err: err }));
+
+    }).catch(err => {
       res.status(404).json({ err: "No search history!" });
     })
 
