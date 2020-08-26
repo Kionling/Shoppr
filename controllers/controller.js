@@ -15,12 +15,12 @@ async function extractObjectFromImageURL(url) {
   /**
    * TODO(developer): Uncomment the following line before running the sample.
    */
-   //const gcsUri = `https://cloud.google.com/vision/docs/images/bicycle_example.png`;
+  //const gcsUri = `https://cloud.google.com/vision/docs/images/bicycle_example.png`;
 
-   const gcsUri = url.imageUrl;
+  const gcsUri = url.imageUrl;
 
   const [result] = await client.objectLocalization(gcsUri);
-  console.log(result,result.localizedObjectAnnotations);
+  console.log(result, result.localizedObjectAnnotations);
   const objects = result.localizedObjectAnnotations;
   objects.forEach(object => {
     console.log(`Name: ${object.name}`);
@@ -29,7 +29,7 @@ async function extractObjectFromImageURL(url) {
     veritices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
   });
   // [END vision_localize_objects_gcs]
-  const objectNames = objects.map( object =>  object.name );    
+  const objectNames = objects.map(object => object.name);
   return objectNames;
 }
 
@@ -56,15 +56,15 @@ module.exports = {
         res.status(401).json(err);
       });
   },
-  
-  findFriend: function (req,res) {
+
+  findFriend: function (req, res) {
     console.log("In the controller - finding Friend: ", req.body.searchTerm);
     db.User.findAll({
-     
+
       where: {
 
         email: {
-          [Op.like]: "%"+req.body.searchTerm.toLowerCase()+"%"
+          [Op.like]: "%" + req.body.searchTerm.toLowerCase() + "%"
         }
 
       }
@@ -79,25 +79,25 @@ module.exports = {
       });
   },
 
-  addFriend: function(req,res) {
+  addFriend: function (req, res) {
     console.log("In the controller, about to add a friend: ", req.body);
 
     db.Friend_Connection.create({
       UserId: req.body.User,
       FriendId: req.body.Friend
     }
-    ).then((response)=>{
+    ).then((response) => {
       res.json(response);
     });
   },
 
-  getFriends: function(req,res) {
-    console.log("Inside controller getFriends>>>>>",req.params.id);
+  getFriends: function (req, res) {
+    console.log("Inside controller getFriends>>>>>", req.params.id);
     if (req.params && req.params.id) {
 
-     // Post.find({ where: { ...}, include: [User]})
+      // Post.find({ where: { ...}, include: [User]})
 
-     //db.User.findAll({where: { }})
+      //db.User.findAll({where: { }})
 
       // db.Friend_Connection.findAll({ 
       //   // where: { user_id: req.params.id }, 
@@ -108,43 +108,43 @@ module.exports = {
 
       db.Friend_Connection.findAll({
         raw: true,
-        where : {UserId : req.params.id}
+        where: { UserId: req.params.id }
       })
 
-      .then(response=>{
-        console.log("In Controller, getting friends:", response);
-        let friendListId = [];
-        for(let elem of response){
-          console.log(elem);
-          friendListId.push(elem.FriendId);
-        }
-        
-        //friendListId = new Set([...friendListId]);
-        console.log(friendListId);
-        db.User.findAll({
-          raw: true,
-          where:{
-            id: {
-              [Op.in] : friendListId
-            }
+        .then(response => {
+          console.log("In Controller, getting friends:", response);
+          let friendListId = [];
+          for (let elem of response) {
+            console.log(elem);
+            friendListId.push(elem.FriendId);
           }
-        })
-        .then((friendResponse)=>{
-          console.log('Received response of friend detail from user table>>>>>>>>> ',friendResponse);
-          res.json(friendResponse);
-        })
 
-       
-      }).catch(err =>console.log(err))
+          //friendListId = new Set([...friendListId]);
+          console.log(friendListId);
+          db.User.findAll({
+            raw: true,
+            where: {
+              id: {
+                [Op.in]: friendListId
+              }
+            }
+          })
+            .then((friendResponse) => {
+              console.log('Received response of friend detail from user table>>>>>>>>> ', friendResponse);
+              res.json(friendResponse);
+            })
 
-  } 
-  
-  else {
-    res.end();
-  }
+
+        }).catch(err => console.log(err))
+
+    }
+
+    else {
+      res.end();
+    }
   },
 
-  getFriendsSearches: function(req, res) {
+  getFriendsSearches: function (req, res) {
     let friendsSearches = [];
 
     let User = req.body.user;
@@ -155,8 +155,75 @@ module.exports = {
 
     //  This code is not yet written.
 
-    
+
     res.json(friendsSearches);
+  },
+
+  saveSearch: function(req,res){
+    // data like : {UserId:'',image_url:'',itemNames: []}
+    db.Search.create({
+      image_url: req.body.data.image_url,
+      UserId: req.body.data.UserId
+    })
+      .then(function (newSearch) {
+        // get searchId
+        let searchId = newSearch.get({plain:true}).id;
+        let bulkCreateArr = [];
+        for(let i=0; i<req.body.data.itemNames.length;i++){
+          let itemObj = {
+            SearchId: searchId,
+            name: req.body.data.itemNames[i]
+          }
+          bulkCreateArr.push(itemObj)
+        }
+        db.Item.bulkCreate(bulkCreateArr,{
+          returning:true
+        })
+        .then(function(afterSave){
+          res.json(afterSave);
+        })
+        .catch(err =>{
+          res.status(404).json({err:err});
+        })
+      })
+
+  },
+
+  getSearchHistory: function(req , res){
+    let userId = req.params.userId;
+    db.Search.findAll({
+      raw: true,
+      where: {
+        UserId: userId
+      }
+    }).then((searchRes)=>{
+      let responseJSON = []
+      //image_url,items
+      for(let i of searchRes){
+        let searchObj = {
+          image_url: '',
+          items: []
+        };
+        searchObj.image_url = i.image_url;
+        db.Item.findAll({
+          raw:true,
+          where : {
+            SearchId:i.id
+          }
+        }).then((itemRes)=>{
+          let itemNames = itemRes.map(item=>item.name)
+          searchObj.items = itemNames;
+          responseJSON.push(searchObj);
+          console.log("Final response Object to be sent to client: ",itemRes,responseJSON);
+         //to be fixed
+         //res.json(responseJSON);
+        })
+      }
+      
+    }).catch(err =>{
+      res.status(404).json({ err: "No search history!" });
+    })
+
   },
 
   getHello: function (req, res) {
@@ -173,48 +240,79 @@ module.exports = {
   //       res.json(req);
   //   };
 
-    // router.post("/login", passport.authenticate("local"), function(req, res) {
-    //     res.json(req.user);
-    //   });
+  // router.post("/login", passport.authenticate("local"), function(req, res) {
+  //     res.json(req.user);
+  //   });
 
-    // res.json(req.user);
-    // db.User.findOne({ email: req.body.email })
- // },
+  // res.json(req.user);
+  // db.User.findOne({ email: req.body.email })
+  // },
 
-   extractFromUrl: async function(req,res) {
-     console.log("Extract from Url in the controller: ", req.body);
-    extractObjectFromImageURL(req.body)
-     .then((gvResponse)=>{
-       console.log(">>>>>>>Here inside then promise resolve",gvResponse);
-       let responseObj = {
-        image_url:req.body.imageUrl,
-        items: gvResponse
-       }
-       res.json(responseObj);
-     })
-     .catch(err => {
-       console.log(err);
-       res.status(404).json({err:"Image not found!"});
-     });
-
-    //res.json({data:"Hit it."});
-
-    // Send the req.body (which is a url ) to the Google API
-    // and in the .then statement, we'll send status code 200
-    // and send the url back to the client side, along with the results object
+  extractFromUrl: async function (req, res) {
+    console.log("Extract from Url in the controller: ", req.body);
 
 
+    // tobe removed : faking data
+    if (req.body.imageUrl == 'bedroom') {
+      console.log(">>>>> here inside bedroom");
+      let bedroom = {
+        "image_url": "https://cloud.google.com/vision/docs/images/bicycle_example.png",
+        "items": [
+          "Bed",
+          "Lamp",
+          "Desk",
+          "Picture frame"
+        ]
+      };
+      res.json(bedroom);
+    }
+    else if (req.body.imageUrl == 'workspace') {
+      let workspace = {
+        "image_url": "https://cloud.google.com/vision/docs/images/bicycle_example.png",
+        "items": [
+          "Table",
+          "Lamp",
+          "Desk",
+          "Laptop"
+        ]
+      };
+      res.json(workspace);
+    }
+    else {
+
+
+      extractObjectFromImageURL(req.body)
+        .then((gvResponse) => {
+          console.log(">>>>>>>Here inside then promise resolve", gvResponse);
+          let responseObj = {
+            image_url: req.body.imageUrl,
+            items: gvResponse
+          }
+          res.json(responseObj);
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(404).json({ err: "Image not found!" });
+        });
+
+      //res.json({data:"Hit it."});
+
+      // Send the req.body (which is a url ) to the Google API
+      // and in the .then statement, we'll send status code 200
+      // and send the url back to the client side, along with the results object
+
+    }
 
 
 
-   }
+  }
 
   // extractObjectFromImage: async (req, res) => {
   //   try {
   //     console.log("In the Extract Object From Image method of the Controller.");
   //     console.log(Object.keys(req));
   //     console.log(req.body);
-  
+
   //     if (req.file == undefined) {
   //     //if (req.file == undefined) {
   //       return res.send(`You must select a file.`);
@@ -225,7 +323,7 @@ module.exports = {
   //       "../"+__dirname + "/Assets/" + "abc",
   //             req.body
   //           );
-  
+
   //   //   Image.create({
   //   //     type: req.file.mimetype,
   //   //     name: req.file.originalname,
@@ -237,7 +335,7 @@ module.exports = {
   //   //       __basedir + "/resources/static/assets/tmp/" + image.name,
   //   //       image.data
   //   //     );
-  
+
   //   //     return res.send(`File has been uploaded.`);
   //   //   });
   //   } catch (error) {

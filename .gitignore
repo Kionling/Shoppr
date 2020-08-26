@@ -3,4 +3,4 @@ client/node_modules
 api_account.json
 .env
 client/.env
-
+client/.env.development

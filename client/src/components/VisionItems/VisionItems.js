@@ -2,6 +2,7 @@ import React from 'react';
 import './VisionItems.css';
 import { useShopprContext } from "../../utils/GlobalState";
 import { SET_STORE_PREF, SET_SEARCH_ITEM } from "../../utils/actions";
+import API from '../../utils/API';
 
 
 function VisionItems() {
@@ -14,11 +15,35 @@ function VisionItems() {
         visionItems = null;
     }
 
+    function saveSearchAction(){
+        // data like : {UserId:'',image_url:'',itemName: []}
+        let payload = {
+            UserId: state.User.id,
+            image_url: state.CurrentSearch.image_url,
+            itemNames: state.CurrentSearch.items
+        }
+        console.log("payload to save search: ",payload);
+        API.saveSearch(payload)
+        .then((response)=>{
+            console.log("Search saved");
+        }).catch(err =>{
+            console.log("Save not successfull");
+        })
+    }
+
     function handleToogleStorePref(){
         dispatch({type:SET_STORE_PREF, isOnline:!state.isOnline})
     }
     function handleOnClick(searchIndex) {
+        if(searchIndex === "table"){
+            dispatch({type:SET_SEARCH_ITEM , current_search_item:0});
+        }
+        else if(searchIndex === "desk"){
+            dispatch({type:SET_SEARCH_ITEM , current_search_item:0});
+        }
+        else{
         dispatch({type:SET_SEARCH_ITEM , current_search_item:searchIndex});
+        }
     }
 
     return (
@@ -27,7 +52,6 @@ function VisionItems() {
             <h1>Vision Items:</h1>
             <button onClick={() => handleOnClick("table")}>Table</button>
             <button onClick={() => handleOnClick("desk")}>Desk</button>
-            <button onClick={() => handleOnClick("couch")}>Couch</button>
             {visionItems ? state.CurrentSearch.items.map((item,index) => {
                 return (
                     <div>
@@ -49,6 +73,10 @@ function VisionItems() {
                         </label>
                 </div>
                 </form>
+
+                <div>
+                    <button className="btn" onClick={saveSearchAction}>Save my search</button>
+                </div>
             </div>
         </div>
     );

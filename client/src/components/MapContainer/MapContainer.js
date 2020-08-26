@@ -7,29 +7,6 @@ export function MapContainer(props) {
     let [longitude, setLongitude] = useState();
     let [stores, setStores] = useState([]);
 
-    useEffect(() => {
-        console.log('props passed from result pages: ',props.itemToSearch);
-        getLocation();
-        if (props.itemToSearch) {
-            API.searchStore(latitude, longitude, props.itemToSearch)
-                .then((searchResponse) => {
-                    console.log("response from api: ", searchResponse);
-                    let response = searchResponse.data;
-                    let newStore = []
-                    for (var i = 0; i < response.results.length; i++) {
-                        //get locations from data
-                        let store = {};
-                        store.name = response.results[i].name;
-                        store.location = response.results[i].geometry.location;
-                        //console.log(store);
-                        newStore = [...newStore, store];
-                        setStores(newStore);
-
-                    }
-                })
-        }
-    }, [props.itemToSearch]);
-
     let getLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition(showPosition);
@@ -49,8 +26,32 @@ export function MapContainer(props) {
         setLongitude(position.coords.longitude);
     }
 
+
+    useEffect(() => {
+        console.log('props passed from result pages: ',props.itemToSearch,process.env.GOOGLE_MAP_API_KEY);
+        getLocation();
+        if (props.itemToSearch && latitude && longitude) {
+            API.searchStore(latitude, longitude, props.itemToSearch)
+                .then((searchResponse) => {
+                    console.log("response from api: ", searchResponse);
+                    let response = searchResponse.data;
+                    let newStore = []
+                    for (var i = 0; i < response.results.length; i++) {
+                        //get locations from data
+                        let store = {};
+                        store.name = response.results[i].name;
+                        store.location = response.results[i].geometry.location;
+                        //console.log(store);
+                        newStore = [...newStore, store];
+                        setStores(newStore);
+
+                    }
+                })
+        }
+    }, [props.itemToSearch,latitude,longitude]);
+
     const style = {
-        width: '100vw',
+        width: '100%',
         height: '100vh'
     }
     const containerStyle = {
@@ -116,5 +117,5 @@ export function MapContainer(props) {
 }
 
 export default GoogleApiWrapper({
-    apiKey: `${process.env.GOOGLE_MAP_API_KEY}`
+    apiKey: `${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`
 })(MapContainer)

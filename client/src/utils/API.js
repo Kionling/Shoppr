@@ -23,7 +23,7 @@ export default {
     let radius = "radius=5000";
     let type = "type=store";
     let keyword = `keyword=${kw}`;
-    let apiKey = `key=${process.env.GOOGLE_MAP_API_KEY}`;
+    let apiKey = `key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`;
         return axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lattitude},${longitude}&${radius}&${type}&${keyword}&${apiKey}`);
     },
     getFriends: function(UserId) {
@@ -42,5 +42,13 @@ export default {
     },
     getFriendsSearches: function( { User, Item }) {
         return axios.post("/api/getfriendssearches", {user:User, item:Item});
+    },
+
+    getSearchHistory: function(userId){
+        return axios.get("/api/getSearchHistory/"+userId)
+    },
+
+    saveSearch: function(payload){
+        return axios.post("/api/saveSearch",{data:payload});
     }
 };
