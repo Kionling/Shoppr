@@ -17,8 +17,8 @@ axios.get('https://api.rainforestapi.com/request', { params })
   .then(response => {
 
     // print the JSON response from Rainforest API
-    console.log( "In RainforestSearch: ", JSON.stringify(response.data, 0, 2));
-
+    //console.log( "In RainforestSearch: ", JSON.stringify(response.data, 0, 2));
+    console.log( "In RainforestSearch: ", response.data);
    // console.log(JSON.stringify(response.data["search_results"]));
 
    return (response.data);
@@ -30,4 +30,4 @@ axios.get('https://api.rainforestapi.com/request', { params })
 
 }
 
-export default rainforestSearch;
+module.exports = rainforestSearch;
