@@ -196,26 +196,30 @@ module.exports = {
       where: {
         UserId: userId
       }
-    }).then((res)=>{
+    }).then((searchRes)=>{
       let responseJSON = []
       //image_url,items
-      for(let i in responseJSON){
+      for(let i of searchRes){
         let searchObj = {
           image_url: '',
           items: []
         };
-        searchObj.image_url = i.image_url
+        searchObj.image_url = i.image_url;
         db.Item.findAll({
           raw:true,
           where : {
-            SearchId: i.id
+            SearchId:i.id
           }
         }).then((itemRes)=>{
-          searchObj.items = itemRes;
+          let itemNames = itemRes.map(item=>item.name)
+          searchObj.items = itemNames;
           responseJSON.push(searchObj);
-          res.json(responseJSON);
+          console.log("Final response Object to be sent to client: ",itemRes,responseJSON);
+         //to be fixed
+         //res.json(responseJSON);
         })
       }
+      
     }).catch(err =>{
       res.status(404).json({ err: "No search history!" });
     })
