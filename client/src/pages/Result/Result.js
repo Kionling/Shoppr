@@ -7,7 +7,7 @@ import { SET_STORE_PREF, SET_CURRENT_PATH } from '../../utils/actions';
 
 
 function Result() {
-    const [itemToSearch, setItemToSearch] = useState();
+    // const [itemToSearch, setItemToSearch] = useState();
     const [state, dispatch] = useShopprContext();
 
     useEffect(() => {

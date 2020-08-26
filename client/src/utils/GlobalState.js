@@ -11,6 +11,7 @@ import {
     GET_PREVIOUS_SEARCHES,
     REMOVE_PREVIOUS_SEARCH,
     LOADING,
+    STOP_LOADING,
     SET_STORE_PREF,
     SET_SEARCH_ITEM,
     SET_CURRENT_PATH,
@@ -37,7 +38,8 @@ const ShopprContext = createContext(
     },
     isOnline: true,
     current_search_item : 0,
-    currentPath: "/"
+    currentPath: "/",
+    loading: false
 }
 
 );
@@ -99,9 +101,16 @@ const reducer = (state, action) => {
           PreviousSearches: newPreviousSearches, loading:false
       }
   case LOADING:
+    console.log(state.loading);
     return {
       ...state,
       loading: true
+    };
+
+  case STOP_LOADING:
+    return {
+      ...state,
+      loading: false
     };
 
   case SET_STORE_PREF:
@@ -142,7 +151,8 @@ const ShopprProvider = ({ value = [], ...props }) => {
     },
     isOnline: true,
     current_search_item : 0,
-    currentPath: "/"
+    currentPath: "/",
+    loading: false
      });
 
   return <Provider value={[state, dispatch]} {...props} />;
