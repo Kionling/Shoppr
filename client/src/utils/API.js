@@ -42,5 +42,13 @@ export default {
     },
     getFriendsSearches: function( { User, Item }) {
         return axios.post("/api/getfriendssearches", {user:User, item:Item});
+    },
+
+    getSearchHistory: function(userId){
+        return axios.get("/api/getSearchHistory/"+userId)
+    },
+
+    saveSearch: function(payload){
+        return axios.post("/api/saveSearch",{data:payload});
     }
 };

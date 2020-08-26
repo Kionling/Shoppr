@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import { ADD_SEARCH_DETAIL,LOADING,STOP_LOADING } from "../../utils/actions";
@@ -12,6 +12,17 @@ function SearchContainer() {
   const [state, dispatch] = useShopprContext();
   const imageUrl = useRef();
   const history = useHistory();
+
+  useEffect(() => {
+    if(state.User && state.User.id){
+      API.getSearchHistory(state.User.id)
+      .then((response)=>{
+        console.log(response);
+      }).catch(err =>{
+        console.log(err);
+      })
+    }
+  }, []);
 
   function handleFormSubmit(event) {
     event.preventDefault();
