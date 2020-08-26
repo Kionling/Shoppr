@@ -2,6 +2,7 @@ import React from 'react';
 import './VisionItems.css';
 import { useShopprContext } from "../../utils/GlobalState";
 import { SET_STORE_PREF, SET_SEARCH_ITEM } from "../../utils/actions";
+import API from '../../utils/API';
 
 
 function VisionItems() {
@@ -12,6 +13,22 @@ function VisionItems() {
         visionItems = state.CurrentSearch.items;
     } else {
         visionItems = null;
+    }
+
+    function saveSearchAction(){
+        // data like : {UserId:'',image_url:'',itemName: []}
+        let payload = {
+            UserId: state.User.id,
+            image_url: state.CurrentSearch.image_url,
+            itemNames: state.CurrentSearch.items
+        }
+        console.log("payload to save search: ",payload);
+        API.saveSearch(payload)
+        .then((response)=>{
+            console.log("Search saved");
+        }).catch(err =>{
+            console.log("Save not successfull");
+        })
     }
 
     function handleToogleStorePref(){
@@ -56,6 +73,10 @@ function VisionItems() {
                         </label>
                 </div>
                 </form>
+
+                <div>
+                    <button className="btn" onClick={saveSearchAction}>Save my search</button>
+                </div>
             </div>
         </div>
     );

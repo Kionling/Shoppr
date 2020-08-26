@@ -40,6 +40,11 @@ router.route("/getfriends/:id")
 router.route("/getfriendssearches/")
     .post(shopprController.getFriendsSearches);
 
+router.route("/getSearchHistory/:userId")
+    .get(shopprController.getSearchHistory);
+
+router.route("/saveSearch")
+    .post(shopprController.saveSearch);
 
 module.exports = router;
 

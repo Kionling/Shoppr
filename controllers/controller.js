@@ -159,6 +159,69 @@ module.exports = {
     res.json(friendsSearches);
   },
 
+  saveSearch: function(req,res){
+    // data like : {UserId:'',image_url:'',itemNames: []}
+    db.Search.create({
+      image_url: req.body.data.image_url,
+      UserId: req.body.data.UserId
+    })
+      .then(function (newSearch) {
+        // get searchId
+        let searchId = newSearch.get({plain:true}).id;
+        let bulkCreateArr = [];
+        for(let i=0; i<req.body.data.itemNames.length;i++){
+          let itemObj = {
+            SearchId: searchId,
+            name: req.body.data.itemNames[i]
+          }
+          bulkCreateArr.push(itemObj)
+        }
+        db.Item.bulkCreate(bulkCreateArr,{
+          returning:true
+        })
+        .then(function(afterSave){
+          res.json(afterSave);
+        })
+        .catch(err =>{
+          res.status(404).json({err:err});
+        })
+      })
+
+  },
+
+  getSearchHistory: function(req , res){
+    let userId = req.params.userId;
+    db.Search.findAll({
+      raw: true,
+      where: {
+        UserId: userId
+      }
+    }).then((res)=>{
+      let responseJSON = []
+      //image_url,items
+      for(let i in responseJSON){
+        let searchObj = {
+          image_url: '',
+          items: []
+        };
+        searchObj.image_url = i.image_url
+        db.Item.findAll({
+          raw:true,
+          where : {
+            SearchId: i.id
+          }
+        }).then((itemRes)=>{
+          searchObj.items = itemRes;
+          responseJSON.push(searchObj);
+          res.json(responseJSON);
+        })
+      }
+    }).catch(err =>{
+      res.status(404).json({ err: "No search history!" });
+    })
+
+  },
+
   getHello: function (req, res) {
     console.log("In the GetHello Route of the controller");
     res.end("Got to the GetHello route.");
