@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ShopprProvider } from "./utils/GlobalState";
 import Nav from "./components/Nav/Nav";
@@ -13,6 +13,7 @@ import NoMatch from "./pages/NoMatch";
 import Friends from "./pages/Friends/Friends";
 import ResultsList from "./components/ResultsList/ResultsList";
 import Test from "./pages/Test/test";
+import { ToastProvider } from 'react-toast-notifications'
 
 import logo from './logo.svg';
 import './App.css';
@@ -22,23 +23,25 @@ function App() {
   return (
     <Router>
       <div>
-         <ShopprProvider>
-          <Nav />
-          <Switch>
-            <Route exact path="/" component={Welcome} />
-            <Route exact path="/welcome" component={Welcome} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/search" component={Search} />
-            <Route exact path="/friends" component={Friends} />
-            <Route exact path="/result" component={Result} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/test" component={Test} />
-            <Route exact path="/resultslist" component={ResultsList} />
-            <Route component={NoMatch} />
-          </Switch>
+        <ToastProvider>
+          <ShopprProvider>
+            <Nav />
+            <Switch>
+              <Route exact path="/" component={Welcome} />
+              <Route exact path="/welcome" component={Welcome} />
+              <Route exact path="/home" component={Home} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/search" component={Search} />
+              <Route exact path="/friends" component={Friends} />
+              <Route exact path="/result" component={Result} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/test" component={Test} />
+              <Route exact path="/resultslist" component={ResultsList} />
+              <Route component={NoMatch} />
+            </Switch>
           </ShopprProvider>
+        </ToastProvider>
       </div>
     </Router>
   );

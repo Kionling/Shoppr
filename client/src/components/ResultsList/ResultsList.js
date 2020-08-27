@@ -5,12 +5,12 @@ import './ResultsList.css';
 import { useShopprContext } from "../../utils/GlobalState";
 import { SEARCH_SAVED, LOADING, STOP_LOADING } from '../../utils/actions';
 import loader from '../../assets/loader.gif';
-
+import { useToasts } from 'react-toast-notifications'
 
 function ResultsList(props) {
 
 
-
+    const { addToast } = useToasts()
     const [state, dispatch] = useShopprContext();
     const [itemList, setItemList] = useState();
 
@@ -45,12 +45,20 @@ function ResultsList(props) {
             if (state.searchSaved) {
                 API.saveProducts(payload)
                     .then((response) => {
-                        console.log("Product saved: ", response);
+                        //console.log("Product saved: ", response);
                         dispatch({type:STOP_LOADING});
+                        addToast(`Product ${response.data.title} Saved`, {
+                            appearance: 'success',
+                            autoDismiss: true,
+                          });
                     })
                     .catch(err => {
-                        console.log("Unable to save product")
+                        //console.log("Unable to save product")
                         dispatch({type:STOP_LOADING});
+                        addToast(` Unable to save Product`, {
+                            appearance: 'error',
+                            autoDismiss: true,
+                          });
                     });
             }
             else {
@@ -61,21 +69,37 @@ function ResultsList(props) {
                 }
                 console.log("payload to save search: ", searchSavePayload);
                 API.saveSearch(searchSavePayload)
-                    .then((response) => {
-                        console.log("Search saved", response.data);
+                    .then((searchresponse) => {
+                        //console.log("Search saved", searchresponse.data);
                         dispatch({ type: SEARCH_SAVED, searchSaved: true });
+                        addToast(`Search Saved`, {
+                            appearance: 'success',
+                            autoDismiss: true,
+                          });
                         API.saveProducts(payload)
                             .then((response) => {
-                                console.log("Product saved: ", response);
+                                //console.log("Product saved: ", response);
+                                addToast(`Product ${response.data.title} Saved`, {
+                                    appearance: 'success',
+                                    autoDismiss: true,
+                                  });
                             })
                             .catch(err => {
-                                console.log("Unable to save product")
+                                //console.log("Unable to save product")
                                 dispatch({type:STOP_LOADING});
+                                addToast(` Unable to save Product`, {
+                                    appearance: 'error',
+                                    autoDismiss: true,
+                                  });
                             });
 
                     }).catch(err => {
                         console.log("Save not successfull");
                         dispatch({type:STOP_LOADING});
+                        addToast(` Unable to save your search`, {
+                            appearance: 'error',
+                            autoDismiss: true,
+                          });
                     })
             }
         }
