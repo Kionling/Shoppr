@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
-import { ADD_SEARCH_DETAIL,LOADING,STOP_LOADING } from "../../utils/actions";
+import { ADD_SEARCH_DETAIL,LOADING,STOP_LOADING, GET_PREVIOUS_SEARCHES } from "../../utils/actions";
 import { useShopprContext } from "../../utils/GlobalState";
 import SearchContainerS from "../SearchContainer/searchContainer.css";
 import loader from '../../assets/loader.gif';
@@ -12,12 +12,14 @@ function SearchContainer() {
   const [state, dispatch] = useShopprContext();
   const imageUrl = useRef();
   const history = useHistory();
+  const [searchHistory,setSearchHistory] = useState();
 
   useEffect(() => {
     if(state.User && state.User.id){
       API.getSearchHistory(state.User.id)
       .then((response)=>{
-        console.log(response);
+        console.log(response.data);
+        dispatch({type:GET_PREVIOUS_SEARCHES, previousSearches:response.data});
       }).catch(err =>{
         console.log(err);
       })
@@ -41,6 +43,23 @@ function SearchContainer() {
 
   return (
     <div className="container center">
+      <div className="row">
+      <div className="col s12 l6">
+        {
+          state.PreviousSearches?
+          state.PreviousSearches.map((search,index)=>{
+            return (
+            <div key={index}>
+               <div>
+                <img src={search.image_url} style={{width:200}}></img>
+               </div>
+                <div>{search.items}</div>
+            </div>
+            )
+          }) : ''
+        }
+      </div>
+      </div>
       <div className="row">
         <div className="col s12 l6">
           {state.loading ? <img src={loader}></img> :

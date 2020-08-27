@@ -220,7 +220,7 @@ module.exports = {
           searchObj.items = filterItems.map(item => item.name)
           responseJSON.push(searchObj);
         }
-        console.log("response after getting all search data", responseJSON);
+        //console.log("response after getting all search data", responseJSON);
         res.json(responseJSON);
 
       }).catch(err => res.status(404).json({ err: err }));
