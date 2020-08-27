@@ -145,9 +145,59 @@ module.exports = {
     // based on the user and the item, first get a list of their friends,
     // and then search through their friends searches to look for matching items
 
-    //  This code is not yet written.
+    if (req.params && req.params.id) {
 
-    res.json(friendsSearches);
+
+      db.Friend_Connection.findAll({
+        raw: true,
+        where: { UserId: req.params.id },
+      })
+
+        .then((response) => {
+ 
+          let friendListId = [];
+          for (let elem of response) {
+            // console.log(elem);
+            friendListId.push(elem.FriendId);
+          }
+
+          db.User.findAll({
+            raw: true,
+            where: {
+              id: {
+                [Op.in]: friendListId,
+              },
+            },
+          }).then((friendResponse) => {
+           
+
+            // Now that we have all of the users friends, we can 
+            // look for products that have this user id.
+
+            let friendIds = friendResponse.map( friend => {
+              return friend.userId;
+            });
+
+            console.log("In FriendsSearches in the controller: friendIds:", friendIds);
+            db.Product.findAll({
+
+              raw:true,
+              whre: {
+                id: {
+                  [Op.in]: friendIds,
+                }
+              }
+              
+            }).then((friendProducts) => {
+              res.json(friendProducts);
+            })
+          });
+        })
+        .catch((err) => console.log(err));
+    } else {
+      res.end();
+    }
+
   },
 
   saveSearch: function (req, res) {
@@ -243,11 +293,11 @@ module.exports = {
   // },
 
   extractFromUrl: async function (req, res) {
-    console.log("Extract from Url in the controller: ", req.body);
+    //console.log("Extract from Url in the controller: ", req.body);
 
     // tobe removed : faking data
     if (req.body.imageUrl == "bedroom") {
-      console.log(">>>>> here inside bedroom");
+      //console.log(">>>>> here inside bedroom");
       let bedroom = {
         image_url:
           "https://cloud.google.com/vision/docs/images/bicycle_example.png",
@@ -264,7 +314,7 @@ module.exports = {
     } else {
       extractObjectFromImageURL(req.body)
         .then((gvResponse) => {
-          console.log(">>>>>>>Here inside then promise resolve", gvResponse);
+         // console.log(">>>>>>>Here inside then promise resolve", gvResponse);
           let responseObj = {
             image_url: req.body.imageUrl,
             items: gvResponse,
@@ -289,15 +339,15 @@ module.exports = {
     // take the spaces out and convert to a singluar version
     item = pluralize.singular(item.replace(/\s/g, ''));
 
-    console.log("In Controller getProducts: item:", item);
+ //   console.log("In Controller getProducts: item:", item);
 
     if (staticProducts.includes(item)) {
-      console.log("About to load the static json file: ", item+".json");
+    //  console.log("About to load the static json file: ", item+".json");
 
       const staticFolder = path.resolve(__dirname, "../rainforest_sample_data");
 
-      console.log("staticFolder: ", staticFolder);
-      console.log("file: ", path.resolve(staticFolder, "static_" + item + ".json"));
+     // console.log("staticFolder: ", staticFolder);
+     // console.log("file: ", path.resolve(staticFolder, "static_" + item + ".json"));
 
       fs.readFile(path.resolve(staticFolder, "static_" + item + ".json"), "utf-8",
       (err, data) => { 
@@ -343,7 +393,7 @@ module.exports = {
       //  axios.get("/api/getRainForest/" + item)
       //  .then( (response) => {
 
-       console.log("back from Rainforest...", response.data.search_results);
+   //    console.log("back from Rainforest...", response.data.search_results);
        res.json(response.data.search_results);
       }).catch(err =>console.log(err));
     }
