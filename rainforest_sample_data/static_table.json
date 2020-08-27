@@ -1,32 +1,4 @@
-  {
-  "request_info": {
-    "success": true,
-    "credits_used": 8,
-    "credits_remaining": 92
-  },
-  "request_metadata": {
-    "created_at": "2020-08-22T23:39:05.545Z",
-    "processed_at": "2020-08-22T23:39:14.104Z",
-    "total_time_taken": 8.56,
-    "amazon_url": "https://www.amazon.com/s/?k=table&ref=nb_sb_noss_2&s=price-desc-rank",
-    "timing": [
-      "global_init - 0ms (total 0ms)",
-      "auth_apikey - 19ms (total 19ms)",
-      "auth_retrieve_plan - 15ms (total 34ms)",
-      "auth_retrieve_credit_usage - 25ms (total 60ms)",
-      "processing_invoking_worker - 0ms (total 61ms)",
-      "processing_execution_complete - 8558ms (total 8619ms)",
-      "auth_credit_usage_reconcile - 5ms (total 8625ms)",
-      "global_end - 0ms (total 8625ms)"
-    ]
-  },
-  "request_parameters": {
-    "type": "search",
-    "amazon_domain": "amazon.com",
-    "search_term": "table",
-    "sort_by": "price_high_to_low"
-  },
-  "search_results": [
+[
     {
       "position": 1,
       "title": "Daum Crystal Blue Grey Coffee Table 05406-1",
@@ -1456,9 +1428,4 @@
         }
       }
     }
-  ],
-  "pagination": {
-    "current_page": 1,
-    "total_pages": 7
-  }
-}
+  ]
