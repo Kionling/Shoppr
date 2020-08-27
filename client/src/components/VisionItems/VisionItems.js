@@ -51,7 +51,7 @@ function VisionItems() {
 
                     </div>
                 )
-            }) : <div clasName="visionItems">No items from the google vision api found...</div>}
+            }) : <div className="visionItems">No items from the google vision api found...</div>}
 
             <div>
                 <br></br>

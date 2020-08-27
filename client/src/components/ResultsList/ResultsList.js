@@ -19,18 +19,26 @@ function ResultsList(){
 
    // itemList = results.search_results;
 
+    function buyItem(itemDetail){
+        console.log(itemDetail);
+        console.log(state.User.id)
+    }
+
     return (
         <div className="resultsList">
         <h1>Results List:</h1>
-            { itemList.map( result => {
-                return ( <div className="productCard">
+            { itemList.map( (result,index) => {
+                return ( <div className="productCard" key={index}>
                 <div><a href={ result.link } target="_blank"><img src= {result.image} style={{width:"200px"}} /></a>
                 </div>
                 <div className="productTitle">
-                    { result.title }</div>
+                    <a target="blank" href={result.link}>{ result.title }</a>
+                    </div>
                 <div>
-                
+                {result.price? result.price.raw : '' }
+                <button className="btn" onClick={()=>buyItem(result)}>Buy</button>
                 </div>
+
                
                 </div>)
             }) 
