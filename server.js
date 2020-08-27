@@ -6,6 +6,9 @@ const vision = require('@google-cloud/vision');
 const fs = require('fs');
 const bodyParser = require('body-parser')
 
+const axios = require('axios');
+const rainforestSearch = require("./scripts/rainforest_search");
+
 global.__basedir = __dirname;
 
 // For saving session data as cookies
@@ -53,6 +56,32 @@ if (process.env.NODE_ENV === "production") {
 }
 
 
+app.get("/api/getRainForest/lamp", function(req,res) {
+  let params = {
+    api_key: process.env.RAINFOREST_API_KEY,
+    type: "search",
+    amazon_domain: "amazon.com",
+    search_term: "lamp",
+    sort_by: "price_high_to_low"
+  }
+  
+  // make the http GET request to Rainforest API
+  axios.get('https://api.rainforestapi.com/request', { params })
+    .then(response => {
+  
+      // print the JSON response from Rainforest API
+      //console.log( "In RainforestSearch: ", JSON.stringify(response.data, 0, 2));
+      console.log( "In RainforestSearch: ", response.data);
+     // console.log(JSON.stringify(response.data["search_results"]));
+  
+     res.json(response.data);
+  
+    }).catch(error => {
+      // catch and print the error
+      console.log(error);
+    })
+  
+});
 
 // Here are our Routes
 app.use(routes);

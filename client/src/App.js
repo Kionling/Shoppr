@@ -35,7 +35,7 @@ function App() {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/test" component={Test} />
-            {/* <Route exact path="/resultslist" component={ResultsList} /> */}
+            <Route exact path="/resultslist" component={ResultsList} />
             <Route component={NoMatch} />
           </Switch>
           </ShopprProvider>

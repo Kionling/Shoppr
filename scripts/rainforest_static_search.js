@@ -1,12 +1,12 @@
 const axios = require('axios');
 
-
+//  api_key: process.env.RAINFOREST_API_KEY,
 // set up the request parameters
 let params = {
-  api_key: process.env.RAINFOREST_API_KEY,
+  api_key: "8AEA97E594DD4BCBBD393DB606E24152",
   type: "search",
   amazon_domain: "amazon.com",
-  search_term: "table",
+  search_term: "desk",
   sort_by: "price_high_to_low"
 }
 
@@ -17,7 +17,7 @@ axios.get('https://api.rainforestapi.com/request', { params })
     // print the JSON response from Rainforest API
     console.log( "In RainforestSearch: ", JSON.stringify(response.data, 0, 2));
 
-   // console.log(JSON.stringify(response.data["search_results"]));
+    console.log(JSON.stringify(response.data["search_results"]));
 
    return (response.data);
 

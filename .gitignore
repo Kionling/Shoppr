@@ -4,3 +4,6 @@ api_account.json
 .env
 client/.env
 client/.env.development
+rainforest_static_search.js
+
+
