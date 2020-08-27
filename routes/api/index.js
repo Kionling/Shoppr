@@ -46,5 +46,8 @@ router.route("/getSearchHistory/:userId")
 router.route("/saveSearch")
     .post(shopprController.saveSearch);
 
+router.route("/getproducts/:item")
+    .get(shopprController.getProducts);
+
 module.exports = router;
 

@@ -122,6 +122,7 @@ const reducer = (state, action) => {
     }
 
   case SET_SEARCH_ITEM:
+    console.log("In Global State, setting current_search_item to: " + action.current_search_item);
     return {
       ...state, current_search_item: action.current_search_item
     }
