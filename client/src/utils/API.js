@@ -50,5 +50,8 @@ export default {
 
     saveSearch: function(payload){
         return axios.post("/api/saveSearch",{data:payload});
+    },
+    getProducts: function( item ) {
+        return axios.get("/api/getproducts/" + item);
     }
 };
