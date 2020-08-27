@@ -25,5 +25,5 @@ export const SET_CURRENT_PATH = "SET_CURRENT_PATH";
 export const UPDATE_FRIENDS = "UPDATE_FRIENDS";
 export const SET_FRIENDS = "SET_FRIENDS";
 
-
+export const SEARCH_SAVED = "SEARCH_SAVED";
 

@@ -1,19 +1,33 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import './VisionItems.css';
 import { useShopprContext } from "../../utils/GlobalState";
-import { SET_STORE_PREF, SET_SEARCH_ITEM } from "../../utils/actions";
+import { SET_STORE_PREF, SET_SEARCH_ITEM, SEARCH_SAVED } from "../../utils/actions";
 import API from '../../utils/API';
 
 
 function VisionItems() {
     const [state, dispatch] = useShopprContext();
+    const [btnIdMapping,setBtnIdMapping] = useState();
     let visionItems = [];
+    let tempBtnList = [];
+    
 
-    if (state.CurrentSearch && state.CurrentSearch.items && state.CurrentSearch.items.length > 0) {
-        visionItems = state.CurrentSearch.items;
-    } else {
-        visionItems = null;
-    }
+    useEffect(()=>{
+        setBtnIdMapping([]);
+        if (state.CurrentSearch && state.CurrentSearch.items && state.CurrentSearch.items.length > 0) {
+            visionItems = state.CurrentSearch.items;
+            for(let i of visionItems){
+                let btnObj = {};
+                btnObj[i] = null;
+                tempBtnList.push(btnObj);
+            }
+            setBtnIdMapping(tempBtnList);
+            console.log("button list mapped to id: ",btnIdMapping,tempBtnList);
+        } else {
+            visionItems = null;
+        }
+        console.log("button list mapped to id: ",btnIdMapping);
+    },[]);
 
     function saveSearchAction(){
         // data like : {UserId:'',image_url:'',itemName: []}
@@ -25,7 +39,9 @@ function VisionItems() {
         console.log("payload to save search: ",payload);
         API.saveSearch(payload)
         .then((response)=>{
-            console.log("Search saved");
+            console.log("Search saved",response.data);
+            dispatch({type: SEARCH_SAVED,searchSaved: true})
+
         }).catch(err =>{
             console.log("Save not successfull");
         })

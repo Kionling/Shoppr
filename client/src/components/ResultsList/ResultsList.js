@@ -12,16 +12,25 @@ function ResultsList(){
     const [state, dispatch] = useShopprContext();
     let itemList = [];
 
-   axios.get("/api/getRainForest/lamp").then( (response) => {
-       console.log("back from the axios get request...", response);
-       itemList = response.search_results;
-    });
+//    axios.get("/api/getRainForest/lamp").then( (response) => {
+//        console.log("back from the axios get request...", response);
+//        itemList = response.search_results;
+//     });
 
-   // itemList = results.search_results;
+   itemList = results.search_results;
 
     function buyItem(itemDetail){
         console.log(itemDetail);
         console.log(state.User.id)
+        console.log(state.searchSaved);
+        // let payload = {
+        //     title: itemDetail.title ,
+        //     image_url: itemDetail.image,
+        //     purchase_url: itemDetail.link,
+        //     price: itemDetail.price?itemDetail.price.raw:null ,
+        //     itemName: ,
+        //     UserId: state.User.id
+        // }
     }
 
     return (

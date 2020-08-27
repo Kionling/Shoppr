@@ -15,6 +15,7 @@ import {
     SET_STORE_PREF,
     SET_SEARCH_ITEM,
     SET_CURRENT_PATH,
+    SEARCH_SAVED
 } from "./actions";
 // import { FLOAT, INTEGER } from "sequelize";
 
@@ -39,7 +40,8 @@ const ShopprContext = createContext(
     isOnline: true,
     current_search_item : 0,
     currentPath: "/",
-    loading: false
+    loading: false,
+    searchSaved: false
 }
 
 );
@@ -127,6 +129,10 @@ const reducer = (state, action) => {
     return {
       ...state, currentPath: action.currentPath
     }
+  case SEARCH_SAVED:
+    return {
+      ...state,searchSaved: action.searchSaved
+    }
 
   default:
     return state;
@@ -152,7 +158,8 @@ const ShopprProvider = ({ value = [], ...props }) => {
     isOnline: true,
     current_search_item : 0,
     currentPath: "/",
-    loading: false
+    loading: false,
+    searchSaved: false
      });
 
   return <Provider value={[state, dispatch]} {...props} />;
