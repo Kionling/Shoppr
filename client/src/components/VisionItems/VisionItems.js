@@ -35,6 +35,8 @@ function VisionItems() {
         dispatch({type:SET_STORE_PREF, isOnline:!state.isOnline})
     }
     function handleOnClick(searchIndex) {
+        console.log("VisionItems Component: searchIndex=", searchIndex);
+        console.log("State CurrentSearch:", state.CurrentSearch.items)
         dispatch({type:SET_SEARCH_ITEM , current_search_item:searchIndex});
     }
 

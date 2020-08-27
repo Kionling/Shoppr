@@ -1,9 +1,14 @@
 const db = require("../models");
 const passport = require("passport");
 const fs = require("fs");
-const vision = require('@google-cloud/vision');
+const path = require("path");
+const axios = require("axios");
+const vision = require("@google-cloud/vision");
 var Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const pluralize = require("pluralize");
+
+const staticProducts = ["bed", "bicycle", "bicyclewheel", "chair", "couch", "desk", "lamp", "loveseat", "pictureframe", "table" ];
 
 async function extractObjectFromImageURL(url) {
   // [START vision_localize_objects_gcs]
@@ -22,20 +27,19 @@ async function extractObjectFromImageURL(url) {
   const [result] = await client.objectLocalization(gcsUri);
   console.log(result, result.localizedObjectAnnotations);
   const objects = result.localizedObjectAnnotations;
-  objects.forEach(object => {
+  objects.forEach((object) => {
     console.log(`Name: ${object.name}`);
     console.log(`Confidence: ${object.score}`);
     const veritices = object.boundingPoly.normalizedVertices;
-    veritices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
+    veritices.forEach((v) => console.log(`x: ${v.x}, y:${v.y}`));
   });
   // [END vision_localize_objects_gcs]
-  const objectNames = objects.map(object => object.name);
+  const objectNames = objects.map((object) => object.name);
   return objectNames;
 }
 
 // Defining methods for the booksController
 module.exports = {
-
   create: function (req, res) {
     console.log("In side the controller create: ", req.body);
     // res.end("In the create route in the controller.");
@@ -50,7 +54,6 @@ module.exports = {
         // res.redirect("/login");
         // Why does this redirect not work??
         res.json(newUser);
-
       })
       .catch(function (err) {
         res.status(401).json(err);
@@ -60,19 +63,15 @@ module.exports = {
   findFriend: function (req, res) {
     console.log("In the controller - finding Friend: ", req.body.searchTerm);
     db.User.findAll({
-
       where: {
-
         email: {
-          [Op.like]: "%" + req.body.searchTerm.toLowerCase() + "%"
-        }
-
-      }
+          [Op.like]: "%" + req.body.searchTerm.toLowerCase() + "%",
+        },
+      },
     })
       .then(function (foundUser) {
         //console.log("In the then method of the findFriend method in the controller: ", foundUser);
         res.json(foundUser);
-
       })
       .catch(function (err) {
         res.status(401).json(err);
@@ -84,23 +83,21 @@ module.exports = {
 
     db.Friend_Connection.create({
       UserId: req.body.User,
-      FriendId: req.body.Friend
-    }
-    ).then((response) => {
+      FriendId: req.body.Friend,
+    }).then((response) => {
       res.json(response);
     });
   },
 
   getFriends: function (req, res) {
-    console.log("Inside controller getFriends>>>>>", req.params.id);
+    // console.log("Inside controller getFriends>>>>>", req.params.id);
     if (req.params && req.params.id) {
-
       // Post.find({ where: { ...}, include: [User]})
 
       //db.User.findAll({where: { }})
 
-      // db.Friend_Connection.findAll({ 
-      //   // where: { user_id: req.params.id }, 
+      // db.Friend_Connection.findAll({
+      //   // where: { user_id: req.params.id },
       //   include: [{
       //     model: db.User,
       //     as: 'Friends'
@@ -108,38 +105,33 @@ module.exports = {
 
       db.Friend_Connection.findAll({
         raw: true,
-        where: { UserId: req.params.id }
+        where: { UserId: req.params.id },
       })
 
-        .then(response => {
-          console.log("In Controller, getting friends:", response);
+        .then((response) => {
+          //  console.log("In Controller, getting friends:", response);
           let friendListId = [];
           for (let elem of response) {
-            console.log(elem);
+            // console.log(elem);
             friendListId.push(elem.FriendId);
           }
 
           //friendListId = new Set([...friendListId]);
-          console.log(friendListId);
+          //  console.log(friendListId);
           db.User.findAll({
             raw: true,
             where: {
               id: {
-                [Op.in]: friendListId
-              }
-            }
-          })
-            .then((friendResponse) => {
-              console.log('Received response of friend detail from user table>>>>>>>>> ', friendResponse);
-              res.json(friendResponse);
-            })
-
-
-        }).catch(err => console.log(err))
-
-    }
-
-    else {
+                [Op.in]: friendListId,
+              },
+            },
+          }).then((friendResponse) => {
+            //  console.log('Received response of friend detail from user table>>>>>>>>> ', friendResponse);
+            res.json(friendResponse);
+          });
+        })
+        .catch((err) => console.log(err));
+    } else {
       res.end();
     }
   },
@@ -155,7 +147,6 @@ module.exports = {
 
     //  This code is not yet written.
 
-
     res.json(friendsSearches);
   },
 
@@ -163,30 +154,28 @@ module.exports = {
     // data like : {UserId:'',image_url:'',itemNames: []}
     db.Search.create({
       image_url: req.body.data.image_url,
-      UserId: req.body.data.UserId
-    })
-      .then(function (newSearch) {
-        // get searchId
-        let searchId = newSearch.get({ plain: true }).id;
-        let bulkCreateArr = [];
-        for (let i = 0; i < req.body.data.itemNames.length; i++) {
-          let itemObj = {
-            SearchId: searchId,
-            name: req.body.data.itemNames[i]
-          }
-          bulkCreateArr.push(itemObj)
-        }
-        db.Item.bulkCreate(bulkCreateArr, {
-          returning: true
-        })
-          .then(function (afterSave) {
-            res.json(afterSave);
-          })
-          .catch(err => {
-            res.status(404).json({ err: err });
-          })
+      UserId: req.body.data.UserId,
+    }).then(function (newSearch) {
+      // get searchId
+      let searchId = newSearch.get({ plain: true }).id;
+      let bulkCreateArr = [];
+      for (let i = 0; i < req.body.data.itemNames.length; i++) {
+        let itemObj = {
+          SearchId: searchId,
+          name: req.body.data.itemNames[i],
+        };
+        bulkCreateArr.push(itemObj);
+      }
+      db.Item.bulkCreate(bulkCreateArr, {
+        returning: true,
       })
-
+        .then(function (afterSave) {
+          res.json(afterSave);
+        })
+        .catch((err) => {
+          res.status(404).json({ err: err });
+        });
+    });
   },
 
   getSearchHistory: function (req, res) {
@@ -194,41 +183,41 @@ module.exports = {
     db.Search.findAll({
       raw: true,
       where: {
-        UserId: userId
-      }
-    }).then((searchRes) => {
-      let responseJSON = [];
-      let searchIdArr = searchRes.map((search) => search.id);
-      db.Item.findAll({
-        raw: true,
-        where: {
-          SearchId: {
-            [Op.in]: searchIdArr
-          }
-        }
-      }).then((itemRes) => {
-        
-        for (let i of searchRes) {
-          let searchObj = {
-            image_url: '',
-            items: []
-          };
-          searchObj.image_url = i.image_url;
-          let filterItems = itemRes.filter((item)=>{
-            return item.SearchId === i.id;
-          });
-          searchObj.items = filterItems.map(item => item.name)
-          responseJSON.push(searchObj);
-        }
-        //console.log("response after getting all search data", responseJSON);
-        res.json(responseJSON);
-
-      }).catch(err => res.status(404).json({ err: err }));
-
-    }).catch(err => {
-      res.status(404).json({ err: "No search history!" });
+        UserId: userId,
+      },
     })
-
+      .then((searchRes) => {
+        let responseJSON = [];
+        let searchIdArr = searchRes.map((search) => search.id);
+        db.Item.findAll({
+          raw: true,
+          where: {
+            SearchId: {
+              [Op.in]: searchIdArr,
+            },
+          },
+        })
+          .then((itemRes) => {
+            for (let i of searchRes) {
+              let searchObj = {
+                image_url: "",
+                items: [],
+              };
+              searchObj.image_url = i.image_url;
+              let filterItems = itemRes.filter((item) => {
+                return item.SearchId === i.id;
+              });
+              searchObj.items = filterItems.map((item) => item.name);
+              responseJSON.push(searchObj);
+            }
+            //console.log("response after getting all search data", responseJSON);
+            res.json(responseJSON);
+          })
+          .catch((err) => res.status(404).json({ err: err }));
+      })
+      .catch((err) => {
+        res.status(404).json({ err: "No search history!" });
+      });
   },
 
   getHello: function (req, res) {
@@ -256,46 +245,33 @@ module.exports = {
   extractFromUrl: async function (req, res) {
     console.log("Extract from Url in the controller: ", req.body);
 
-
     // tobe removed : faking data
-    if (req.body.imageUrl == 'bedroom') {
+    if (req.body.imageUrl == "bedroom") {
       console.log(">>>>> here inside bedroom");
       let bedroom = {
-        "image_url": "https://cloud.google.com/vision/docs/images/bicycle_example.png",
-        "items": [
-          "Bed",
-          "Lamp",
-          "Desk",
-          "Picture frame"
-        ]
+        image_url:
+          "https://cloud.google.com/vision/docs/images/bicycle_example.png",
+        items: ["Bed", "Lamp", "Desk", "Picture frame"],
       };
       res.json(bedroom);
-    }
-    else if (req.body.imageUrl == 'workspace') {
+    } else if (req.body.imageUrl == "workspace") {
       let workspace = {
-        "image_url": "https://cloud.google.com/vision/docs/images/bicycle_example.png",
-        "items": [
-          "Table",
-          "Lamp",
-          "Desk",
-          "Laptop"
-        ]
+        image_url:
+          "https://cloud.google.com/vision/docs/images/bicycle_example.png",
+        items: ["Table", "Lamp", "Desk", "Laptop"],
       };
       res.json(workspace);
-    }
-    else {
-
-
+    } else {
       extractObjectFromImageURL(req.body)
         .then((gvResponse) => {
           console.log(">>>>>>>Here inside then promise resolve", gvResponse);
           let responseObj = {
             image_url: req.body.imageUrl,
-            items: gvResponse
-          }
+            items: gvResponse,
+          };
           res.json(responseObj);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           res.status(404).json({ err: "Image not found!" });
         });
@@ -305,12 +281,73 @@ module.exports = {
       // Send the req.body (which is a url ) to the Google API
       // and in the .then statement, we'll send status code 200
       // and send the url back to the client side, along with the results object
-
     }
+  },
+  getProducts: function (req, res) {
+    let item = req.params.item.toLowerCase().pluralize.singular();
+
+    // take the spaces out and convert to a singluar version
+    item = pluralize.singular(item.replace(/\s/g, ''));
+
+    console.log("In Controller getProducts: item:", item);
+
+    if (staticProducts.includes(item)) {
+      console.log("About to load the static json file: ", item+".json");
+
+      const staticFolder = path.resolve(__dirname, "../rainforest_sample_data");
+
+      console.log("staticFolder: ", staticFolder);
+      console.log("file: ", path.resolve(staticFolder, "static_" + item + ".json"));
+
+      fs.readFile(path.resolve(staticFolder, "static_" + item + ".json"), "utf-8",
+      (err, data) => { 
+
+        if (err) { 
+          console.log(err); 
+          res.status(404).json({err: err});
+      
+      } else{
+          console.log(data); 
+          res.end(data);
+        }
+        
+     }) 
+
+      // fs.readFile(path.resolve(staticFolder, "static_" + item + ".json"))
+      //   .then((results) => {
+      //     res.json(results);
+      //   })
+      //   .catch((err) => console.log(err));
+    } else {
 
 
+      console.log(
+        "Here we will actually call the rainforest API, to get " +
+          item +
+          " products"
+      );
 
-  }
+      let params = {
+        api_key: process.env.RAINFOREST_API_KEY,
+        type: "search",
+        amazon_domain: "amazon.com",
+        search_term: item,
+        sort_by: "price_high_to_low"
+      }
+      
+      // make the http GET request to Rainforest API
+      axios.get('https://api.rainforestapi.com/request', { params })
+        .then(response => {
+
+
+      //  axios.get("/api/getRainForest/" + item)
+      //  .then( (response) => {
+
+       console.log("back from Rainforest...", response.data.search_results);
+       res.json(response.data.search_results);
+      }).catch(err =>console.log(err));
+    }
+  },
 
   // extractObjectFromImage: async (req, res) => {
   //   try {

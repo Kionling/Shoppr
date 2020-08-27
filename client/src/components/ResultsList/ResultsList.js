@@ -1,23 +1,41 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import { Link } from "react-router-dom";
 import API from '../../utils/API';
 import './ResultsList.css';
 import { useShopprContext } from "../../utils/GlobalState";
-import results from "../../sample_rainforest_table_search.json";
+//import results from "../../sample_rainforest_table_search.json";
 import axios from "axios";
 
 
-function ResultsList(){
+
+function ResultsList( props ){
+
+
 
     const [state, dispatch] = useShopprContext();
-    let itemList = [];
+    const [itemList, setItemList] = useState();
+ 
 
-   axios.get("/api/getRainForest/lamp").then( (response) => {
-       console.log("back from the axios get request...", response);
-       itemList = response.search_results;
-    });
+    useEffect( () => {
+        console.log("current search item: "+ props.itemToSearch);
+       // console.log("In ResultsList Component: item is: ", props.itemToSearch);
+
+        API.getProducts( props.itemToSearch ).then((results) => {
+            setItemList( results.data); 
+
+        }).catch( err=>console.log(err));
+    },[props.itemToSearch]);
+
+
+//    axios.get("/api/getRainForest/lamp").then( (response) => {
+//        console.log("back from the axios get request...", response);
+//        itemList = response.search_results;
+//     });
 
    // itemList = results.search_results;
+
+   //itemList = API.getProducts();
+
 
     function buyItem(itemDetail){
         console.log(itemDetail);
@@ -27,7 +45,7 @@ function ResultsList(){
     return (
         <div className="resultsList">
         <h1>Results List:</h1>
-            { itemList.map( (result,index) => {
+            { itemList ?   itemList.map( (result,index) => {
                 return ( <div className="productCard" key={index}>
                 <div><a href={ result.link } target="_blank"><img src= {result.image} style={{width:"200px"}} /></a>
                 </div>
@@ -41,7 +59,7 @@ function ResultsList(){
 
                
                 </div>)
-            }) 
+            }) : <div></div>
             })
 
         </div> 
