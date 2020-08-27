@@ -78,7 +78,7 @@ function Nav() {
   }
 
   function PlaceHolder() {
-    console.log("Connecting...")
+    console.log("Connecting...");
   }
 
   return (
@@ -89,14 +89,7 @@ function Nav() {
             <img className="logo left " src={ShopprLogo} alt="Shoppr logo" />
           </Link>
 
-          <ul id="nav-mobile" className="right right hide-on-med-and-down">
-            <li>
-              <Link to="/friends">
-                <button className="btn  #00b0ff light-blue accent-3">
-                  Connect with Friends
-                </button>
-              </Link>
-            </li>
+          <ul id="nav-mobile" className="right  hide-on-med-and-down">
             <li>
               <Link to="/search" className="black-text">
                 Search
@@ -112,6 +105,21 @@ function Nav() {
             <li>
               {state.User ? (
                 <div className="black-text " id="userInfo">
+                  <li>
+                    <Link to="/friends">
+                      <button className="btn  #00b0ff light-blue accent-3">
+                        Connect with Friends
+                      </button>
+                    </Link>
+                  </li>
+                  {/* <Dropdown options={options} className="btn"/>  */}
+
+                  <button
+                    onClick={logout}
+                    className="btn #00b0ff light-blue accent-3 "
+                  >
+                    Log Out
+                  </button>
                   <img
                     id="avatar"
                     src={
@@ -121,14 +129,6 @@ function Nav() {
                     }
                     className=" circle "
                   />
-
-                  {/* <Dropdown options={options} className="btn"/>  */}
-                  <button
-                    onClick={logout}
-                    className="btn #00b0ff light-blue accent-3 "
-                  >
-                    Log Out
-                  </button>
                 </div>
               ) : (
                 <div className="black-text right">
@@ -142,71 +142,73 @@ function Nav() {
               )}
             </li>
           </ul>
-          <ul id="slide-out" className="sidenav center ">
-        <li>
-          {state.User ? (
-            <div className="black-text " id="userInfo">
-              <img
-                id="avatarSideNav"
-                src={
-                  state.User.avatar && state.User.avatar !== ""
-                    ? state.User.avatar
-                    : user_avatar
-                }
-                className=" circle "
-              />
 
-              {/* <Dropdown options={options} className="btn"/>  */}
-              <li>
-                <Link to="/search" className="black-text">
-                  Search
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="black-text">
-                  About
-                </Link>
-              </li>
-              <li>
+          <ul id="slide-out" className="sidenav center ">
+            <li>
+              {state.User ? (
+                <div className="black-text " id="userInfo">
+                  <img
+                    id="avatarSideNav"
+                    src={
+                      state.User.avatar && state.User.avatar !== ""
+                        ? state.User.avatar
+                        : user_avatar
+                    }
+                    className=" circle "
+                  />
+
+                  {/* <Dropdown options={options} className="btn"/>  */}
+                  <li>
+                    <Link to="/search" className="black-text">
+                      Search
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/about" className="black-text">
+                      About
+                    </Link>
+                  </li>
+                  <li>
+                    <button
+                      onClick={logout}
+                      className="btn #00b0ff light-blue accent-3 "
+                    >
+                      Log Out
+                    </button>
+                  </li>
+                </div>
+              ) : (
+                <div className="black-text center ">
+                  {" "}
+                  <Link to="/login">
+                    <button className="btn #00b0ff light-blue accent-3">
+                      Log In
+                    </button>
+                  </Link>
+                </div>
+              )}
+            </li>
+            <li>
+              <Link to="/friends">
                 <button
-                  onClick={logout}
-                  className="btn #00b0ff light-blue accent-3 "
+                  onClick={PlaceHolder}
+                  className="btn  #00b0ff light-blue accent-3"
                 >
-                  Log Out
-                </button>
-              </li>
-            </div>
-          ) : (
-            <div className="black-text center ">
-              {" "}
-              <Link to="/login">
-                <button className="btn #00b0ff light-blue accent-3">
-                  Log In
+                  Connect with Friends
                 </button>
               </Link>
-            </div>
-          )}
-        </li>
-        <li>
-          <Link to="/friends">
-            <button onClick={PlaceHolder} className="btn  #00b0ff light-blue accent-3">
-              Connect with Friends
-            </button>
-          </Link>
-        </li>
-      </ul>
-      <a
-        href="#"
-        data-target="slide-out"
-        id="burger"
-        className="sidenav-trigger black-text show-on-medium-and-down right"
-      >
-        <i className="material-icons">menu</i>
-      </a>
+            </li>
+          </ul>
+          <a
+            href="#"
+            data-target="slide-out"
+            id="burger"
+            className="sidenav-trigger black-text show-on-medium-and-down right"
+          >
+            <i className="material-icons">menu</i>
+          </a>
         </div>
       </nav>
-
-      
     </div>
   );
 }

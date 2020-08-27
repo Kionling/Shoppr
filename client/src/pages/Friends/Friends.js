@@ -65,7 +65,7 @@ function Friends() {
   }
   return (
     <div>
-      {/* <CurrentFriends /> */}
+     
 
      
         <div className="friendsConnect ">
@@ -75,7 +75,7 @@ function Friends() {
                 <h1 id="connectWith">Connect with Friends:</h1>
               </div>
                 <form className="col s12 l6">
-                  <label>Enter your friend's email address:</label>
+                  <label className="white-text">Enter your friend's email address:</label>
                   <input
                     type="text"
                     ref={friendsEmail}
@@ -90,6 +90,10 @@ function Friends() {
         </div>
 
         <div className="container center">
+          <div className="">
+            <h1 className="textWeight">Friends Added</h1>
+           <CurrentFriends />
+           </div>
           <h1 className="yourFriends">Your Friends on Shoppr<span className="yourFriendsShoppr">.</span></h1>
           <div>
             {friendAccounts.map((friend, index) => {
