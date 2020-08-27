@@ -12,7 +12,7 @@ function Result() {
 
     useEffect(() => {
         dispatch({ type: SET_STORE_PREF, isOnline: true })
-        dispatch({ type: SET_CURRENT_PATH, currentPath: "/welcome"})
+        dispatch({ type: SET_CURRENT_PATH, currentPath: "/result"})
     }, [])
 
     return (

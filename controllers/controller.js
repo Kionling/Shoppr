@@ -284,7 +284,7 @@ module.exports = {
     }
   },
   getProducts: function (req, res) {
-    let item = req.params.item.toLowerCase().pluralize.singular();
+    let item = req.params.item.toLowerCase();
 
     // take the spaces out and convert to a singluar version
     item = pluralize.singular(item.replace(/\s/g, ''));
