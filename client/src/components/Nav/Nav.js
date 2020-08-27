@@ -198,7 +198,8 @@ function Nav() {
       <a
         href="#"
         data-target="slide-out"
-        className="sidenav-trigger black-text hide-on-med-and-up right"
+        id="burger"
+        className="sidenav-trigger black-text show-on-medium-and-down right"
       >
         <i className="material-icons">menu</i>
       </a>
