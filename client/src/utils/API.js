@@ -53,5 +53,8 @@ export default {
     },
     getProducts: function( item ) {
         return axios.get("/api/getproducts/" + item);
+    },
+    saveProducts: function(payload) {
+        return axios.post("/api/saveProducts",{data:payload});
     }
 };

@@ -32,12 +32,18 @@ module.exports = function (sequelize, DataTypes) {
 
   User.associate = function (models) {
 
-      User.belongsToMany(models.User, { through: 'Friend_Connection', as: 'Users', foreignKey: 'UserId', otherKey: 'id'});
-      User.belongsToMany(models.User, { through:'Friend_Connection', as: 'Friends', foreignKey: 'FriendId', otherKey: 'id'});
-  
-      User.hasMany(models.Search, {
-        onDelete: "cascade"
+    User.belongsToMany(models.User, { through: 'Friend_Connection', as: 'Users', foreignKey: 'UserId', otherKey: 'id' });
+    User.belongsToMany(models.User, { through: 'Friend_Connection', as: 'Friends', foreignKey: 'FriendId', otherKey: 'id' });
+
+    User.hasMany(models.Search, {
+      onDelete: "cascade"
     })
+
+
+    User.hasMany(models.Product, {
+      onDelete: "cascade"
+    });
+
   };
 
 

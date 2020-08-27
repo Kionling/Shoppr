@@ -49,5 +49,8 @@ router.route("/saveSearch")
 router.route("/getproducts/:item")
     .get(shopprController.getProducts);
 
+router.route("/saveProducts")
+    .post(shopprController.saveProducts)
+
 module.exports = router;
 
