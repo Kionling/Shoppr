@@ -132,7 +132,7 @@ const reducer = (state, action) => {
     }
   case SEARCH_SAVED:
     return {
-      ...state,searchSaved: action.searchSaved
+      ...state,searchSaved: action.searchSaved, loading: false
     }
 
   default:

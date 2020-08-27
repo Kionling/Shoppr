@@ -85,7 +85,7 @@ function VisionItems() {
                 </form>
 
                 <div>
-                    <button className="btn" onClick={saveSearchAction}>Save my search</button>
+                    <button className="btn" disabled={state.searchSaved} onClick={saveSearchAction}>Save my search</button>
                 </div>
             </div>
         </div>

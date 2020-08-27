@@ -344,6 +344,18 @@ module.exports = {
     }
   },
 
+  saveProducts: function(req,res){
+    let dataFromClient = req.body.data;
+    db.Product.create(dataFromClient)
+    .then((productRes)=>{
+      console.log("Saved data in products table: ",productRes)
+      res.json(productRes);
+    })
+    .catch(err =>{
+      res.status(404).json({err:err});
+    })
+  }
+
   // extractObjectFromImage: async (req, res) => {
   //   try {
   //     console.log("In the Extract Object From Image method of the Controller.");

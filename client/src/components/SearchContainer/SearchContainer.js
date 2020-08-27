@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
-import { ADD_SEARCH_DETAIL,LOADING,STOP_LOADING, GET_PREVIOUS_SEARCHES } from "../../utils/actions";
+import { ADD_SEARCH_DETAIL,LOADING,STOP_LOADING, GET_PREVIOUS_SEARCHES, SEARCH_SAVED } from "../../utils/actions";
 import { useShopprContext } from "../../utils/GlobalState";
 import SearchContainerS from "../SearchContainer/searchContainer.css";
 import loader from '../../assets/loader.gif';
@@ -43,6 +43,7 @@ function SearchContainer() {
 
   function showResult(searchObj){
     dispatch({ type: ADD_SEARCH_DETAIL, newSearch: searchObj });
+    dispatch({type: SEARCH_SAVED, searchSaved: true });
     history.push("/result");
   }
 
