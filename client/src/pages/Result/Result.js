@@ -17,11 +17,10 @@ function Result() {
 
     return (
         <div>
-            <h1>I am in Result Component</h1>
             
             <div className="row">
-                <div className="col s4"><VisionItems></VisionItems></div>
-                <div className="col s8">
+                <div className="col s4 l4"><VisionItems></VisionItems></div>
+                <div className="col s8 l7">
                     {state.isOnline ? <ResultsList itemToSearch={state.CurrentSearch.items[state.current_search_item]}></ResultsList> : <MapContainer itemToSearch={state.CurrentSearch.items[state.current_search_item]} ></MapContainer>}
                 </div>
             </div>

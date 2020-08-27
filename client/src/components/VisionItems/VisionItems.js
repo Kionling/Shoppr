@@ -61,40 +61,71 @@ function VisionItems() {
         dispatch({ type: SET_SEARCH_ITEM, current_search_item: searchIndex });
     }
 
-    return (
+  function handleToogleStorePref() {
+    dispatch({ type: SET_STORE_PREF, isOnline: !state.isOnline });
+  }
+  function handleOnClick(searchIndex) {
+    console.log("VisionItems Component: searchIndex=", searchIndex);
+    console.log("State CurrentSearch:", state.CurrentSearch.items);
+    dispatch({ type: SET_SEARCH_ITEM, current_search_item: searchIndex });
+  }
 
-        <div className="visionItems">
-            <h1>Vision Items:</h1>
-            {/* <button onClick={() => handleOnClick("table")}>Table</button>
+  return (
+    <div className="visionItems container left ">
+      <h1 className="Bold">Vision Items:</h1>
+      {/* <button onClick={() => handleOnClick("table")}>Table</button>
             <button onClick={() => handleOnClick("desk")}>Desk</button> */}
-            {visionItems ? state.CurrentSearch.items.map((item, index) => {
-                return (
-                    <div>
-                        <button className="itemButton" data-id={index} onClick={() => handleOnClick(index)}> {item}</button>
-
-                    </div>
-                )
-            }) : <div className="visionItems">No items from the google vision api found...</div>}
-
-            <div>
-                <br></br>
-                <form>
-                    <div className="switch">
-                        <label>
-                            In-Store purchase
-                        <input type="checkbox" checked={state.isOnline} onChange={handleToogleStorePref} />
-                            <span className="lever"></span>
-                        Online purchase
-                        </label>
-                    </div>
-                </form>
-
-                <div>
-                    <button className="btn" disabled={state.searchSaved} onClick={saveSearchAction}>Save my search</button>
-                </div>
+      {visionItems ? (
+        state.CurrentSearch.items.map((item, index) => {
+          return (
+            <div className="row center">
+              <div className="col s12">
+                <button
+                  id="itemButtons"
+                  className="itemButton btn  #00b0ff light-blue accent-3"
+                  data-id={index}
+                  onClick={() => handleOnClick(index)}
+                >
+                  {" "}
+                  {item}
+                </button>
+              </div>
             </div>
+          );
+        })
+      ) : (
+        <div className="visionItems center row">
+          No items from the google vision api found...
         </div>
-    );
+      )}
+      <div className="center">
+        <button
+          className="btn  #00b0ff light-blue accent-3"
+          onClick={saveSearchAction}
+        >
+          Save my search
+        </button>
+      </div>
+      <div>
+        <br></br>
+        <form>
+          <div className="switch center row">
+            <label>
+              In-Store purchase
+              <input
+                type="checkbox"
+                className=""
+                checked={state.isOnline}
+                onChange={handleToogleStorePref}
+              />
+              <span className="lever  #00b0ff light-blue accent-3"></span>
+              Online purchase
+            </label>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default VisionItems;

@@ -66,12 +66,12 @@ function SearchContainer() {
         }
       </div>
       </div>
-      <div className="row">
+      <div className="row valign-wrapper  ">
         <div className="col s12 l6">
           {state.loading ? <img src={loader}></img> :
             <form onSubmit={handleFormSubmit}>
               <label>Image Url:</label>
-              <input ref={imageUrl} />
+              <input className="white-text" ref={imageUrl} />
               <button type="submit" className="btn #00b0ff light-blue accent-3">
                 Submit
               </button>
@@ -79,9 +79,10 @@ function SearchContainer() {
           }
         </div>
         <div className="col s12 l6">
-          <h1 className="description">Search for an image by url<span id="period">.</span></h1>
+          <h1 className="description white-text">Search for an image by url<span id="period">.</span></h1>
         </div>
       </div>
+      
     </div>
   );
 }
