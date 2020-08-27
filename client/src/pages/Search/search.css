@@ -1,0 +1,11 @@
+#SearchBanner {
+    background-image: url(../Search/images/digitalArt.jpg );
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 550px;
+}
+
+#searchBy {
+    font-weight: 900;
+}

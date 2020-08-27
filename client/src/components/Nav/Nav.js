@@ -8,7 +8,7 @@ import { LOGOUT, LOGIN_USER, SET_FRIENDS } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
 import Style from "../Nav/nav.css";
 import M from "materialize-css";
-import Dropdown from 'react-dropdown';
+import Dropdown from "react-dropdown";
 
 // import Animate from "../Nav/animate";
 
@@ -35,8 +35,6 @@ const Styles = {
   },
 };
 
-
-
 function Nav() {
   const [state, dispatch] = useShopprContext();
   const [localLoggedInUser, setLocalLoggedInUser] = useState();
@@ -44,8 +42,12 @@ function Nav() {
   useEffect(() => {}, [localLoggedInUser]);
 
   useEffect(() => {
-    let loggedInUser = JSON.parse(
-      localStorage.getItem("loggedInUser"));
+    var sidenav = document.querySelectorAll(".sidenav");
+    M.Sidenav.init(sidenav, {});
+  }, []);
+
+  useEffect(() => {
+    let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
     if (loggedInUser) {
       dispatch({ type: LOGIN_USER, user: loggedInUser });
@@ -74,18 +76,18 @@ function Nav() {
       console.log(response);
     });
   }
-  const options = [
-    `<h1>Yes</h1>`  , 'two', 'three'
-  ];
+
+  function PlaceHolder() {
+    console.log("Connecting...")
+  }
 
   return (
     <div className="" style={Styles.row}>
       <nav className="z-depth-1">
         <div className="nav-wrapper white">
           <Link to="/">
-            <img className="logo left" src={ShopprLogo} alt="Shoppr logo" />
+            <img className="logo left " src={ShopprLogo} alt="Shoppr logo" />
           </Link>
-     
 
           <ul id="nav-mobile" className="right right hide-on-med-and-down">
             <li>
@@ -119,8 +121,8 @@ function Nav() {
                     }
                     className=" circle "
                   />
-                  
-                  <Dropdown options={options} className="btn"/>
+
+                  {/* <Dropdown options={options} className="btn"/>  */}
                   <button
                     onClick={logout}
                     className="btn #00b0ff light-blue accent-3 "
@@ -140,8 +142,70 @@ function Nav() {
               )}
             </li>
           </ul>
+          <ul id="slide-out" className="sidenav center ">
+        <li>
+          {state.User ? (
+            <div className="black-text " id="userInfo">
+              <img
+                id="avatarSideNav"
+                src={
+                  state.User.avatar && state.User.avatar !== ""
+                    ? state.User.avatar
+                    : user_avatar
+                }
+                className=" circle "
+              />
+
+              {/* <Dropdown options={options} className="btn"/>  */}
+              <li>
+                <Link to="/search" className="black-text">
+                  Search
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="black-text">
+                  About
+                </Link>
+              </li>
+              <li>
+                <button
+                  onClick={logout}
+                  className="btn #00b0ff light-blue accent-3 "
+                >
+                  Log Out
+                </button>
+              </li>
+            </div>
+          ) : (
+            <div className="black-text center ">
+              {" "}
+              <Link to="/login">
+                <button className="btn #00b0ff light-blue accent-3">
+                  Log In
+                </button>
+              </Link>
+            </div>
+          )}
+        </li>
+        <li>
+          <Link to="/friends">
+            <button onClick={PlaceHolder} className="btn  #00b0ff light-blue accent-3">
+              Connect with Friends
+            </button>
+          </Link>
+        </li>
+      </ul>
+      <a
+        href="#"
+        data-target="slide-out"
+        className="sidenav-trigger black-text hide-on-med-and-up right"
+      >
+        <i className="material-icons">menu</i>
+      </a>
         </div>
       </nav>
+
+      
     </div>
   );
 }
