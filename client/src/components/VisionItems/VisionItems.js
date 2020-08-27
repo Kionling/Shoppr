@@ -75,7 +75,6 @@ function VisionItems() {
       <h1 className="Bold">Vision Items:</h1>
       {/* <button onClick={() => handleOnClick("table")}>Table</button>
             <button onClick={() => handleOnClick("desk")}>Desk</button> */}
-<<<<<<< HEAD
       {visionItems ? (
         state.CurrentSearch.items.map((item, index) => {
           return (
@@ -91,33 +90,6 @@ function VisionItems() {
                   {item}
                 </button>
               </div>
-=======
-            {visionItems ? state.CurrentSearch.items.map((item, index) => {
-                return (
-                    <div>
-                        <button className="itemButton" data-id={index} onClick={() => handleOnClick(index)}> {item}</button>
-
-                    </div>
-                )
-            }) : <div className="visionItems">No items from the google vision api found...</div>}
-
-            <div>
-                <br></br>
-                <form>
-                    <div className="switch">
-                        <label>
-                            In-Store purchase
-                        <input type="checkbox" checked={state.isOnline} onChange={handleToogleStorePref} />
-                            <span className="lever"></span>
-                        Online purchase
-                        </label>
-                    </div>
-                </form>
-
-                <div>
-                    <button className="btn" disabled={state.searchSaved} onClick={saveSearchAction}>Save my search</button>
-                </div>
->>>>>>> 7629a4e644a70320562fafda5e5847c87ce7bb1d
             </div>
           );
         })
