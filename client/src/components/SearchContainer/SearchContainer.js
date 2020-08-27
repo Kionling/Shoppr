@@ -41,6 +41,11 @@ function SearchContainer() {
     })
   }
 
+  function showResult(searchObj){
+    dispatch({ type: ADD_SEARCH_DETAIL, newSearch: searchObj });
+    history.push("/result");
+  }
+
   return (
     <div className="container center">
       <div className="row">
@@ -49,7 +54,7 @@ function SearchContainer() {
           state.PreviousSearches?
           state.PreviousSearches.map((search,index)=>{
             return (
-            <div key={index}>
+            <div key={index} onClick={()=>showResult(search)}>
                <div>
                 <img src={search.image_url} style={{width:200}}></img>
                </div>
