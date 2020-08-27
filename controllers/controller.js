@@ -284,7 +284,7 @@ module.exports = {
     }
   },
   getProducts: function (req, res) {
-    let item = req.params.item.toLowerCase().pluralize.singular();
+    let item = req.params.item.toLowerCase();
 
     // take the spaces out and convert to a singluar version
     item = pluralize.singular(item.replace(/\s/g, ''));
@@ -348,6 +348,18 @@ module.exports = {
       }).catch(err =>console.log(err));
     }
   },
+
+  saveProducts: function(req,res){
+    let dataFromClient = req.body.data;
+    db.Product.create(dataFromClient)
+    .then((productRes)=>{
+      console.log("Saved data in products table: ",productRes)
+      res.json(productRes);
+    })
+    .catch(err =>{
+      res.status(404).json({err:err});
+    })
+  }
 
   // extractObjectFromImage: async (req, res) => {
   //   try {
