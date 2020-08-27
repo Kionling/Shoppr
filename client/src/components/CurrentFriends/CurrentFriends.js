@@ -17,10 +17,11 @@ useEffect( ()=> {
           { (state.Friends && state.Friends.length > 0) ? state.Friends.map( (friend,index) => {
               return (
                   <div key={index}>
-                   { friend.username }
+                  
+                   <h5 id="friends" >{ friend.username }</h5>
                   </div>
               )
-          }) : <div>No Friends Found in the database yet. </div>}
+          }) : <div><h1>You have not added any friends yet.     </h1> </div>}
         </div>
     )
 

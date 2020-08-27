@@ -1,85 +1,139 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
-import { ADD_SEARCH_DETAIL,LOADING,STOP_LOADING, GET_PREVIOUS_SEARCHES, SEARCH_SAVED } from "../../utils/actions";
+import {
+  ADD_SEARCH_DETAIL,
+  LOADING,
+  STOP_LOADING,
+  GET_PREVIOUS_SEARCHES,
+  SEARCH_SAVED,
+} from "../../utils/actions";
 import { useShopprContext } from "../../utils/GlobalState";
 import SearchContainerS from "../SearchContainer/searchContainer.css";
-import loader from '../../assets/loader.gif';
-import {useHistory} from 'react-router-dom';
-
+import loader from "../../assets/loader.gif";
+import { useHistory } from "react-router-dom";
+import { useToasts } from 'react-toast-notifications'
 
 function SearchContainer() {
   const [state, dispatch] = useShopprContext();
   const imageUrl = useRef();
   const history = useHistory();
-  const [searchHistory,setSearchHistory] = useState();
+  const [searchHistory, setSearchHistory] = useState();
+    const { addToast } = useToasts()
 
   useEffect(() => {
-    if(state.User && state.User.id){
+    if (state.User && state.User.id) {
       API.getSearchHistory(state.User.id)
-      .then((response)=>{
-        console.log(response.data);
-        dispatch({type:GET_PREVIOUS_SEARCHES, previousSearches:response.data});
-      }).catch(err =>{
-        console.log(err);
-      })
+        .then((response) => {
+          console.log(response.data);
+          dispatch({
+            type: GET_PREVIOUS_SEARCHES,
+            previousSearches: response.data,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, []);
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    console.log("Image url passed: ", imageUrl.current.value);
-    dispatch({type:LOADING})
-    API.extractUrl(imageUrl.current.value).then((res) => {
-      console.log("here is the image uploaded res", res);
-      dispatch({ type: ADD_SEARCH_DETAIL, newSearch: res.data });
-      imageUrl.current.value = '';
-      history.push("/result");
-    }).catch(err =>{
-      console.log(err);
-      dispatch({type:STOP_LOADING});
-    })
+
+    if (imageUrl.current.value && imageUrl.current.value != "") {
+      console.log("Image url passed: ", imageUrl.current.value);
+
+
+
+      let presets= ["bedroom", "workspace"];
+      let validImage = false;
+
+      if (presets.includes(imageUrl.current.value)) {
+        validImage = true;
+      }
+      else {
+        let regex=/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png)/
+
+        if (imageUrl.current.value.match(regex)) {
+          validImage = true;
+        }
+      }
+
+      if (validImage) {
+          dispatch({ type: LOADING });
+
+          API.extractUrl(imageUrl.current.value)
+            .then((res) => {
+              console.log("here is the image uploaded res", res);
+              dispatch({ type: ADD_SEARCH_DETAIL, newSearch: res.data });
+              imageUrl.current.value = "";
+
+              if (res.data && res.data.items && res.data.items.length > 0) {
+                history.push("/result");
+              } else {
+                addToast(`No results found, please try uploading a clearer image`, {
+                  appearance: 'warning',
+                  autoDismiss: true,
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              dispatch({ type: STOP_LOADING });
+            });
+      } else {
+
+        addToast(`Please enter a url that ends in .jpg or .png`, {
+          appearance: 'info',
+          autoDismiss: false,
+        });
+
+      }
+    }
   }
 
-  function showResult(searchObj){
+  function showResult(searchObj) {
     dispatch({ type: ADD_SEARCH_DETAIL, newSearch: searchObj });
-    dispatch({type: SEARCH_SAVED, searchSaved: true });
+    dispatch({ type: SEARCH_SAVED, searchSaved: true });
     history.push("/result");
   }
 
   return (
     <div className="container center">
       <div className="row">
-      <div className="col s12 l6">
-        {
-          state.PreviousSearches?
-          state.PreviousSearches.map((search,index)=>{
-            return (
-            <div key={index} onClick={()=>showResult(search)}>
-               <div>
-                <img src={search.image_url} style={{width:200}}></img>
-               </div>
-                <div>{search.items}</div>
-            </div>
-            )
-          }) : ''
-        }
-      </div>
-      </div>
-      <div className="row">
         <div className="col s12 l6">
-          {state.loading ? <img src={loader}></img> :
+          {state.PreviousSearches
+            ? state.PreviousSearches.map((search, index) => {
+                return (
+                  <div key={index} onClick={() => showResult(search)}>
+                    <div>
+                      <img src={search.image_url} style={{ width: 200 }}></img>
+                    </div>
+                    <div>{search.items}</div>
+                  </div>
+                );
+              })
+            : ""}
+        </div>
+      </div>
+      <div className="row valign-wrapper  ">
+        <div className="col s12 l6">
+          {state.loading ? (
+            <img src={loader}></img>
+          ) : (
             <form onSubmit={handleFormSubmit}>
               <label>Image Url:</label>
-              <input ref={imageUrl} />
+              <input className="white-text" ref={imageUrl} />
               <button type="submit" className="btn #00b0ff light-blue accent-3">
                 Submit
               </button>
             </form>
-          }
+          )}
         </div>
         <div className="col s12 l6">
-          <h1 className="description">Search for an image by url<span id="period">.</span></h1>
+          <h1 className="description white-text">
+            Search for an image by url<span id="period">.</span>
+          </h1>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ var Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const pluralize = require("pluralize");
 
-const staticProducts = ["bed", "bicycle", "bicyclewheel", "chair", "couch", "desk", "lamp", "loveseat", "pictureframe", "table" ];
+const staticProducts = ["bed", "bicycle", "bicyclewheel", "chair", "couch", "desk", "lamp", "laptop", "lighting", "loveseat", "pictureframe", "table" ];
 
 async function extractObjectFromImageURL(url) {
   // [START vision_localize_objects_gcs]
@@ -139,64 +139,29 @@ module.exports = {
   getFriendsSearches: function (req, res) {
     let friendsSearches = [];
 
-    let User = req.body.user;
+    let friendsIds = req.body.friendsIds;
     let Item = req.body.item;
 
     // based on the user and the item, first get a list of their friends,
     // and then search through their friends searches to look for matching items
-
-    if (req.params && req.params.id) {
-
-
-      db.Friend_Connection.findAll({
-        raw: true,
-        where: { UserId: req.params.id },
-      })
-
-        .then((response) => {
- 
-          let friendListId = [];
-          for (let elem of response) {
-            // console.log(elem);
-            friendListId.push(elem.FriendId);
-          }
-
-          db.User.findAll({
-            raw: true,
-            where: {
-              id: {
-                [Op.in]: friendListId,
-              },
-            },
-          }).then((friendResponse) => {
-           
-
-            // Now that we have all of the users friends, we can 
-            // look for products that have this user id.
-
-            let friendIds = friendResponse.map( friend => {
-              return friend.userId;
-            });
-
-            console.log("In FriendsSearches in the controller: friendIds:", friendIds);
+     console.log("In FriendsSearches in the controller: friendIds:", friendsIds);
             db.Product.findAll({
 
               raw:true,
-              whre: {
-                id: {
-                  [Op.in]: friendIds,
+              where: {
+                UserId: {
+                  [Op.in]: friendsIds,
                 }
               }
               
             }).then((friendProducts) => {
+              
               res.json(friendProducts);
+
+
             })
-          });
-        })
         .catch((err) => console.log(err));
-    } else {
-      res.end();
-    }
+
 
   },
 
@@ -334,6 +299,9 @@ module.exports = {
     }
   },
   getProducts: function (req, res) {
+    if (!req.params.item) {
+      res.end({error:"undefined search query"});
+    }
     let item = req.params.item.toLowerCase();
 
     // take the spaces out and convert to a singluar version

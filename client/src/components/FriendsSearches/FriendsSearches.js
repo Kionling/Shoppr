@@ -8,15 +8,18 @@ function FriendsSearches(props) {
   const [state, dispatch] = useShopprContext();
 
 
+
   return (
     <div>
-      <h1>Matching Friend's Searches</h1>
-      {props.friendsSearches ? (
+      <h1>Your Friends bought these similar items:</h1>
+      { props.friendsSearches ? (
         props.friendsSearches.map((searchItem) => {
           return (
             <div>
-              <img src={searchItem.image} className="fSItemImage" />
-              <h1>Item: {searchItem.name} </h1>
+              <img className="friendAvatar" src={searchItem.friend.avatar}/>
+              <p>{searchItem.friend.username}</p>
+              <img src={searchItem.image_url} className="fSItemImage" />
+              <p className="friendPuchaseTitle">Item: {searchItem.title} </p>
             </div>
           );
         })

@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import SearchContainer from "../../components/SearchContainer/SearchContainer";
 import { useShopprContext } from "../../utils/GlobalState";
 import { SET_CURRENT_PATH } from "../../utils/actions";
-
-
+// import DigitalBanner from "../Search/images/digital1.jpg"
+import SearchStyle from "../Search/search.css"
 function Search(){
     const [state,dispatch] = useShopprContext();
 
@@ -16,7 +16,15 @@ function Search(){
     return (
         <div>
             
-            <SearchContainer/>
+           
+      <div id="SearchBanner" className="center">
+        <div className="row center">
+          <div className="col s12 l12" >
+          <SearchContainer/>
+  
+          </div>
+        </div>
+      </div>    
             <footer class="page-footer #37474f blue-grey darken-3">
         <div class="container">
           <div class="row">

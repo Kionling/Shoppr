@@ -1,7 +1,16 @@
 .friendsConnect {
-    margin-top:200px;
-}
+    background-image: url(../Friends/images/friends.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    
 
+}
+#connectWith {
+    color: white;
+    font-weight: 900;
+}
 .friendCard {
     display:inline-block;
     width:240px;
@@ -28,6 +37,33 @@
 }
 
 .friendCard:hover {
-border:4px solid rgb(92, 134, 249);
-box-shadow:0 0 8px rgb(92, 134, 249);
+border:4px #00b0ff;
+box-shadow:0 0 8px #00b0ff;
+}   
+
+
+#formCont{
+    margin-top: 100px;
 }
+
+.yourFriendsShoppr {
+    font-weight: 900;
+    animation: color-change 1s infinite;
+
+}
+
+.yourFriends{
+    font-weight: 900;
+}
+
+@keyframes color-change {
+    0% { color: #4285F4; }
+    25% { color:#DB4437; }
+    50% { color: #F4B400; }
+    75% { color: #0F9D58; }
+    100% { color: #4285F4; }
+  }
+
+  .textWeight {
+      font-weight: 600;
+  }
