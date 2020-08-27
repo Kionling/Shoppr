@@ -6,7 +6,7 @@ let params = {
   api_key: "8AEA97E594DD4BCBBD393DB606E24152",
   type: "search",
   amazon_domain: "amazon.com",
-  search_term: "desk",
+  search_term: "loveseat",
   sort_by: "price_high_to_low"
 }
 

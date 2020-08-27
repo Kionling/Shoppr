@@ -6,8 +6,9 @@ const axios = require("axios");
 const vision = require("@google-cloud/vision");
 var Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const pluralize = require("pluralize");
 
-const staticProducts = ["lamp", "table", "bed"];
+const staticProducts = ["bed", "bicycle", "bicyclewheel", "chair", "couch", "desk", "lamp", "loveseat", "pictureframe", "table" ];
 
 async function extractObjectFromImageURL(url) {
   // [START vision_localize_objects_gcs]
@@ -283,7 +284,11 @@ module.exports = {
     }
   },
   getProducts: function (req, res) {
-    let item = req.params.item.toLowerCase();
+    let item = req.params.item.toLowerCase().pluralize.singular();
+
+    // take the spaces out and convert to a singluar version
+    item = pluralize.singular(item.replace(/\s/g, ''));
+
     console.log("In Controller getProducts: item:", item);
 
     if (staticProducts.includes(item)) {
