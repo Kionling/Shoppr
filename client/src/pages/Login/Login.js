@@ -157,78 +157,13 @@ function Login() {
         <img id="logoBan" src={ShopprLogo} />
                 
         <div className="container center valign-wrapper">
-          <div className="row">
-            <div className="col s12 l12">
-              <img className="circle" id="bart" src={Bart} alt="Bart" />
-              <h5 className="white-text">Bart Dority</h5>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col s12 l12">
-              <img
-                className="circle"
-                id="Shambhawi"
-                src={Shambhawi}
-                alt="Shambhawi"
-              />
-              <h5 className="white-text">Shambhawi Kumari</h5>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col s12 l12 ">
-              <img className="circle" id="Danny" src={Danny} alt="Daniel" />
-              <h5 className="white-text">Daniel Jauregui</h5>
-            </div>
-          </div>
+         
         </div>
         <div>
             <h1 id="thankYou">The Shoppr team thanks you!</h1>
         </div>
       </div>
-      <footer className="page-footer #37474f blue-grey darken-3">
-        <div className="container">
-          <div className="row">
-            <div className="col l6 s12">
-              <h5 className="white-text">Shoppr</h5>
-              <p className="grey-text text-lighten-4">
-                The latest shopping search engine.
-              </p>
-            </div>
-            <div className="col l4 offset-l2 s12">
-              <h5 className="white-text">The Team</h5>
-              <ul>
-                <li>
-                  <a
-                    className="grey-text text-lighten-3"
-                    href="https://github.com/shambhawi13"
-                  >
-                    Shambhawi
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="grey-text text-lighten-3"
-                    href="https://github.com/b0rgbart3"
-                  >
-                    Bart
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="grey-text text-lighten-3"
-                    href="https://github.com/Kionling"
-                  >
-                    Daniel
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="footer-copyright">
-          <div className="container">© 2020 Shoppr</div>
-        </div>
-      </footer>
+      
     </div>
   );
 }
