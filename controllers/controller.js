@@ -256,16 +256,18 @@ module.exports = {
     // tobe removed : faking data
     if (req.body.imageUrl == "bedroom") {
       //console.log(">>>>> here inside bedroom");
+      // "https://cloud.google.com/vision/docs/images/bicycle_example.png",
       let bedroom = {
         image_url:
-          "https://cloud.google.com/vision/docs/images/bicycle_example.png",
+        "https://www.bocadolobo.com/en/inspiration-and-ideas/wp-content/uploads/2018/03/Discover-the-Ultimate-Master-Bedroom-Styles-and-Inspirations-6_1.jpg",
+         
         items: ["Bed", "Lamp", "Desk", "Picture frame"],
       };
       res.json(bedroom);
     } else if (req.body.imageUrl == "workspace") {
       let workspace = {
         image_url:
-          "https://cloud.google.com/vision/docs/images/bicycle_example.png",
+          "https://www.invaluable.com/blog/wp-content/uploads/2018/05/workspace-hero.jpg",
         items: ["Table", "Lamp", "Desk", "Laptop"],
       };
       res.json(workspace);
