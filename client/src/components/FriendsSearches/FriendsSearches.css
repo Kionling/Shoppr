@@ -1,13 +1,9 @@
 
 .fSItemImage {
-    width:200px;
 }
 
 .friendAvatar {
-    width:100px;
-    height:100px;
-    border-radius:50%;
-    border:2px solid rgb(83, 101, 147);
+    width:15%;
 }
 
 .friendPuchaseTitle {

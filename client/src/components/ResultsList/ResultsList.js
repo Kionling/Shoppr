@@ -113,39 +113,53 @@ function ResultsList(props) {
       {state.loading ? (
         <img src={loader} />
       ) : (
-        <div className="resultsList">
-          <h1>Results List:</h1>
-          {itemList ? (
-            itemList.map((result, index) => {
-              return (
-                <div className="productCard" key={index}>
-                  <div>
-                    <a href={result.link} target="_blank">
-                      <img src={result.image} style={{ width: "200px" }} />
-                    </a>
-                  </div>
-                  <div className="productTitle">
-                    <a target="blank" href={result.link}>
-                      {result.title}
-                    </a>
-                  </div>
-                  <div>
-                    {result.price ? result.price.raw : ""}
-                    <button
-                      className="btn"
-                      onClick={() => buyItem(result)}
-                      disabled={!state.User || !state.User.id}
-                    >
-                      Buy
-                    </button>
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            <div></div>
-          )}
-          )
+        <div className="resultsList  ">
+          <div className="col s12">
+            <div className="col s12">
+              <h1 className="Bold">Results List<span id="period">.</span></h1>
+              {itemList ? (
+                itemList.map((result, index) => {
+                  return (
+                    <div className="row">
+                      <div className="col s12">
+                        <div className="productCard col s12" key={index}>
+                          <div className="row">
+                            <div className="col s3">
+                              <a href={result.link} target="_blank">
+                                <img
+                                  id="imgSize"
+                                  className="circle"
+                                  src={result.image}
+                                  style={{ width: "200px" }}
+                                />
+                              </a>
+                            </div>
+                            <div className="productTitle">
+                              <a target="blank" className="black-text"href={result.link}>
+                                {result.title}
+                              </a>
+                            </div>
+                            <div>
+                              {result.price ? result.price.raw : ""}
+                              <button
+                                className="btn  #00b0ff light-blue accent-3"
+                                onClick={() => buyItem(result)}
+                                disabled={!state.User || !state.User.id}
+                              >
+                                Buy
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <div></div>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>
