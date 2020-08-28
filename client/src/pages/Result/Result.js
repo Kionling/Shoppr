@@ -23,7 +23,6 @@ function Result() {
     dispatch({ type: SET_CURRENT_PATH, currentPath: "/result" });
 
     let friendsIds = state.Friends.map((friend) => friend.id);
-
     if (state.User && state.User.id) {
       API.getFriendsSearches({
         friendsIds: friendsIds,
@@ -44,7 +43,7 @@ function Result() {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [state.CurrentSearch.items[state.current_search_item]]);
 
   return (
     <div>

@@ -40,9 +40,9 @@ export default {
         console.log("Sending a post request to add a friend: ", connection);
         return axios.post("/api/addfriend", connection);
     },
-    getFriendsSearches: function( { friendsIds, Item }) {
-        console.log( "{friendsIds:", friendsIds,", item:,",Item,"}");
-        return axios.post("/api/getfriendssearches", {friendsIds:friendsIds, item:Item});
+    getFriendsSearches: function( { friendsIds, item }) {
+        console.log( "{friendsIds:", friendsIds,", item:,",item,"}");
+        return axios.post("/api/getfriendssearches", {friendsIds:friendsIds, item:item});
     },
 
     getSearchHistory: function(userId){
