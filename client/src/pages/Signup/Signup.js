@@ -4,9 +4,11 @@ import { useShopprContext } from "../../utils/GlobalState";
 import Styles from "../Signup/signup.css";
 import API from "../../utils/API";
 import Atey from "../Signup/images/logoshort.png";
+import { useToasts } from 'react-toast-notifications'
+
 function Signup() {
   let history = useHistory();
-
+  const { addToast } = useToasts();
   const [state, dispatch] = useShopprContext();
 
   const userNameRef = useRef();
@@ -46,7 +48,11 @@ function Signup() {
           history.push("/login");
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
+          addToast('Enter a valid email', {
+            appearance: 'error',
+            autoDismiss: true,
+          })
         });
     } // end of If Statement
   }
