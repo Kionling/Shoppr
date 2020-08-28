@@ -10,6 +10,7 @@
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "google-maps-react": "^2.0.6",
+    "lodash": "^4.17.20",
     "materialize-css": "^1.0.0-rc.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
