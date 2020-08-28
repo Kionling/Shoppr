@@ -99,14 +99,8 @@ function Friends() {
       </div>
 
       <div className="container center">
-        <div className="">
-          <h1 className="yourFriends">
-            Your Friends On Shoppr<span className="yourFriendsShoppr">.</span>
-          </h1>
-
-          <CurrentFriends />
-        </div>
-        <h1 className="Bold">Add a friend</h1>
+        {friendAccounts.length>0?<h1 className="Bold" >Add a friend</h1>: <div></div>}
+        
 
         <div>
           {friendAccounts.map((friend, index) => {
@@ -125,6 +119,14 @@ function Friends() {
               </div>
             );
           })}
+        </div>
+
+        <div className="">
+          <h1 className="yourFriends">
+            Your Friends On Shoppr<span className="yourFriendsShoppr">.</span>
+          </h1>
+
+          <CurrentFriends />
         </div>
       </div>
       <footer class="page-footer #37474f blue-grey darken-3">

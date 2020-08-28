@@ -9,10 +9,11 @@ import Danny from "../Login/images/Danny.jpg";
 import Bart from "../Login/images/bart.png";
 import Shambhawi from "../Login/images/shambhawi.jpg";
 import ShopprLogo from "../Login/images/logoshort.png";
+import { useToasts } from 'react-toast-notifications';
 
 function Login() {
   let history = useHistory();
-
+  const { addToast } = useToasts();
   const [state, dispatch] = useShopprContext();
 
   const userNameRef = useRef();
@@ -81,7 +82,12 @@ function Login() {
           history.push(state.currentPath);
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
+          addToast('Invalid login credential. Please verify your email and passpord', {
+            appearance: 'error',
+            autoDismiss: true,
+          })
+
         });
     } // end of If Statement
   }
