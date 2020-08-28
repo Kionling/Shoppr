@@ -2,8 +2,8 @@
     background-color:white;
     box-sizing: border-box;
     padding:20px;
-    box-shadow:0 0 20px gray;
-    border-radius:12px;
+    box-shadow:0 0 5px gray;
+    border-radius:70px;
     display:inline-block;
     vertical-align: top;
 }
@@ -15,7 +15,20 @@
 }
 
 .resultsList {
-    border:4px solid gray;
     box-sizing: border-box;
+}
+
+#imgSize {
+    float: left;
+    width:  200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+#friendsItem {
+    float: left;
+    width:  200px;
+    height: 200px;
+    object-fit: cover;
 }
 

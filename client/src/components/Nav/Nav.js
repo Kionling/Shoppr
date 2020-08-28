@@ -8,7 +8,7 @@ import { LOGOUT, LOGIN_USER, SET_FRIENDS } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
 import Style from "../Nav/nav.css";
 import M from "materialize-css";
-import Dropdown from "react-dropdown";
+// import Dropdown from "react-dropdown";
 
 // import Animate from "../Nav/animate";
 

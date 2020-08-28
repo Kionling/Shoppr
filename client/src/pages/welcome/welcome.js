@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import ShopprLogo from "../welcome/images/logoshort.png";
 import WelcomeStyles from "../welcome/styles.css";
-import Video from "../welcome/images/skies-ani.gif";
+import Video from "../welcome/images/welcomeBan.gif";
 import { useHistory } from "react-router-dom";
 import { useShopprContext } from "../../utils/GlobalState";
 import { SET_CURRENT_PATH } from "../../utils/actions";
@@ -10,7 +10,7 @@ import { SET_CURRENT_PATH } from "../../utils/actions";
 
 const Styles = {
   row: {
-    margin: 0,
+    
   },
   mainDiv: {
     height: "700px",
@@ -18,13 +18,14 @@ const Styles = {
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
+    margin: 0
   },
   image: {
     width: "90%",
   },
   link: {
     fontWeight: 900,
-    marginBottom: "10px",
+    // marginBottom: "10px",
   },
   logo: {
     width: "20%",
@@ -102,52 +103,30 @@ function Welcome() {
           <div className="col s12 l4">
             <p id="my-title">Why choose Shoppr?</p>
             <p id="my-description">
-              Contrary to popular belief, Lorem Ipsum is not simply random text.
-              It has roots in a piece of classical Latin literature from 45 BC,
-              making it over 2000 years old. Richard McClintock, a Latin
-              professor at Hampden-Sydney College in Virginia, looked up one of
-              the more obscure Latin words, consectetur, from a Lorem Ipsum
-              passage, and going through the cites of the word in classical
-              literature, discovered the undoubtable source. Lorem Ipsum comes
-              from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
-              Malorum" (The Extremes of Good and Evil) by Cicero, written in 45
-              BC. This book is a treatise on the theory of ethics, very popular
-              during the Renaissance. The first line of Lorem Ipsum, "Lorem
-              ipsum dolor sit amet..", comes from a line in section 1.10.32.
+              Shoppr is an app that utilizes APIs from companies that many users use
+              on a daily basis and trust. In collaboration with Google's Vision API and
+              Amazon's shopping API, the Shoppr team has architected, developed, and tested each 
+              components to provide user's with a seemless experience.
+               
             </p>
           </div>
           <div className="col s12 l4">
             <p id="my-title">Upload an image</p>
             <p id="my-description">
-              Contrary to popular belief, Lorem Ipsum is not simply random text.
-              It has roots in a piece of classical Latin literature from 45 BC,
-              making it over 2000 years old. Richard McClintock, a Latin
-              professor at Hampden-Sydney College in Virginia, looked up one of
-              the more obscure Latin words, consectetur, from a Lorem Ipsum
-              passage, and going through the cites of the word in classical
-              literature, discovered the undoubtable source. Lorem Ipsum comes
-              from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
-              Malorum" (The Extremes of Good and Evil) by Cicero, written in 45
-              BC. This book is a treatise on the theory of ethics, very popular
-              during the Renaissance. The first line of Lorem Ipsum, "Lorem
-              ipsum dolor sit amet..", comes from a line in section 1.10.32.
+              Shoppr is an application that allows users to upload images to our sites database.
+              Using images uploaded by you, the user, we are able to provide a response back
+              that retrieves products found within the image utilizing Google's Vision API. Then, using
+              Amazon's shopping API, the ability for the user to browse, save, and buy products. 
             </p>
           </div>
           <div className="col s12 l4">
-            <p id="my-title">Search by image</p>
+            <p id="my-title">Connect with friends</p>
             <p id="my-description">
-              Contrary to popular belief, Lorem Ipsum is not simply random text.
-              It has roots in a piece of classical Latin literature from 45 BC,
-              making it over 2000 years old. Richard McClintock, a Latin
-              professor at Hampden-Sydney College in Virginia, looked up one of
-              the more obscure Latin words, consectetur, from a Lorem Ipsum
-              passage, and going through the cites of the word in classical
-              literature, discovered the undoubtable source. Lorem Ipsum comes
-              from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
-              Malorum" (The Extremes of Good and Evil) by Cicero, written in 45
-              BC. This book is a treatise on the theory of ethics, very popular
-              during the Renaissance. The first line of Lorem Ipsum, "Lorem
-              ipsum dolor sit amet..", comes from a line in section 1.10.32.
+              Networking is essential for accumulating information. When it comes to products, reviews, deals, 
+              collaboration is a key role in finding out the latest information. In comes, Shoppr Friends. Shoppr
+              Friends is a social media platform programmed within the Shoppr site itself. It allows users to connect
+              with each other, and see similar items purchased. This provides a plethora of user experiences to
+              help Shopprs make their decision. 
             </p>
           </div>
         </div>

@@ -9,9 +9,9 @@
 
 
 #banner{
-    background-image: url(../Login/images/loginBanner.png);
+    background-image: url(../Login/images/LoginBanner3.jpg);
     background-position: center;
-    background-size: cover;
+    background-size: fill;
     height: 690px;
    
 }

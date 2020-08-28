@@ -11,15 +11,17 @@ function FriendsSearches(props) {
 
   return (
     <div>
-      <h1>Your Friends bought these similar items:</h1>
+      <h1 className="Bold">Your Friends Have Purchased Similar Items<span id="period">!</span></h1>
       { props.friendsSearches ? (
         props.friendsSearches.map((searchItem) => {
           return (
-            <div>
-              <img className="friendAvatar" src={searchItem.friend.avatar}/>
-              <p>{searchItem.friend.username}</p>
-              <img src={searchItem.image_url} className="fSItemImage" />
-              <p className="friendPuchaseTitle">Item: {searchItem.title} </p>
+            <div className="card row ">
+              <div className="col l6">
+              <img className="friendAvatar circle " src={searchItem.friend.avatar}/>
+              </div>
+              <p className="Bold">{searchItem.friend.username}</p>
+              <img id="friendsItem" src={searchItem.image_url} className="fSItemImage" />
+              <p className="">Item: {searchItem.title} </p>
             </div>
           );
         })

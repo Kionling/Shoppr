@@ -71,24 +71,24 @@ function VisionItems() {
   }
 
   return (
-    <div className="visionItems container left ">
+    <div className="visionItems container center ">
       <h1 className="Bold">Vision Items:</h1>
       {/* <button onClick={() => handleOnClick("table")}>Table</button>
             <button onClick={() => handleOnClick("desk")}>Desk</button> */}
       {visionItems ? (
         state.CurrentSearch.items.map((item, index) => {
           return (
-            <div className="row center">
-              <div className="col s12">
-                <button
-                  id="itemButtons"
-                  className="itemButton btn  #00b0ff light-blue accent-3"
+            <div className=" center">
+              <div className="collection" id="noSpace">
+                <a
+                  id="noSpace"
+                  className=" collection-item "
                   data-id={index}
                   onClick={() => handleOnClick(index)}
                 >
                   {" "}
                   {item}
-                </button>
+                </a>
               </div>
             </div>
           );
@@ -101,6 +101,7 @@ function VisionItems() {
       <div className="center">
         <button
           className="btn  #00b0ff light-blue accent-3"
+          id="saveSearch"
           onClick={saveSearchAction}
         >
           Save my search
