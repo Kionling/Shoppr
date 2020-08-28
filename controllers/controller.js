@@ -13,17 +13,10 @@ const staticProducts = ["bed", "bicycle", "bicyclewheel", "chair", "couch", "des
 async function extractObjectFromImageURL(url) {
   // [START vision_localize_objects_gcs]
   // Imports the Google Cloud client libraries
-  // console.log(">>> I am here inside extractObjectFromImageURL ", url.imageUrl);
+
   // Creates a client
   const client = new vision.ImageAnnotatorClient();
-
-  /**
-   * TODO(developer): Uncomment the following line before running the sample.
-   */
-  //const gcsUri = `https://cloud.google.com/vision/docs/images/bicycle_example.png`;
-
   const gcsUri = url.imageUrl;
-
   const [result] = await client.objectLocalization(gcsUri);
   console.log(result, result.localizedObjectAnnotations);
   const objects = result.localizedObjectAnnotations;
@@ -279,7 +272,7 @@ module.exports = {
     } else {
       extractObjectFromImageURL(req.body)
         .then((gvResponse) => {
-         // console.log(">>>>>>>Here inside then promise resolve", gvResponse);
+  
           let responseObj = {
             image_url: req.body.imageUrl,
             items: gvResponse,
@@ -291,11 +284,6 @@ module.exports = {
           res.status(404).json({ err: "Image not found!" });
         });
 
-      //res.json({data:"Hit it."});
-
-      // Send the req.body (which is a url ) to the Google API
-      // and in the .then statement, we'll send status code 200
-      // and send the url back to the client side, along with the results object
     }
   },
   getProducts: function (req, res) {
