@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback  } from "react";
 import API from "../../utils/API";
 import { Redirect } from "react-router-dom";
 import { useShopprContext } from "../../utils/GlobalState";
@@ -6,6 +6,8 @@ import "./Friends.css";
 import { SET_CURRENT_PATH, ADD_FRIEND, SET_FRIENDS } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
 import CurrentFriends from "../../components/CurrentFriends/CurrentFriends";
+import _ from 'lodash';
+const { debounce } = _;
 
 function Friends() {
   const friendsEmail = useRef();
@@ -13,6 +15,36 @@ function Friends() {
   const [state, dispatch] = useShopprContext();
   const [friendAccounts, setfriendAccounts] = useState([]);
 
+  const debounceLoadData = useCallback(debounce(fetchData, 500), []);
+
+  function fetchData(){
+    let searchTerm = friendsEmail.current.value;
+
+    API.searchForFriend(searchTerm)
+      .then((results) => {
+        console.log("Friends.js got results: ", results.data);
+        setfriendAccounts(results.data);
+
+        console.log("There are ", friendAccounts.length, " possible accounts");
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function addFriend(index) {
+    console.log(
+      "values passed to addFriend API from UI: ",
+      state.User,
+      friendAccounts[index]
+    );
+    API.addFriend({ User: state.User, Friend: friendAccounts[index] })
+      .then((results) => {
+        console.log("Added friend: ", results);
+
+        dispatch({ type: ADD_FRIEND, newFriend: friendAccounts[index] });
+      })
+      .catch((err) => console.log(err));
+  }
+  
   useEffect(() => {}, [friendAccounts]);
 
   useEffect(() => {
@@ -33,35 +65,11 @@ function Friends() {
     return <Redirect to="/" />;
   }
 
-  function addFriend(index) {
-    console.log(
-      "values passed to addFriend API from UI: ",
-      state.User,
-      friendAccounts[index]
-    );
-    API.addFriend({ User: state.User, Friend: friendAccounts[index] })
-      .then((results) => {
-        console.log("Added friend: ", results);
-
-        dispatch({ type: ADD_FRIEND, newFriend: friendAccounts[index] });
-      })
-      .catch((err) => console.log(err));
-  }
-
   function searchForFriend(e) {
     e.preventDefault();
     e.stopPropagation();
 
-    let searchTerm = friendsEmail.current.value;
-
-    API.searchForFriend(searchTerm)
-      .then((results) => {
-        console.log("Friends.js got results: ", results.data);
-        setfriendAccounts(results.data);
-
-        console.log("There are ", friendAccounts.length, " possible accounts");
-      })
-      .catch((err) => console.log(err));
+    debounceLoadData();
   }
   return (
     <div>
@@ -83,6 +91,7 @@ function Friends() {
                         className="searchFriends"
                         ref={friendsEmail}
                         onChange={searchForFriend}
+                        placeholder='Search for friend here'
                         required
                       ></input>
                       <label className="label-icon" for="search">
