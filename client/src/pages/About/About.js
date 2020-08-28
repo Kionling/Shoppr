@@ -27,8 +27,10 @@ function About(){
           <div className="row">
             <div className="col s12 l12">
               <img className="circle" id="bart" src={Bart} alt="Bart" />
-              Bart developed the 
+           
               <h5 className="black-text">Bart Dority</h5>
+              <p>Bart worked closely with Shambhawi to develop the backend including the database models, server side routes, database queries, and calls to the rainforest API to display Amazon product data.  He also impleted the Passport authentication, and developed the Global State object on the frontend which allows React to display the search items and friends to the page.</p>
+              <p>Github link goes here.</p>
             </div>
           </div>
           <div className="row">
@@ -40,12 +42,16 @@ function About(){
                 alt="Shambhawi"
               />
               <h5 className="black-text">Shambhawi Kumari</h5>
+              <p>Shambhawi worked closely with Bart to developed the backend including the database models, server side routes, database queries, and calls to the rainforest API to display Amazon product data.  She developed the api connection the Google Vision API, and Google Maps API.  She also developed the Global State object on the frontend which allows React to display the search items and friends to the page.</p>
+              <p>Github link goes here.</p>
             </div>
           </div>
           <div className="row">
             <div className="col s12 l12 ">
               <img className="circle" id="Danny" src={Danny} alt="Daniel" />
               <h5 className="black-text">Daniel Jauregui</h5>
+              <p>Daniel designed the UI and built the UI Components in React including handling all of the visual styling and CSS wrangling, using Materialize.</p>
+              <p>Github link goes here.</p>
             </div>
           </div>
         </div>
