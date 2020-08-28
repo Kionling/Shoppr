@@ -35,7 +35,7 @@
   }
 
   .newWrap {
-      background-image: url();
+      /* background-image: url(../SearchContainer/images/previousSearches.gif); */
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
