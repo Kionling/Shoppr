@@ -24,3 +24,11 @@
     height: 200px;
     object-fit: cover;
 }
+
+#friendsItem {
+    float: left;
+    width:  200px;
+    height: 200px;
+    object-fit: cover;
+}
+

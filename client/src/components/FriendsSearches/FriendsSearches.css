@@ -1,4 +1,12 @@
 
 .fSItemImage {
-    width:200px;
+}
+
+.friendAvatar {
+    width:15%;
+}
+
+.friendPuchaseTitle {
+    font-size:18px;
+    font-weight:bold;
 }

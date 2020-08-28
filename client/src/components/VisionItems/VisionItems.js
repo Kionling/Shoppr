@@ -71,7 +71,7 @@ function VisionItems() {
   }
 
   return (
-    <div className="visionItems container   left ">
+    <div className="visionItems container center ">
       <h1 className="Bold">Vision Items:</h1>
       {/* <button onClick={() => handleOnClick("table")}>Table</button>
             <button onClick={() => handleOnClick("desk")}>Desk</button> */}

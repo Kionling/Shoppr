@@ -2,36 +2,26 @@ import React, { useRef, useEffect, useState } from "react";
 import "./FriendsSearches.css";
 import { useShopprContext } from "../../utils/GlobalState";
 import { SET_FRIENDS } from "../../utils/actions";
-import API from "../../utils/API";
 
-function CurrentFriends() {
+
+function FriendsSearches(props) {
   const [state, dispatch] = useShopprContext();
-  const [friendsSearches, setFriendsSearches] = useState();
 
-  // Get the Freinds Searches and instantiate a local variable
-  useEffect(() => {
-    API.getFriendsSearches({
-      userid: state.User.id,
-      item: state.CurrentSearch.items[state.current_search_item],
-    })
-      .then((results) => {
-        setFriendsSearches(results);
-      })
-      .catch((err) => console.log(err));
-  });
 
-  // Watch that local variable
-  useEffect(() => {}), [friendsSearches];
 
   return (
     <div>
-      <h1>Matching Friend's Searches</h1>
-      {friendsSearches ? (
-        friendsSearches.map((searchItem) => {
+      <h1 className="Bold">Your Friends Have Purchased Similar Items<span id="period">!</span></h1>
+      { props.friendsSearches ? (
+        props.friendsSearches.map((searchItem) => {
           return (
-            <div>
-              <img src={searchItem.image} className="fSItemImage" />
-              <h1>Item: {searchItem.name} </h1>
+            <div className="card row ">
+              <div className="col l6">
+              <img className="friendAvatar circle " src={searchItem.friend.avatar}/>
+              </div>
+              <p className="Bold">{searchItem.friend.username}</p>
+              <img id="friendsItem" src={searchItem.image_url} className="fSItemImage" />
+              <p className="">Item: {searchItem.title} </p>
             </div>
           );
         })
@@ -42,4 +32,4 @@ function CurrentFriends() {
   );
 }
 
-export default CurrentFriends;
+export default FriendsSearches;

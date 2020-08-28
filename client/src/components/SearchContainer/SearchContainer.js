@@ -15,12 +15,14 @@ import { useShopprContext } from "../../utils/GlobalState";
 import SearchContainerS from "../SearchContainer/searchContainer.css";
 import loader from "../../assets/loader.gif";
 import { useHistory } from "react-router-dom";
+import { useToasts } from 'react-toast-notifications'
 
 function SearchContainer() {
   const [state, dispatch] = useShopprContext();
   const imageUrl = useRef();
   const history = useHistory();
   const [searchHistory, setSearchHistory] = useState();
+    const { addToast } = useToasts()
 
   useEffect(() => {
     if (state.User && state.User.id) {
@@ -45,19 +47,57 @@ useEffect(() => {
 }, [])
   function handleFormSubmit(event) {
     event.preventDefault();
-    console.log("Image url passed: ", imageUrl.current.value);
-    dispatch({ type: LOADING });
-    API.extractUrl(imageUrl.current.value)
-      .then((res) => {
-        console.log("here is the image uploaded res", res);
-        dispatch({ type: ADD_SEARCH_DETAIL, newSearch: res.data });
-        imageUrl.current.value = "";
-        history.push("/result");
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch({ type: STOP_LOADING });
-      });
+
+    if (imageUrl.current.value && imageUrl.current.value != "") {
+      console.log("Image url passed: ", imageUrl.current.value);
+
+
+
+      let presets= ["bedroom", "workspace"];
+      let validImage = false;
+
+      if (presets.includes(imageUrl.current.value)) {
+        validImage = true;
+      }
+      else {
+        let regex=/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png)/
+
+        if (imageUrl.current.value.match(regex)) {
+          validImage = true;
+        }
+      }
+
+      if (validImage) {
+          dispatch({ type: LOADING });
+
+          API.extractUrl(imageUrl.current.value)
+            .then((res) => {
+              console.log("here is the image uploaded res", res);
+              dispatch({ type: ADD_SEARCH_DETAIL, newSearch: res.data });
+              imageUrl.current.value = "";
+
+              if (res.data && res.data.items && res.data.items.length > 0) {
+                history.push("/result");
+              } else {
+                addToast(`No results found, please try uploading a clearer image`, {
+                  appearance: 'warning',
+                  autoDismiss: true,
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              dispatch({ type: STOP_LOADING });
+            });
+      } else {
+
+        addToast(`Please enter a url that ends in .jpg or .png`, {
+          appearance: 'info',
+          autoDismiss: false,
+        });
+
+      }
+    }
   }
 
   function showResult(searchObj) {
@@ -67,33 +107,8 @@ useEffect(() => {
   }
 
   return (
-    <div className="container center">
-      <div className="row">
-        <div className="col s12 l6">
-        <div className="carousel">
-          {state.PreviousSearches
-            ? state.PreviousSearches.map((search, index) => {
-                return (
-                  <div className="">
-
-                    <div key={index} onClick={() => showResult(search)}>
-                      <div className="">
-                        <a className="carousel-item" href="#one!">
-                        <img
-                          src={search.image_url}
-                          style={{ width: 200 }}
-                        ></img>
-                        </a>
-                      </div>
-                      <div>{search.items}</div>
-                    </div>
-                  </div>
-                );
-              })
-            : ""}
-        </div>
-      </div>
-      </div>
+    <div className="container center wrapper">
+      
 
       <div className="row  ">
         <div className="col s12 l6">
@@ -133,6 +148,34 @@ useEffect(() => {
             Search for an image by url<span id="period">.</span>
           </h1>
         </div>
+      </div>
+      <div className="newWrap">
+      <div className="row">
+        <div className="col s12 l6">
+        <div className="">
+          {state.PreviousSearches
+            ? state.PreviousSearches.map((search, index) => {
+                return (
+                  <div className="">
+
+                    <div key={index} onClick={() => showResult(search)}>
+                      <div className="">
+                        
+                        <img
+                          src={search.image_url}
+                          style={{ width: 200 }}
+                        ></img>
+                        
+                      </div>
+                      <div>{search.items}</div>
+                    </div>
+                  </div>
+                );
+              })
+            : ""}
+        </div>
+      </div>
+      </div>
       </div>
     </div>
   );

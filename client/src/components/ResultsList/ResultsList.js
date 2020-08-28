@@ -16,11 +16,18 @@ function ResultsList(props) {
     console.log("current search item: " + props.itemToSearch);
     // console.log("In ResultsList Component: item is: ", props.itemToSearch);
 
-    API.getProducts(props.itemToSearch)
-      .then((results) => {
-        setItemList(results.data);
-      })
-      .catch((err) => console.log(err));
+    if (props.itemToSearch) {
+      dispatch({ type: LOADING });
+      API.getProducts(props.itemToSearch)
+        .then((results) => {
+          setItemList(results.data);
+          dispatch({ type: STOP_LOADING });
+        })
+        .catch((err) => {
+          console.log(err);
+          dispatch({ type: STOP_LOADING });
+        });
+    }
   }, [props.itemToSearch]);
 
   //itemList = API.getProducts();
@@ -106,55 +113,53 @@ function ResultsList(props) {
       {state.loading ? (
         <img src={loader} />
       ) : (
-        <div className="resultsList ">
-          <h1 className="Bold">Results List:</h1>
-
-          {itemList ? (
-            itemList.map((result, index) => {
-              return (
-                <div className="row center  ">
-                  <div className="productCard col s12 l12 " key={index}>
-                    <div className="col s12 l6">
-                      <a href={result.link} target="_blank">
-                        <img
-                          className="circle"
-                          id="imgSize"
-                          src={result.image}
-                          style={{ width: "200px" }}
-                        />
-                      </a>
-                    </div>
-                    <div className="productTitle col s3 l3">
-                      <a
-                        target="blank"
-                        className="black-text"
-                        href={result.link}
-                      >
-                        <h5>{result.title}</h5>
-                      </a>
-                    </div>
+        <div className="resultsList  ">
+          <div className="col s12">
+            <div className="col s12">
+              <h1 className="Bold">Results List<span id="period">.</span></h1>
+              {itemList ? (
+                itemList.map((result, index) => {
+                  return (
                     <div className="row">
-                      <div className="col s2">
-                        <h6 className="Bold">
-                          Price:
-                          {result.price ? result.price.raw : ""}
-                        </h6>
-                        <button
-                          className="btn #00b0ff light-blue accent-3"
-                          onClick={() => buyItem(result)}
-                          disabled={!state.User || !state.User.id}
-                        >
-                          Buy
-                        </button>
+                      <div className="col s12">
+                        <div className="productCard col s12" key={index}>
+                          <div className="row">
+                            <div className="col s3">
+                              <a href={result.link} target="_blank">
+                                <img
+                                  id="imgSize"
+                                  className="circle"
+                                  src={result.image}
+                                  style={{ width: "200px" }}
+                                />
+                              </a>
+                            </div>
+                            <div className="productTitle">
+                              <a target="blank" className="black-text"href={result.link}>
+                                {result.title}
+                              </a>
+                            </div>
+                            <div>
+                              {result.price ? result.price.raw : ""}
+                              <button
+                                className="btn  #00b0ff light-blue accent-3"
+                                onClick={() => buyItem(result)}
+                                disabled={!state.User || !state.User.id}
+                              >
+                                Buy
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            <div></div>
-          )}
+                  );
+                })
+              ) : (
+                <div></div>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -6,6 +6,10 @@
 
 }
 
+.wrapper{
+    margin-top: 10%;
+}
+
 @keyframes color-change {
     0% { color: #4285F4; }
     25% { color:#DB4437; }
@@ -17,12 +21,22 @@
 
   #searchForItem {
       border-radius: 70px;
+      
+
   }
 
   .searchCont {
-      margin-top: 100px;
+    margin-top: 78px;
+
   }
 
   #searchByUrl {
       padding-bottom: 30px;
+  }
+
+  .newWrap {
+      background-image: url();
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
   }
