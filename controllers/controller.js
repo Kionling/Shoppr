@@ -8,7 +8,7 @@ var Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const pluralize = require("pluralize");
 
-const staticProducts = ["bed", "bicycle", "bicyclewheel", "chair", "couch", "desk", "lamp", "loveseat", "pictureframe", "table" ];
+const staticProducts = ["bed", "bicycle", "bicyclewheel", "chair", "couch", "desk", "lamp", "laptop", "lighting", "loveseat", "pictureframe", "table" ];
 
 async function extractObjectFromImageURL(url) {
   // [START vision_localize_objects_gcs]
@@ -139,15 +139,30 @@ module.exports = {
   getFriendsSearches: function (req, res) {
     let friendsSearches = [];
 
-    let User = req.body.user;
+    let friendsIds = req.body.friendsIds;
     let Item = req.body.item;
 
     // based on the user and the item, first get a list of their friends,
     // and then search through their friends searches to look for matching items
+     console.log("In FriendsSearches in the controller: friendIds:", friendsIds);
+            db.Product.findAll({
 
-    //  This code is not yet written.
+              raw:true,
+              where: {
+                UserId: {
+                  [Op.in]: friendsIds,
+                }
+              }
+              
+            }).then((friendProducts) => {
+              
+              res.json(friendProducts);
 
-    res.json(friendsSearches);
+
+            })
+        .catch((err) => console.log(err));
+
+
   },
 
   saveSearch: function (req, res) {
@@ -243,11 +258,11 @@ module.exports = {
   // },
 
   extractFromUrl: async function (req, res) {
-    console.log("Extract from Url in the controller: ", req.body);
+    //console.log("Extract from Url in the controller: ", req.body);
 
     // tobe removed : faking data
     if (req.body.imageUrl == "bedroom") {
-      console.log(">>>>> here inside bedroom");
+      //console.log(">>>>> here inside bedroom");
       let bedroom = {
         image_url:
           "https://cloud.google.com/vision/docs/images/bicycle_example.png",
@@ -264,7 +279,7 @@ module.exports = {
     } else {
       extractObjectFromImageURL(req.body)
         .then((gvResponse) => {
-          console.log(">>>>>>>Here inside then promise resolve", gvResponse);
+         // console.log(">>>>>>>Here inside then promise resolve", gvResponse);
           let responseObj = {
             image_url: req.body.imageUrl,
             items: gvResponse,
@@ -284,20 +299,23 @@ module.exports = {
     }
   },
   getProducts: function (req, res) {
+    if (!req.params.item) {
+      res.end({error:"undefined search query"});
+    }
     let item = req.params.item.toLowerCase();
 
     // take the spaces out and convert to a singluar version
     item = pluralize.singular(item.replace(/\s/g, ''));
 
-    console.log("In Controller getProducts: item:", item);
+ //   console.log("In Controller getProducts: item:", item);
 
     if (staticProducts.includes(item)) {
-      console.log("About to load the static json file: ", item+".json");
+    //  console.log("About to load the static json file: ", item+".json");
 
       const staticFolder = path.resolve(__dirname, "../rainforest_sample_data");
 
-      console.log("staticFolder: ", staticFolder);
-      console.log("file: ", path.resolve(staticFolder, "static_" + item + ".json"));
+     // console.log("staticFolder: ", staticFolder);
+     // console.log("file: ", path.resolve(staticFolder, "static_" + item + ".json"));
 
       fs.readFile(path.resolve(staticFolder, "static_" + item + ".json"), "utf-8",
       (err, data) => { 
@@ -343,7 +361,7 @@ module.exports = {
       //  axios.get("/api/getRainForest/" + item)
       //  .then( (response) => {
 
-       console.log("back from Rainforest...", response.data.search_results);
+   //    console.log("back from Rainforest...", response.data.search_results);
        res.json(response.data.search_results);
       }).catch(err =>console.log(err));
     }
