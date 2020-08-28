@@ -14,7 +14,7 @@ import Friends from "./pages/Friends/Friends";
 import ResultsList from "./components/ResultsList/ResultsList";
 import Test from "./pages/Test/test";
 import { ToastProvider } from 'react-toast-notifications'
-
+import Footer from "./components/Footer/Footer"
 import logo from './logo.svg';
 import './App.css';
 
@@ -39,7 +39,9 @@ function App() {
               <Route exact path="/test" component={Test} />
               <Route exact path="/resultslist" component={ResultsList} />
               <Route component={NoMatch} />
+
             </Switch>
+              <Footer />
           </ShopprProvider>
         </ToastProvider>
       </div>
