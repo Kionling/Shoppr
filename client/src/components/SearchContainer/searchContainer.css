@@ -13,3 +13,16 @@
     75% { color: #0F9D58; }
     100% { color: #4285F4; }
   }
+
+
+  #searchForItem {
+      border-radius: 70px;
+  }
+
+  .searchCont {
+      margin-top: 100px;
+  }
+
+  #searchByUrl {
+      padding-bottom: 30px;
+  }

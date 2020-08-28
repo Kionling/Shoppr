@@ -10,7 +10,7 @@ import { SET_CURRENT_PATH } from "../../utils/actions";
 
 const Styles = {
   row: {
-    margin: 0,
+    
   },
   mainDiv: {
     height: "700px",
@@ -18,13 +18,14 @@ const Styles = {
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
+    margin: 0
   },
   image: {
     width: "90%",
   },
   link: {
     fontWeight: 900,
-    marginBottom: "10px",
+    // marginBottom: "10px",
   },
   logo: {
     width: "20%",

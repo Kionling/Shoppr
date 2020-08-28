@@ -65,56 +65,112 @@ function Friends() {
   }
   return (
     <div>
-     
+      <div className="friendsConnect ">
+        <div className="container center">
+          <div id="formCont" className="row">
+            <div className="col s12 l6">
+              <h1 id="connectWith">Connect with Friends:</h1>
+            </div>
 
-     
-        <div className="friendsConnect ">
-          <div  className="container center">
-            <div id="formCont" className="row">
-              <div className="col s12 l6">
-                <h1 id="connectWith">Connect with Friends:</h1>
-              </div>
-                <form className="col s12 l6">
-                  <label className="white-text">Enter your friend's email address:</label>
-                  <input
-                    type="text"
-                    ref={friendsEmail}
-                    onChange={searchForFriend}
-                    className="white-text"
-                  ></input>
-                  {/* <button type="submit" className="btn btn-primary">Search for my friends on Shoppr</button> */}
-                </form>
-              
+            <div className="container col s12 l6" id="forms">
+              <nav className="searchFriends">
+                <div className="nav-wrapper ">
+                  <form className="searchFriends">
+                    <div className="input-field searchFriends white" id="searchAnimate">
+                      <input
+                        id="search"
+                        type="search"
+                        className="searchFriends"
+                        ref={friendsEmail}
+                        onChange={searchForFriend}
+                        required
+                      ></input>
+                      <label className="label-icon" for="search">
+                        <i className="material-icons black-text">search</i>
+                      </label>
+                      <i className="material-icons">close</i>
+                    </div>
+                  </form>
+                </div>
+              </nav>
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="container center">
-          <div className="">
-            <h1 className="textWeight">Friends Added</h1>
-           <CurrentFriends />
-           </div>
-          <h1 className="yourFriends">Your Friends on Shoppr<span className="yourFriendsShoppr">.</span></h1>
-          <div>
-            {friendAccounts.map((friend, index) => {
-              return (
-                <div
-                  className="friendCard"
-                  onClick={() => addFriend(index)}
-                  key={index}
-                >
-                  <img
-                    src={friend.avatar ? friend.avatar : user_avatar}
-                    className="avatar"
-                  />
-                  <h1 className="textWeight">{friend.username}</h1>
-                  <p>{friend.email}</p>
-                </div>
-              );
-            })}
+      <div className="container center">
+        <div className="">
+          <h1 className="yourFriends">
+            Your Friends On Shoppr<span className="yourFriendsShoppr">.</span>
+          </h1>
+
+          <CurrentFriends />
+        </div>
+        <h1 className="Bold">Add a friend</h1>
+
+        <div>
+          {friendAccounts.map((friend, index) => {
+            return (
+              <div
+                className="friendCard"
+                onClick={() => addFriend(index)}
+                key={index}
+              >
+                <img
+                  src={friend.avatar ? friend.avatar : user_avatar}
+                  className="avatar"
+                />
+                <h1 className="textWeight">{friend.username}</h1>
+                <p>{friend.email}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <footer class="page-footer #37474f blue-grey darken-3">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Shoppr</h5>
+              <p class="grey-text text-lighten-4">
+                The latest shopping search engine.
+              </p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+              <h5 class="white-text">The Team</h5>
+              <ul>
+                <li>
+                  <a
+                    class="grey-text text-lighten-3"
+                    href="https://github.com/shambhawi13"
+                  >
+                    Shambhawi
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="grey-text text-lighten-3"
+                    href="https://github.com/b0rgbart3"
+                  >
+                    Bart
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="grey-text text-lighten-3"
+                    href="https://github.com/Kionling"
+                  >
+                    Daniel
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-
+        <div class="footer-copyright">
+          <div class="container">© 2020 Shoppr</div>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -67,3 +67,15 @@ box-shadow:0 0 8px #00b0ff;
   .textWeight {
       font-weight: 600;
   }
+
+  .searchFriends {
+      border-radius: 70px;
+  }
+
+  #search {
+      border-radius: 70px;
+  }
+
+  #forms {
+      margin-top: 60px;
+  }
