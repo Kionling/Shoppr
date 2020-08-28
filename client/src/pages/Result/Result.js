@@ -6,6 +6,7 @@ import { useShopprContext } from "../../utils/GlobalState";
 import { SET_STORE_PREF, SET_CURRENT_PATH } from "../../utils/actions";
 import FriendsSearches from "../../components/FriendsSearches/FriendsSearches";
 import API from "../../utils/API";
+import CurrentSearchImage from "../../components/CurrentSearchImage/CurrentSearchImage"
 
 function Result() {
   // const [itemToSearch, setItemToSearch] = useState();
@@ -50,6 +51,9 @@ function Result() {
       <div className="row center">
 
         <div className=" center">
+          <div className="col s12 l12">
+            <CurrentSearchImage/>
+          </div>
           <div className="col s12 l12">
             <VisionItems></VisionItems>
           </div>

@@ -13,17 +13,10 @@ const staticProducts = ["bed", "bicycle", "bicyclewheel", "chair", "couch", "des
 async function extractObjectFromImageURL(url) {
   // [START vision_localize_objects_gcs]
   // Imports the Google Cloud client libraries
-  // console.log(">>> I am here inside extractObjectFromImageURL ", url.imageUrl);
+
   // Creates a client
   const client = new vision.ImageAnnotatorClient();
-
-  /**
-   * TODO(developer): Uncomment the following line before running the sample.
-   */
-  //const gcsUri = `https://cloud.google.com/vision/docs/images/bicycle_example.png`;
-
   const gcsUri = url.imageUrl;
-
   const [result] = await client.objectLocalization(gcsUri);
   console.log(result, result.localizedObjectAnnotations);
   const objects = result.localizedObjectAnnotations;
@@ -263,23 +256,25 @@ module.exports = {
     // tobe removed : faking data
     if (req.body.imageUrl == "bedroom") {
       //console.log(">>>>> here inside bedroom");
+      // "https://cloud.google.com/vision/docs/images/bicycle_example.png",
       let bedroom = {
         image_url:
-          "https://cloud.google.com/vision/docs/images/bicycle_example.png",
+        "https://www.bocadolobo.com/en/inspiration-and-ideas/wp-content/uploads/2018/03/Discover-the-Ultimate-Master-Bedroom-Styles-and-Inspirations-6_1.jpg",
+         
         items: ["Bed", "Lamp", "Desk", "Picture frame"],
       };
       res.json(bedroom);
     } else if (req.body.imageUrl == "workspace") {
       let workspace = {
         image_url:
-          "https://cloud.google.com/vision/docs/images/bicycle_example.png",
+          "https://www.invaluable.com/blog/wp-content/uploads/2018/05/workspace-hero.jpg",
         items: ["Table", "Lamp", "Desk", "Laptop"],
       };
       res.json(workspace);
     } else {
       extractObjectFromImageURL(req.body)
         .then((gvResponse) => {
-         // console.log(">>>>>>>Here inside then promise resolve", gvResponse);
+  
           let responseObj = {
             image_url: req.body.imageUrl,
             items: gvResponse,
@@ -291,11 +286,6 @@ module.exports = {
           res.status(404).json({ err: "Image not found!" });
         });
 
-      //res.json({data:"Hit it."});
-
-      // Send the req.body (which is a url ) to the Google API
-      // and in the .then statement, we'll send status code 200
-      // and send the url back to the client side, along with the results object
     }
   },
   getProducts: function (req, res) {
