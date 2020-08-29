@@ -127,6 +127,7 @@ function SearchContainer() {
                       className="white"
                       type="search"
                       ref={imageUrl}
+                      placeholder='Search by image URL'
                       required
                     ></input>
                     <label class="label-icon" for="search">

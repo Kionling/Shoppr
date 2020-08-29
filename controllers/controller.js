@@ -133,18 +133,21 @@ module.exports = {
     let friendsSearches = [];
 
     let friendsIds = req.body.friendsIds;
-    let Item = req.body.item;
+    let item = req.body.item;
 
     // based on the user and the item, first get a list of their friends,
     // and then search through their friends searches to look for matching items
-     console.log("In FriendsSearches in the controller: friendIds:", friendsIds);
+     console.log("In FriendsSearches in the controller: friendIds:", friendsIds,item);
             db.Product.findAll({
 
               raw:true,
               where: {
-                UserId: {
-                  [Op.in]: friendsIds,
-                }
+                [Op.and]: [
+                  {UserId: {
+                    [Op.in]: friendsIds,
+                  }},
+                  {itemName: item}
+                ]
               }
               
             }).then((friendProducts) => {
