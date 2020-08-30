@@ -6,12 +6,13 @@ import "./Friends.css";
 import { SET_CURRENT_PATH, ADD_FRIEND, SET_FRIENDS } from "../../utils/actions";
 import user_avatar from "../../assets/user_avatar.png";
 import CurrentFriends from "../../components/CurrentFriends/CurrentFriends";
+import { useToasts } from 'react-toast-notifications';
 import _ from 'lodash';
 const { debounce } = _;
 
 function Friends() {
   const friendsEmail = useRef();
-
+  const { addToast } = useToasts()
   const [state, dispatch] = useShopprContext();
   const [friendAccounts, setfriendAccounts] = useState([]);
 
@@ -19,15 +20,29 @@ function Friends() {
 
   function fetchData(){
     let searchTerm = friendsEmail.current.value;
-
+    let existingFriends = state.Friends.map(friend => friend.id);
     API.searchForFriend(searchTerm)
       .then((results) => {
-        console.log("Friends.js got results: ", results.data);
-        setfriendAccounts(results.data);
-
-        console.log("There are ", friendAccounts.length, " possible accounts");
+        //console.log("Friends.js got results: ", results.data, existingFriends);
+        let users = results.data.filter((user)=> {
+          return !existingFriends.includes(user.id);
+        });
+        //console.log("user that are not friend>",users);
+        if(users.length <=0){
+          addToast("No user found. Try a different mail id", {
+            appearance: 'warning',
+            autoDismiss: true,
+          })
+        }
+        setfriendAccounts(users);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        addToast("Oops.!! No user found. Try again", {
+          appearance: 'error',
+          autoDismiss: true,
+        })
+      });
   }
 
   function addFriend(index) {
@@ -38,11 +53,20 @@ function Friends() {
     );
     API.addFriend({ User: state.User, Friend: friendAccounts[index] })
       .then((results) => {
-        console.log("Added friend: ", results);
-
+        //console.log("Added friend: ", results);
         dispatch({ type: ADD_FRIEND, newFriend: friendAccounts[index] });
+        addToast(`You are friend with ${friendAccounts[index].username} now. Cheers to Shoppr buddies.`, {
+          appearance: 'success',
+          autoDismiss: true,
+        })
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+         console.log(err);
+         addToast("Oops! Something went wrong.", {
+          appearance: 'error',
+          autoDismiss: true,
+        })
+      });
   }
   
   useEffect(() => {}, [friendAccounts]);
