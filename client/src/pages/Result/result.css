@@ -1,0 +1,7 @@
+.VisionCurrent {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../Result/images/visionCurrentBanner.jpg);
+    height: 60%;
+}

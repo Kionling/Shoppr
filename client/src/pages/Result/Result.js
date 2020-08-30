@@ -6,8 +6,8 @@ import { useShopprContext } from "../../utils/GlobalState";
 import { SET_STORE_PREF, SET_CURRENT_PATH } from "../../utils/actions";
 import FriendsSearches from "../../components/FriendsSearches/FriendsSearches";
 import API from "../../utils/API";
-import CurrentSearchImage from "../../components/CurrentSearchImage/CurrentSearchImage"
-
+import CurrentSearchImage from "../../components/CurrentSearchImage/CurrentSearchImage";
+import Style from "../Result/result.css"
 function Result() {
   // const [itemToSearch, setItemToSearch] = useState();
   const [state, dispatch] = useShopprContext();
@@ -48,15 +48,21 @@ function Result() {
 
   return (
     <div>
-      <div className="row center">
-
+      <div>
         <div className=" center">
-          <div className="col s12 l12">
-            <CurrentSearchImage/>
+          <div className="VisionCurrent center">
+            <div className="row">
+              <div className="center container ">
+                <div className="col s12 l6">
+                  <VisionItems></VisionItems>
+                </div>
+                <div className="col s12 l6">
+                  <CurrentSearchImage />
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="col s12 l12">
-            <VisionItems></VisionItems>
-          </div>
+          <div className="row center">
           <div className="col s12 l5 center">
             {friendsSearches &&
             friendsSearches.length > 0 &&
@@ -89,7 +95,7 @@ function Result() {
               ></MapContainer>
             )}
           </div>
-         
+          </div>
         </div>
       </div>
     </div>
