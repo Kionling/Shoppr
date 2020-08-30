@@ -274,7 +274,7 @@ module.exports = {
         items: ["Table", "Lamp", "Desk", "Laptop"],
       };
       res.json(workspace);
-    } else {
+    } else { 
       extractObjectFromImageURL(req.body)
         .then((gvResponse) => {
   
