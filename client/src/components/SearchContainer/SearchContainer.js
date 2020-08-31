@@ -146,8 +146,14 @@ function SearchContainer() {
           </h1>
         </div>
       </div>
+      {state.PreviousSearches && state.PreviousSearches.length> 0?
       <div className="newWrap">
         <div className="row">
+          <div className="col s12 l6">
+            <h3 className="text-white Bold">Previous Searches</h3>
+          </div>
+        </div>
+        <div className="row search-display">
           <div className="col s12 l6">
             <div className="flex-diaplay">
               {state.PreviousSearches
@@ -155,13 +161,13 @@ function SearchContainer() {
                     return (
                       <div className="space">
                         <div key={index} onClick={() => showResult(search)}>
-                          <div className="">
+                          <div className="image-container">
                             <img
                               src={search.image_url}
                               style={{ width: 200 }}
                             ></img>
                           </div>
-                          <div className="text-white">{search.items}</div>
+                          <div className="black-text Bold">{search.items}</div>
                         </div>
                       </div>
                     );
@@ -170,7 +176,8 @@ function SearchContainer() {
             </div>
           </div>
         </div>
-      </div>
+      </div> 
+      : <div></div>}
     </div>
   );
 }
