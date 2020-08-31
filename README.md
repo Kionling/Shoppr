@@ -1,7 +1,9 @@
 # SHOPPR
-This app uses the Google
+This React/Node.js app utilizes the the AI image recognition capabilities of the GoogleVision API -- and makes shopping a fun and easy and social experience.
+With Shoppr you can connect with your friends and find out if they buy similar items to what you are searching for, so if they have already purchased that item, we can get their opinion about it.
 
-![screenshot](screenshot)
+
+![screenshot](screenshot.jpg)
 # Table of contents
 1. [Installation](#Installation)
 2. [Usage](#Usage)
@@ -9,9 +11,9 @@ This app uses the Google
 4. [License](#License)
 5. [Features](#Features)
 6. [Technology](#Technology)
-7. [Credits](#Credits)
-8. [Badges](#Badges)
-9. [User Story](#User_Story)
+7. [User Story](#User_Story)
+8. [Credits](#Credits)
+9. [Badges](#Badges)
 10. [Business Context](#Business_Context)
 <a name="Installation"></a>
 ## Installation
@@ -34,30 +36,51 @@ https://shoppr-ai.herokuapp.com/
 1. Image search
 2.  product listings
 3.  store locations map
+
 <a name="Technology"></a>
 ## Technology
-1. Node.js
-2.  Express
-3.  Materialize
-4.  Google A.I. Vision API
-5.  Rainforest API
+1. React
+2. Node.js
+3.  Express
+4.  Materialize
+5.  Google A.I. Vision API
+6.  Rainforest API
+
+## User Stories
+```sh
+ 
+As a student, I want 
+To easily find links to items for sale
+So that I can purchase everything I need at the same time
+
+ 
+As a consumer/ student
+I want To easily find links to items for sale
+So that I can purchase everything I need at the same time
+
+ 
+As New Home Owner
+I want To be able to find a plethora of furniture items for my new home
+So that I can purchase items of my choice based of a search/existing image
+
+
+
+```
+
 <a name="Credits"></a>
 ## Credits
-Shambhawi Kumari, Daniel Jauregui, Bart Dority
+Bart Dority, Shambhawi Kumari, Daniel Jauregui, 
 <a name="Badges"></a>
 ## Badges
  [![Generic badge](https://img.shields.io/badge/made_with-Express-<COLOR>.svg)](https://shields.io/)
 
-**on github:** <a href='github.com/b0rgBart3'>b0rgBart3</a>
+**on github:** <a href='github.com/b0rgBart3'>b0rgBart3</a>, <a href="https://github.com/shambhawi13">shambhawi13</a>, <a href="https://github.com/kionLing">KionLing</a>
 
 [![](https://github.com/b0rgBart3.png?size=90)](https://github.com/remarkablemark)
+[![](https://github.com/shambhawi13.png?size=90)](https://github.com/remarkablemark)
+[![](https://github.com/kionLing.png?size=90)](https://github.com/remarkablemark)
 
-Email: borgBart3@gmail.com
+Email: borgBart3@gmail.com, shambhawi.kumari1393@gmail.com, djvdjv209@gmail.com
+
 <a name="User_Story"></a>
-## User Story
-```sh
-Kaoru is an student and she wants to be able to furnish her new apartment so she can focu on her schoolwork.
-```
-<a name="Business_Context"></a>
-## Business Context
-This is the business context
+
