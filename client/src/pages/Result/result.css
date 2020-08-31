@@ -5,3 +5,7 @@
     background-image: url(../Result/images/visionCurrentBanner.jpg);
     height: 60%;
 }
+
+#resultL {
+    display:flex; justify-content:center;
+}

@@ -113,38 +113,51 @@ function ResultsList(props) {
       {state.loading ? (
         <img src={loader} />
       ) : (
-        <div className="resultsList  ">
-          <div className="col s12">
-            <div className="col s12">
-              <h1 className="Bold">Results List<span id="period">.</span></h1>
-              {itemList ? (
-                itemList.map((result, index) => {
-                  return (
-                    <div className="row">
+        <div className="resultsList center">
+          <div className="col s12  l11">
+            <h1 className="Bold">
+              Results List<span id="period">.</span>
+            </h1>
+            {itemList ? (
+              itemList.map((result, index) => {
+                return (
+                  <div className="col s6 l4 center">
+                    <div className="card small">
                       <div className="col s12">
-                        <div className="productCard col s12" key={index}>
-                          <div className="row">
-                            <div className="col s3">
-                              <a href={result.link} target="_blank">
-                                <img
-                                  id="imgSize"
-                                  className="circle"
-                                  src={result.image}
-                                  style={{ width: "200px" }}
-                                />
-                              </a>
+                        <div className=" col s12 l12 " key={index}>
+                          <div className="row center">
+                            <div className="row center">
+                              <div className="col s12">
+                                <a href={result.link} target="_blank">
+                                  <img
+                                    id="imgSize"
+                                    className=""
+                                    src={result.image}
+                                  />
+                                </a>
+                              </div>
                             </div>
-                            <div className="productTitle">
-                              <a target="blank" className="black-text"href={result.link}>
-                                {result.title}
-                              </a>
+                            <div className="row">
+                              <div className="productTitle col s12 ">
+                                <a
+                                  target="blank"
+                                  className="black-text"
+                                  href={result.link}
+                                  id="resultTit"
+                                >
+                                  {result.title}
+                                </a>
+                              </div>
                             </div>
-                            <div>
+                            <div className="row" id="Buy">
+                              <p className="price">
                               {result.price ? result.price.raw : ""}
+                              </p>
                               <button
-                                className="btn  #00b0ff light-blue accent-3"
+                                className="btn   #00b0ff light-blue accent-3"
                                 onClick={() => buyItem(result)}
                                 disabled={!state.User || !state.User.id}
+                                id="buyBTN"
                               >
                                 Buy
                               </button>
@@ -153,12 +166,12 @@ function ResultsList(props) {
                         </div>
                       </div>
                     </div>
-                  );
-                })
-              ) : (
-                <div></div>
-              )}
-            </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
       )}

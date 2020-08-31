@@ -49,7 +49,7 @@ function Result() {
   return (
     <div>
       <div>
-        <div className=" center">
+        <div className=" center ">
           <div className="VisionCurrent center">
             <div className="row">
               <div className="center container ">
@@ -62,8 +62,8 @@ function Result() {
               </div>
             </div>
           </div>
-          <div className="row center">
-          <div className="col s12 l5 center">
+          <div className=" row center">
+          <div className="col s12 l6 center">
             {friendsSearches &&
             friendsSearches.length > 0 &&
             state.User &&
@@ -80,7 +80,7 @@ function Result() {
               </div>
             )}
           </div>
-          <div className="col s12 l6 center">
+          <div className="col s12 l6 center" id="resultL">
             {state.isOnline ? (
               <ResultsList
                 itemToSearch={
