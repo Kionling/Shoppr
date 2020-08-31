@@ -51,7 +51,10 @@ function Footer(props) {
   </div>
 </div>
 <div className="footer-copyright">
-  <div className="container">© 2020 Shoppr</div>
+  
+  <div className="container">
+    © 2020 Shoppr
+    </div>
 </div>
 </footer>
     )

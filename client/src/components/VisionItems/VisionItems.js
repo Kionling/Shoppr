@@ -71,18 +71,19 @@ function VisionItems() {
   }
 
   return (
-    <div className="visionItems container center ">
+
+    <div className="visionItems center card  ">
       <h1 className="Bold">Vision Items:</h1>
       {/* <button onClick={() => handleOnClick("table")}>Table</button>
             <button onClick={() => handleOnClick("desk")}>Desk</button> */}
       {visionItems ? (
         state.CurrentSearch.items.map((item, index) => {
           return (
-            <div className=" center">
-              <div className="collection" id="noSpace">
+            <div className=" row ">
+              <div className=" col s12 " id="noSpace">
                 <a
                   id="noSpace"
-                  className=" collection-item "
+                  className="  "
                   data-id={index}
                   onClick={() => handleOnClick(index)}
                 >
@@ -110,7 +111,7 @@ function VisionItems() {
       <div>
         <br></br>
         <form>
-          <div className="switch center row">
+          <div className="switch center row" id="OnlineIn">
             <label>
               In-Store purchase
               <input

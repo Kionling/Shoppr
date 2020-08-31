@@ -3,7 +3,6 @@
     box-sizing: border-box;
     padding:20px;
     box-shadow:0 0 5px gray;
-    border-radius:70px;
     display:inline-block;
     vertical-align: top;
 }
@@ -14,21 +13,39 @@
     color:black;
 }
 
-.resultsList {
-    box-sizing: border-box;
-}
+
 
 #imgSize {
-    float: left;
-    width:  200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
 }
 
 #friendsItem {
     float: left;
-    width:  200px;
-    height: 200px;
+   width: auto;
     object-fit: cover;
 }
 
+.resultsList {
+    justify-content: center;
+}
+
+#resultTit {
+    font-size: 10px;
+    font-size: 1vh;
+    
+}
+
+#Buy {
+    margin: 0px;
+    
+}
+
+#buyBTN {
+    border-radius: 5px;
+}
+
+.price {
+    margin-right: 10px;
+}

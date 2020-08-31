@@ -1,9 +1,7 @@
 
 .visionItems {
-    vertical-align: top;
-    box-sizing: border-box;
-    /* border:3px solid blue; */
-
+   
+border-radius: 5px;
 }
 
 #itemButtons {
@@ -21,4 +19,9 @@
 
 #saveSearch {
     margin-top: 30px;
+    border-radius: 10px;
+}
+
+#OnlineIn {
+    padding-bottom: 20px;
 }
