@@ -149,11 +149,11 @@ function SearchContainer() {
       <div className="newWrap">
         <div className="row">
           <div className="col s12 l6">
-            <div className="">
+            <div className="flex-diaplay">
               {state.PreviousSearches
                 ? state.PreviousSearches.map((search, index) => {
                     return (
-                      <div className="">
+                      <div className="space">
                         <div key={index} onClick={() => showResult(search)}>
                           <div className="">
                             <img
@@ -161,7 +161,7 @@ function SearchContainer() {
                               style={{ width: 200 }}
                             ></img>
                           </div>
-                          <div>{search.items}</div>
+                          <div className="text-white">{search.items}</div>
                         </div>
                       </div>
                     );

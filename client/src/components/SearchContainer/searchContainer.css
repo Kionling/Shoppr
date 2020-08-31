@@ -40,3 +40,15 @@
       background-size: cover;
       background-repeat: no-repeat;
   }
+
+  .flex-diaplay{
+      display: flex
+  }
+
+  .text-white{
+      color: #fff;
+  }
+
+  .space{
+      padding: 2px;
+  }
