@@ -1,10 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
-import M from "materialize-css";
-//import CarouselContainer from '../Carousel/Carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-
 import {
   ADD_SEARCH_DETAIL,
   LOADING,
@@ -41,10 +37,6 @@ function SearchContainer() {
     }
   }, []);
   useEffect(() => {
-    // document.addEventListener("DOMContentLoaded", function () {
-    //   var elems = document.querySelectorAll(".carousel");
-    //   var instances = M.Carousel.init(elems, {});
-    // });
   }, [state.PreviousSearches]);
   function handleFormSubmit(event) {
     event.preventDefault();
