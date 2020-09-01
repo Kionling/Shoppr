@@ -17,7 +17,7 @@ function Search(){
         <div>
             
            
-      <div  className="center">
+      <div id="SearchBanner" className="center">
         <div className="row center">
           <div className="col s12 l12" >
           <SearchContainer/>

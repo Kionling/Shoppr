@@ -3,7 +3,7 @@ This React/Node.js app utilizes the the AI image recognition capabilities of the
 With Shoppr you can connect with your friends and find out if they buy similar items to what you are searching for, so if they have already purchased that item, we can get their opinion about it.
 
 
-![screenshot](screenshot.jpg)
+![screenshot](shoppr_demo.gif)
 # Table of contents
 1. [Installation](#Installation)
 2. [Usage](#Usage)
@@ -11,10 +11,11 @@ With Shoppr you can connect with your friends and find out if they buy similar i
 4. [License](#License)
 5. [Features](#Features)
 6. [Technology](#Technology)
-7. [User Story](#User_Story)
-8. [Credits](#Credits)
-9. [Badges](#Badges)
-10. [Business Context](#Business_Context)
+7. [NPM Packages](#Packages)
+8. [User Story](#User_Story)
+9. [Credits](#Credits)
+10. [Badges](#Badges)
+11. [Business Context](#Business_Context)
 <a name="Installation"></a>
 ## Installation
 ```sh
@@ -39,12 +40,20 @@ https://shoppr-ai.herokuapp.com/
 
 <a name="Technology"></a>
 ## Technology
-1. React
-2. Node.js
-3.  Express
-4.  Materialize
-5.  Google A.I. Vision API
-6.  Rainforest API
+1.  React
+2.  Node.js
+3.  Express   
+4.  Rainforest API
+
+<a name="Packages"></a>
+## NPM Packages
+1. Google A.I. Vision API
+2. Materialize 
+3. Lodash
+4. React Toast Notifications
+5. Pluralize
+6. Faker
+7. Google React Maps
 
 ## User Stories
 ```sh
