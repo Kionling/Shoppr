@@ -99,7 +99,7 @@ function SearchContainer() {
 
   return (
     <div>
-    <div id="SearchBanner" className="container center wrapper">
+    <div className="container center wrapper">
       <div className="row  ">
         <div className="col s12 l6">
           {/* {state.loading ? <img src={loader}></img> :
