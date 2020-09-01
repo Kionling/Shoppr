@@ -19,7 +19,7 @@ function Result() {
   }
 
   useEffect(() => {
-    dispatch({ type: SET_STORE_PREF, isOnline: true });
+   // dispatch({ type: SET_STORE_PREF, isOnline: true });
     dispatch({ type: SET_CURRENT_PATH, currentPath: "/result" });
 
     let friendsIds = state.Friends.map((friend) => friend.id);
@@ -86,12 +86,12 @@ function Result() {
                   state.CurrentSearch.items[state.current_search_item]
                 }
               ></ResultsList>
-            ) : (
+            ) : (<div className="col s12"><p>Map:</p>
               <MapContainer
                 itemToSearch={
                   state.CurrentSearch.items[state.current_search_item]
                 }
-              ></MapContainer>
+              ></MapContainer></div>
             )}
           </div>
           </div>
