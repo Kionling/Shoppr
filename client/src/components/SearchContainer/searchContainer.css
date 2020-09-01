@@ -40,3 +40,28 @@
       background-size: cover;
       background-repeat: no-repeat;
   }
+
+  .flex-diaplay{
+      display: flex
+  }
+
+  .text-white{
+      color: #fff;
+  }
+
+  .space{
+      padding: 2px;
+      margin: 4px;
+  }
+
+  .search-display{
+    background-color: lightgray;
+    opacity: 0.8;
+    overflow: hidden;
+  }
+
+  .image-container{
+      height: 130px;
+      width: 200px;
+      overflow:hidden;
+  }
