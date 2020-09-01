@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import M from "materialize-css";
-// import Carousel from "react-carousel";
+//import CarouselContainer from '../Carousel/Carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import {
   ADD_SEARCH_DETAIL,
@@ -40,11 +41,11 @@ function SearchContainer() {
     }
   }, []);
   useEffect(() => {
-    document.addEventListener("DOMContentLoaded", function () {
-      var elems = document.querySelectorAll(".carousel");
-      var instances = M.Carousel.init(elems, {});
-    });
-  }, []);
+    // document.addEventListener("DOMContentLoaded", function () {
+    //   var elems = document.querySelectorAll(".carousel");
+    //   var instances = M.Carousel.init(elems, {});
+    // });
+  }, [state.PreviousSearches]);
   function handleFormSubmit(event) {
     event.preventDefault();
 
@@ -105,7 +106,8 @@ function SearchContainer() {
   }
 
   return (
-    <div className="container center wrapper">
+    <div>
+    <div id="SearchBanner" className="container center wrapper">
       <div className="row  ">
         <div className="col s12 l6">
           {/* {state.loading ? <img src={loader}></img> :
@@ -179,6 +181,11 @@ function SearchContainer() {
       </div> 
       : <div></div>}
     </div>
+     {/* test carousel */}
+     {/* <div className='container'>
+     <CarouselContainer data={state.PreviousSearches}></CarouselContainer>
+     </div> */}
+     </div>
   );
 }
 
